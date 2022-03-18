@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Личный кабинет</title>
+    <link href="../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="#">
+            <img class="logo__img" src="../images/ikon.png" alt="Logo" />
+        </a>
+        <h1 class="header__title">
+            Элекронная образовательная систама УГГУ
+        </h1>
+
+        <ul id="menu" class="menu">
+        </ul>
+
+        <h3 id="Student"></h3>
+
+        <ul id="accountmenu" class="account__menu">
+        </ul>
+
+
+
+    </header>
+
+    <script src="../js/Main.js"></script>
+    <script>
+
+        async function OutAccount() {
+            const response = await fetch("/account/Logout", {
+                method: "Get",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" }
+            });
+            if (response.ok === true) {
+                window.location.href = "/index.html";
+            }
+        }
+
+        async function GetAccount() {
+                let rows = document.getElementById("menu");
+                let liMain = document.createElement("li");
+                liMain.setAttribute("class", "menu__item");
+                let mainA = document.createElement("a");
+                mainA.append("Главная");
+                mainA.setAttribute("href", "/index.html")
+                mainA.setAttribute("class", "menu__link link__outside link__animation");
+                liMain.append(mainA);
+                rows.append(liMain);
+
+                let liAuthorize = document.createElement("li");
+                liAuthorize.setAttribute("class", "menu__item");
+                let authorizeA = document.createElement("a");
+                authorizeA.append("Личный кабинет");
+                authorizeA.setAttribute("href", "#")
+                authorizeA.setAttribute("class", "menu__link link__inside");
+                liAuthorize.append(authorizeA);
+                rows.append(liAuthorize);
+
+                let liFAQ = document.createElement("li");
+                liFAQ.setAttribute("class", "menu__item");
+                let FAQa = document.createElement("a");
+                FAQa.append("FAQ");
+                FAQa.setAttribute("href", "#")
+                FAQa.setAttribute("class", "menu__link link__outside link__animation");
+                liFAQ.append(FAQa);
+                rows.append(liFAQ);
+
+
+
+            let accountmenu = document.getElementById("accountmenu");
+
+            let linkPlan = document.createElement("li");
+            linkPlan.setAttribute("class", "accountmenu__item");
+            let planA = document.createElement("a");
+            planA.append("Учебный план");
+            planA.setAttribute("href", "#");
+            planA.setAttribute("class", "accountmenu__link");
+            linkPlan.append(planA);
+            accountmenu.append(linkPlan);
+
+            let linkDocument = document.createElement("li");
+            linkDocument.setAttribute("class", "accountmenu__item");
+            let documentA = document.createElement("a");
+            documentA.append("Документы");
+            documentA.setAttribute("href", "/Page/Category.html");
+            documentA.setAttribute("class", "accountmenu__link");
+            linkDocument.append(documentA); 
+            accountmenu.append(linkDocument);
+
+            let linkBRS = document.createElement("li");
+            linkBRS.setAttribute("class", "accountmenu__item");
+            let brsA = document.createElement("a");
+            brsA.append("Балльно-рейтинговая система");
+            brsA.setAttribute("href", "#");
+            brsA.setAttribute("class", "accountmenu__link");
+            linkBRS.append(brsA);
+            accountmenu.append(linkBRS);
+
+            let linkDialog = document.createElement("li");
+            linkDialog.setAttribute("class", "accountmenu__item");
+            let dialogA = document.createElement("a");
+            dialogA.append("Диалоги");
+            dialogA.setAttribute("href", "#");
+            dialogA.setAttribute("class", "accountmenu__link");
+            linkDialog.append(dialogA);
+            accountmenu.append(linkDialog);
+
+            let linkOut = document.createElement("li");
+            linkOut.setAttribute("class", "accountmenu__item");
+            let outA = document.createElement("a");
+            outA.append("Выйти");
+            outA.setAttribute("href", "#");
+            outA.setAttribute("class", "accountmenu__link");
+            outA.addEventListener("click", e => {
+
+                e.preventDefault();
+                OutAccount();
+            });
+            linkOut.append(outA);
+            accountmenu.append(linkOut);
+        }
+
+        CheckAuthorize()
+        GetAccount();
+    </script>
+</body>
+</html>

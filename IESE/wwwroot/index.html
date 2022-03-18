@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Главная</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+
+        <a class="logo" href="#">
+            <img class="logo__img" src="images/ikon.png" alt="Logo" />
+        </a>
+        <h1 class="header__title">
+            Элекронная образовательная систама УГГУ
+        </h1>
+
+        <ul class="menu">
+            
+        </ul>
+
+
+        <h3 class="header__subtitle">
+            Добро пожаловать в  ЭИОС УГГУ. Данная система позволит вам..
+        </h3>
+
+    </header>
+
+
+    <script>
+        async function GetAuthorize() {
+            const response = await fetch("/account/Authorize", {
+                method: "GET",
+                headers: { "Accept": "application/json" },
+            });
+            if (response.ok === false) {
+                let rows = document.querySelector("ul");
+                let liMain = document.createElement("li");
+                liMain.setAttribute("class", "menu__item");
+                let mainA = document.createElement("a");
+                mainA.append("Главная");
+                //FAQa.setAttribute("href", "#")
+                mainA.setAttribute("class", "menu__link link__inside");
+                liMain.append(mainA);
+                rows.append(liMain);
+
+                let liAuthorize = document.createElement("li");
+                liAuthorize.setAttribute("class", "menu__item");
+                let authorizeA = document.createElement("a");
+                authorizeA.append("Авторизация");
+                authorizeA.setAttribute("href", "/Page/Account.html")
+                authorizeA.setAttribute("class", "menu__link link__outside link__animation");
+                liAuthorize.append(authorizeA);
+                rows.append(liAuthorize);
+
+                let liFAQ = document.createElement("li");
+                liFAQ.setAttribute("class", "menu__item");
+                let FAQa = document.createElement("a");
+                FAQa.append("FAQ");
+                FAQa.setAttribute("href", "#")
+                FAQa.setAttribute("class", "menu__link link__outside link__animation");
+                liFAQ.append(FAQa);
+                rows.append(liFAQ);
+            }
+            else {
+                let rows = document.querySelector("ul");
+                let liMain = document.createElement("li");
+                liMain.setAttribute("class", "menu__item");
+                let mainA = document.createElement("a");
+                mainA.append("Главная");
+                //FAQa.setAttribute("href", "#")
+                mainA.setAttribute("class", "menu__link link__inside");
+                liMain.append(mainA);
+                rows.append(liMain);
+
+                let liAuthorize = document.createElement("li");
+                liAuthorize.setAttribute("class", "menu__item");
+                let authorizeA = document.createElement("a");
+                authorizeA.append("Личный кабинет");
+                authorizeA.setAttribute("href", "/Page/PersonalAccount.html")
+                authorizeA.setAttribute("class", "menu__link link__outside link__animation");
+                liAuthorize.append(authorizeA);
+                rows.append(liAuthorize);
+
+                let liFAQ = document.createElement("li");
+                liFAQ.setAttribute("class", "menu__item");
+                let FAQa = document.createElement("a");
+                FAQa.append("FAQ");
+                FAQa.setAttribute("href", "#")
+                FAQa.setAttribute("class", "menu__link link__outside link__animation");
+                liFAQ.append(FAQa);
+                rows.append(liFAQ);
+            }
+        }
+
+
+        GetAuthorize();
+    </script>
+   
+</body>
+</html>

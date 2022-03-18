@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Download</title>
+    <link href="../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="/index.html">Главная</a></li>
+                <li><a href="/Page/PersonalAccount.html">Личный Кабинет</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </nav>
+
+        <button id="back" class="a__category">
+            Назад
+        </button>
+
+        <div class="file__item">
+            <iframe id="iframe" class="fileshow" width=600 height=700 seamless scrolling="no"> </iframe>
+        </div>
+
+        <ul class="download__bottonlist">
+            <li class="download__item">
+                <button id="download" class="a__category">
+                    Скачать
+                </button>
+            </li>
+
+            <li class="download__item">
+                <button id="open" class="a__category">
+                    Открыть
+                </button>
+            </li>
+        </ul>
+    </header>
+
+    <script src="../js/Main.js"></script>
+    <script>
+
+        async function Download(id) { //Пост запрос для скачивания файла 
+
+
+            const response = await fetch("/document", { //Отправляем пост запрос в контроллер /document 
+                method: "Post", //То что это пост запрос
+                headers: { "Accept": "application/json", "Content-Type": "application/json" }, //Передается и принимается только json файл
+                body: JSON.stringify({ //В ввиде json отправляем id
+                    id: id
+                })
+            });
+            if (response.ok === true) { //Если приходит результат выполнено успешно
+                const file = await response.blob(); //приравниваем к переменной файл
+
+                const url = URL.createObjectURL(file); //Получаем ссылку к файлу
+                const a = document.createElement('a'); //Создаем пустой элемент <a>
+
+                const filename = url.split("/")[3]; //Получаем название файла
+
+                a.href = url; //К <a href> ставим ссылку на скачивание файла
+                a.download = filename + '.pdf' || 'download'; //При скачивание файла через элемент <a> название файла будет filename + '.pdf'
+
+                const clickHandler = () => { //Создаем Ивент для удаления файла после скачивания
+                    setTimeout(() => { //Временная пауза перед удалением
+                        URL.revokeObjectURL(url); //Удаляем ссылку
+                        this.removeEventListener('click', clickHandler); //Удаляем ивент
+                    }, 150); //150 - время для ожидания
+                };
+
+                a.addEventListener('click', clickHandler, false); //Добавляем ивент при клике <a>
+                a.click(); //Имитируем клик, то есть <a> нажимается
+                return a; //Возвращаем <a>
+            }
+        }
+
+
+
+        async function Bottons(id) { //Функция создает кнопки и настраивает их
+            const response = await fetch("/document/item/" + id, { //Получаем запросом информацию об файле который открыли
+                method: "GET",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            });
+            if (response.ok === true) {
+            let back = document.getElementById("back"); //Находим кнопку для переходим назад
+            back.onclick = function () { document.location.href = document.referrer; }; //При нажатии кнопки переходит на прошлую страницу 
+
+            let download = document.getElementById("download"); //Находит кнопку для скачивания
+            download.onclick = function () { Download(id); }; //При нажатии сработает функция скачивания
+
+           
+                const item = await response.json(); //Заносим ответ на запрос в item 
+                let open = document.getElementById("open"); //Находим кнопку открытия
+                open.onclick = function () { //При нажатии создает ссылку для перехода к файлу
+                    const a = document.createElement('a'); 
+                    a.setAttribute('href', "../" + item.pathPDF);
+                    a.click();}; 
+
+                let iframe = document.getElementById("iframe"); //Находим панель для отображения файла
+                iframe.setAttribute("src", item.pathHTM); //Устанавливаем ссылку на файл чтобы отобразить его
+            }
+        }
+        var paramValue = window.location.href.split("?")[1].split("=")[1]; //Получаем id файла для его поиска
+        CheckAuthorize(); //Проверяем авторизацию
+        Bottons(paramValue); //Вызываем настройку кнопок
+
+    </script>
+</body>
+</html>

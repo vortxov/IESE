@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Document</title>
+    <link href="../../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="AdminHome.html">Главная</a></li>
+            </ul>
+        </nav>
+        <div class="admincategory">
+            <h4>Документы</h4>
+            <div id="errors" class="error" style="display:none;"></div>
+            <form class="menu__input" name="userForm">
+
+                <input type="hidden" name="id" value="0" />
+
+                <div class="row__input">
+                    <label for="name">Название категории:</label>
+                    <input class="menu__input__item" placeholder="Название документа" name="name" />
+                    <input type="file"  name="uploadedFile" id="uploadedFile" class="inputfile" />
+                    <label class="inputfile__label" for="uploadedFile">Choose a file</label>
+                </div>
+
+                <div class="input__checkboxmenu">
+                    <abody>
+                    </abody>
+                </div>
+
+                <div class="">
+                    <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
+                    <a id="reset" class="btn__menu__input">Сбросить</a>
+                </div>
+
+            </form>
+            <table class="table">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </header>
+    <script src="../../js/Main.js"></script>
+    <script>
+        async function GetDocuments() { //Запрос для заполнения таблицы списком документов
+            const response = await fetch("/admindocument/category/" + categoryId, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const documents = await response.json();
+                let rows = document.querySelector("tbody");
+                documents.forEach(item => {
+                    rows.append(row(item));
+                });
+
+            }
+        }
+        async function GetDocument(id) { //Запрос для получение одного документа по его id
+            const response = await fetch("/admindocument/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const itemDocument = await response.json();
+                const form = document.forms["userForm"];
+                form.elements["id"].value = itemDocument.id;
+                form.elements["name"].value = itemDocument.title;
+                GetTemplatesForDocument(id);
+            }
+        }
+
+        async function GetTemplatesForDocument(id) { //Запрос для получения списка шаблонов для одного документа
+            const response = await fetch("/admindocument/templatesfordocument/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const itemTemplates = await response.json();
+                itemTemplates.forEach(item => {
+                    document.querySelector("input[templates-rowid='" + item.id + "']").checked = true;
+                })
+            }
+        }
+
+        async function GetTemplates() { //Запрос для получения списка всех возможных шаблонов
+            const response = await fetch("/admindocument/templates", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const itemTemplates = await response.json();
+                let rows = document.querySelector("abody");
+
+                itemTemplates.forEach(item => {
+                    var checkbox = document.createElement('input');
+                    checkbox.setAttribute("templates-rowid", item.id);
+                    checkbox.type = "checkbox";
+                    checkbox.id = item.id;
+                    rows.append(checkbox);
+                    var span = document.createElement('span');
+                    var label = document.createElement('label');
+                    label.setAttribute('for', item.id ) ;
+                    label.append(span);
+                    label.append(item.name);
+                    rows.append(label);
+                });
+            }
+        }
+
+        async function CreateDocument(data) { //Запрос создания документа 
+
+            const response = await fetch("/admindocument", {
+                method: "POST",
+                body: data,
+            });
+            if (response.ok === true) {
+                const category = await response.json();
+                document.querySelector("tbody").append(row(category));
+                reset();
+            }
+            else { //TODO: дописать ошибки для создания документа
+                //const errorData = await response.json();
+                //document.getElementById("errors").innerHTML = '';
+                //if (errorData.errors) {
+                //    if (errorData.errors["Email"]) {
+                //        addError(errorData.errors["Email"]);
+                //    }
+                //    if (errorData.errors["Password"]) {
+                //        addError(errorData.errors["Password"]);
+                //    }
+                //}
+                //if (errorData) {
+                //    if (errorData["Email"]) {
+                //        addError(errorData["Email"]);
+                //    }
+
+                //}
+
+                document.getElementById("errors").style.display = "block";
+            }
+        }
+
+        async function EditDocument(data) { //Запрос изменения документа в бд
+            const response = await fetch("/admindocument", {
+                method: "PUT",
+                body: data
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                reset();
+                document.querySelector("tr[document-rowid='" + item.id + "']").replaceWith(row(item));
+            }
+        }
+        async function DeleteDocument(id) { //Запрос удаления документа из бд
+            const response = await fetch("/admindocument/" + id, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                cher = document.querySelector("tr");
+                document.querySelector("tr[document-rowid='" + item + "']").remove();
+
+            }
+        }
+
+        function reset() { //Функция очистки формы где вносится название файла сам файл и тд
+            const form = document.forms["userForm"];
+            form.reset();
+            form.elements["id"].value = 0;
+        }
+
+
+        function row(item) { //Создание строки которая вносится в таблицу
+            const tr = document.createElement("tr");
+            tr.setAttribute("document-rowid", item.id);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(item.title);
+            nameTd.setAttribute("class", "table__firstitem table__row");
+            tr.append(nameTd);
+
+            const linksTd = document.createElement("td");
+
+            const editLink = document.createElement("a");
+            editLink.setAttribute("data-id", item.id);
+            editLink.setAttribute("class", "table__link");
+            editLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            editLink.append("Изменить");
+            editLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                GetDocument(item.id);
+            });
+            linksTd.append(editLink);
+
+            const removeLink = document.createElement("a");
+            removeLink.setAttribute("data-id", item.id);
+            removeLink.setAttribute("class", "table__link");
+            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            removeLink.append("Удалить");
+            removeLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                DeleteDocument(item.id);
+            });
+            linksTd.setAttribute("class", "table__seconditem table__row");
+            linksTd.append(removeLink);
+            tr.appendChild(linksTd);
+
+            return tr;
+        }
+
+
+
+        function addErrors(errors) { //Функция добавляет в строку ошибки лист ошибок которые были допущены 
+            errors.forEach(error => {
+                const p = document.createElement("p");
+                p.append(error);
+                document.getElementById("errors").append(p);
+            });
+        }
+
+        function addError(errors) { //Функция добавление одной ошибки
+            document.getElementById("errors").innerHTML = '';
+            document.getElementById("errors").append(errors);
+            document.getElementById("errors").style.display = "block";
+        }
+
+
+
+
+        document.getElementById("reset").onclick = function (e) { //Ищет кнопку обновление и при клике запускает функцию обновление формы
+
+            e.preventDefault();
+            reset();
+        };
+
+        document.forms["userForm"].addEventListener("submit", e => { //Создаем ивент для кнопки сохранить и пишем для нее фунцию сохранения
+            e.preventDefault();
+            const form = document.forms["userForm"]; //Получаем форму 
+            const id = form.elements["id"].value; //Получаем айди значение id(Если мы собираемся изменить файл, то оно не будет равно 0)
+            const title = form.elements["name"].value; //Получаем название файла 
+            var myfile = form.elements["uploadedFile"].files; //Получаем фалй который внес модератор
+            var data = new FormData(); //Создаем класс в который занесутся все данные об файле
+
+            if (myfile.length > 0) { //Если размер файла больше 0 
+                for (var i = 0; i < myfile.length; i++) {
+                    data.append('uploadedFile', myfile[i]); //Добавляем все файлы в список для файлом
+                }
+            }
+            data.append('Title', title); //Добавляем название файла
+            data.append('IdCategory', categoryId); //Добавляем id категории в которую занесется файл
+
+
+            const templates = []; //Создаем пустой лист для шаблонов
+
+            var l = document.querySelector("abody").children;
+            for (let i = 0; i < l.length; i++) {
+                if (l[i].type == "checkbox") {
+                    if (l[i].checked)
+                        templates.push(l[i].id); //добавляем в лист те шаблоны которые помечены модератором
+                }
+            }
+            data.append('Templates', templates); //Добавляем лист шаблонов в класс для хранения
+
+            if (title == "") { //TODO: Сделать красивые ошибки
+                addError("Пустой Title") //Если название пусто то отобразит ошибку
+            }
+            else if (myfile.length == 0)
+            {
+                addError("Не выбран файл") //Если количество файло равно 0 то отобразит ошибку
+            }
+            else {
+
+                if (id == 0) //Если id равно 0 то создаем новый файл в бд
+                    CreateDocument(data);
+                else {
+                    data.append('Id', id); //Если id чему то равно то добавляем id в класс для хранения
+                    EditDocument(data); //Изменяем файл к бд
+                }
+            }
+        });
+
+
+        CheckAuthorizeRole(); //Проверяем авторизацию
+
+        var categoryId = window.location.href.split("?")[1].split("=")[1]; //Получаем id категории
+
+        GetDocuments(); //Вызываем функцию для получения списков документов
+        GetTemplates(); //Вызываем функцию для получения списка шаблонов
+
+
+    </script>
+</body>
+</html>

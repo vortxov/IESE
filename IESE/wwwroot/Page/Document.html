@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Document</title>
+    <link href="../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="/index.html">Главная</a></li>
+                <li><a href="/Page/PersonalAccount.html">Личный Кабинет</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </nav>
+
+        <h3 id="titlecategory" class="title__category"></h3>
+        <div class="category__container ">
+            <div id="rowData" class="category__row center">
+
+            </div>
+        </div>
+
+
+    </header>
+
+
+    <script src="../js/Main.js"></script>
+    <script>
+        async function GetDocuments(id) {
+            const response = await fetch("/document/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            });
+            if (response.ok === true) {
+                const documents = await response.json();
+                let rows = document.getElementById("rowData");
+                documents.forEach(documentW => {
+                    rows.append(row(documentW));
+                });
+            }
+
+            const catresponse = await fetch("/category/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            });
+            if (catresponse.ok === true) {
+                const category = await catresponse.json();
+                let row = document.getElementById("titlecategory");
+                row.append(category.nameCategory + ":");
+            }
+
+        }
+
+        async function Download(documentW) {
+           
+
+            const response = await fetch("/document", {
+                method: "Post",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: documentW.id,
+                    nameFile: documentW.nameFile,
+                    path: documentW.path,
+                    title: documentW.title
+                })
+            });
+            if (response.ok === true) {
+                const file = await response.blob();
+
+                const url = URL.createObjectURL(file);
+                const a = document.createElement('a');
+
+                const filename = url.split("/")[3];
+
+                a.href = url;
+                a.download = filename + '.pdf' || 'download';
+
+                const clickHandler = () => {
+                    setTimeout(() => {
+                        URL.revokeObjectURL(url);
+                        this.removeEventListener('click', clickHandler);
+                    }, 150);
+                };
+
+                a.addEventListener('click', clickHandler, false);
+                a.click();
+                return a;
+
+
+            }
+        }
+
+
+
+        function row(documentW) {
+            const div = document.createElement("div");
+            div.setAttribute("class", "category__column")
+
+            const nameA = document.createElement("a");
+            nameA.setAttribute('href', "Download.html?id=" + documentW.id);
+            //nameA.onclick = function () { Download(documentW); };
+            nameA.append(documentW.title);
+            nameA.setAttribute("class", "a__category");
+            div.append(nameA);
+
+            return div;
+        }
+        var paramValue = window.location.href.split("?")[1].split("=")[1];
+        CheckAuthorize();
+        GetDocuments(paramValue);
+
+    </script>
+</body>
+</html>

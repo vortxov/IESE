@@ -1,0 +1,26 @@
+﻿@model AddTemp
+
+
+@*<div>
+    <form asp-area="Admin" asp-action="AddFile" asp-controller="Document" method="post" enctype="multipart/form-data">
+
+        @for (var i = 0; i < Model.Genres.Count; i++)
+        {
+                <input type="checkbox" asp-for="@Model.Genres[i].IsChecked" />
+                <label asp-for="@Model.Genres[i].IsChecked">@Model.Genres[i].Display</label>
+                <input type="hidden" asp-for="@Model.Genres[i].ID" />
+                <input type="hidden" asp-for="@Model.Genres[i].Display" />
+                <input type="hidden" asp-for="@Model.IdCategory" />
+                <br />
+        }
+
+        <input type="file" name="uploadedFile" /><br>
+        <input type="text" name="TitleFile" /><br>
+
+        <input type="submit" value="Загрузить" />
+    </form>
+
+
+    <a href="Edit">Назад</a>
+
+</div>*@

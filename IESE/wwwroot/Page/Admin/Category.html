@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Категории</title>
+    <link href="../../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="AdminHome.html">Главная</a></li>
+            </ul>
+        </nav>
+        <h4>Категории документов</h4>
+        <div class="admincategory">
+            <div class="error" id="errors"></div>
+            <form class="menu__input" name="userForm">
+                <input type="hidden" name="id" value="0" />
+                <div class="row__input">
+                    <label for="name">Название категории:</label>
+                    <input class="menu__input__item" placeholder="Категория" name="name" />
+                </div>
+                <div class="">
+                    <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
+                    <a id="reset" class="btn__menu__input">Сбросить</a>
+
+                </div>
+            </form>
+            <table class="table">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </header>
+    <script src="../../js/Main.js"></script>
+    <script>
+        async function GetCategories() {
+            const response = await fetch("/admincategory", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const categories = await response.json();
+                let rows = document.querySelector("tbody");
+                categories.forEach(category => {
+                    rows.append(row(category));
+                });
+            }
+        }
+        async function GetCategory(id) {
+            const response = await fetch("/admincategory/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const category = await response.json();
+                const form = document.forms["userForm"];
+                form.elements["id"].value = category.id;
+                form.elements["name"].value = category.nameCategory;
+            }
+        }
+
+        async function CreateCategory(nameCategory) {
+
+            const response = await fetch("/admincategory", {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    namecategory: nameCategory
+                })
+            });
+            if (response.ok === true) {
+                const category = await response.json();
+                reset();
+                document.querySelector("tbody").append(row(category));
+            }
+        }
+
+        async function EditCategory(categoryId, NameCategory) {
+            const response = await fetch("/admincategory", {
+                method: "PUT",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: categoryId,
+                    nameCategory: NameCategory
+                })
+            });
+            if (response.ok === true) {
+                const category = await response.json();
+                reset();
+                document.querySelector("tr[data-rowid='" + category.id + "']").replaceWith(row(category));
+            }
+        }
+        async function DeleteCategory(id) {
+            const response = await fetch("/admincategory/" + id, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                document.querySelector("tr[data-rowid='" + id + "']").remove();
+            }
+        }
+
+        function reset() {
+            const form = document.forms["userForm"];
+            form.reset();
+            form.elements["id"].value = 0;
+        }
+        function row(category) {
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", category.id);
+
+            const nameTd = document.createElement("td");
+            const nameA = document.createElement("a");
+            nameA.setAttribute('href', "Document.html?id=" + category.id)
+            nameA.setAttribute("class", "table__categorylink");
+            nameA.append(category.nameCategory);
+            nameTd.append(nameA);
+            nameTd.setAttribute("class", "table__firstitem table__row");
+            tr.append(nameTd);
+
+            const linksTd = document.createElement("td");
+
+            const editLink = document.createElement("a");
+            editLink.setAttribute("data-id", category.id);
+            editLink.setAttribute("class", "table__link");
+            editLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            editLink.append("Изменить");
+            editLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                GetCategory(category.id);
+            });
+            linksTd.append(editLink);
+
+            const removeLink = document.createElement("a");
+            removeLink.setAttribute("data-id", category.id);
+            removeLink.setAttribute("class", "table__link");
+            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            removeLink.append("Удалить");
+            removeLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                DeleteCategory(category.id);
+            });
+
+            linksTd.append(removeLink);
+            linksTd.setAttribute("class", "table__seconditem table__row")
+            tr.appendChild(linksTd);
+
+            return tr;
+        }
+
+        function addError(errors) {
+            document.getElementById("errors").innerHTML = '';
+            document.getElementById("errors").append(errors);
+        }
+
+
+
+        document.getElementById("reset").onclick = function (e) {
+
+            e.preventDefault();
+            reset();
+        };
+
+        document.forms["userForm"].addEventListener("submit", e => {
+            e.preventDefault();
+            const form = document.forms["userForm"];
+            const id = form.elements["id"].value;
+            const nameCategory = form.elements["name"].value;
+
+            if (nameCategory == "") {
+                addError("Пустое название категории")
+                document.getElementById("errors").style.display = "block";
+            }
+            else {
+                if (id == 0)
+                    CreateCategory(nameCategory);
+                else
+                    EditCategory(id, nameCategory);
+            }
+
+        });
+        CheckAuthorizeRole();
+        GetCategories();
+
+    </script>
+</body>
+</html>

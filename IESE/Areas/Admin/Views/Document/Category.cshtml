@@ -1,0 +1,9 @@
+﻿@model List<DocumentCategory>
+
+@foreach (var item in Model)
+{
+    <form asp-area="Admin" asp-controller="Document" asp-action="Edit" method="get" enctype="multipart/form-data" asp-route-id="@item.Id">
+
+        <input type="submit" value="@item.NameCategory" />
+    </form>
+}

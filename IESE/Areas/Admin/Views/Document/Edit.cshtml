@@ -1,0 +1,13 @@
+﻿@model DocumentCategory
+
+
+<form asp-area="Admin" asp-action="AddFile" asp-controller="Document" method="get" enctype="multipart/form-data" asp-route-id="@Model.Id">
+    <input type="submit" value="Добавить документ" />
+</form>
+@foreach (WordDocument item in Model.Documents)
+{
+    <h3>@item.Title</h3>
+    <form asp-area="Admin" asp-action="DeleteFile" asp-controller="Document" method="post" enctype="multipart/form-data" asp-route-id="@item.Id" asp-route-category="@Model.Id">
+        <input type="submit" value="Удалить" />
+    </form>
+}

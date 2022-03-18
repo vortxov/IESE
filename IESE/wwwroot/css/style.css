@@ -1,0 +1,506 @@
+﻿
+a {
+    color: inherit;
+    text-decoration: none;
+    padding: 15px 5px;
+    position: relative;
+}
+
+ul{
+    list-style: none;
+}
+
+html, body {
+    margin: 0;
+}
+
+.header {
+    background-image: url(../images/fon.jpg);
+    min-height: 100vh;
+    max-height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.header__title {
+    margin-top: 50px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+    margin-top: 40px;
+}
+
+.account__menu {
+    margin-bottom: auto;
+}
+
+.admin__menu {
+    margin-bottom: auto;
+}
+
+.header__subtitle {
+    margin-bottom: auto;
+}
+
+.menu__item{
+    padding: 0 15px;
+}
+
+.accountmenu__item {
+    padding: 5px;
+}
+
+.accountmenu__link {
+    color: black;
+    display: block;
+    width: fit-content;
+    text-align: center;
+    padding: 12px 24px;
+    margin: 10px auto;
+    background-color: #FFFFFF99;
+    opacity: .8;
+}
+
+.link__inside::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    display: block;
+    background: none repeat scroll 0 0 transparent;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    background: #ff0000;
+}
+
+.link__outside::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    display: block;
+    background: none repeat scroll 0 0 transparent;
+    height: 2px;
+    width: 0;
+    background: #ff0000;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+}
+
+.link__outside:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+
+.authorize__panel {
+    margin-bottom: auto;
+}
+
+.label__user {
+    display: inline-block;
+    width: 100px;
+    margin-right: 5px;
+}
+
+.input__user {
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+.input__user:focus {
+    border-color:dodgerBlue;
+    box-shadow:0 0 8px 0 dodgerBlue;
+}
+
+
+
+
+
+
+.user__button {
+    background-color: #FFFFFF;
+    border: 0;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    color: #111827;
+    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    padding: .75rem 1rem;
+    text-align: center;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: .3s;
+}
+
+    .user__button:hover {
+        background-color: rgb(249,250,251);
+        border-color: dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+
+    .user__button:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        
+    }
+
+    .user__button:focus-visible {
+        box-shadow: none;
+    }
+
+
+
+.menu-main {
+    margin: 0; /*убираем отступы*/
+    padding-left: 0; /*убираем отступы*/
+    margin-top: 0; /*делаем отступ сверху*/
+    background: #B0C4DE; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
+    height: 50px;
+    text-align: right;
+}
+
+    .menu-main li {
+        display: inline-block;
+    }
+
+        .menu-main li:after {
+            content: "|";
+            color: #606060;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .menu-main li:last-child:after {
+            content: none;
+        }
+
+    .menu-main a {
+        text-decoration: none;
+        font-family: 'Ubuntu Condensed', sans-serif;
+        letter-spacing: 2px;
+        position: relative;
+        padding-bottom: 20px;
+        margin: 0 34px 0 30px;
+        font-size: 17px;
+        text-transform: uppercase;
+        display: inline-block;
+        transition: color .2s;
+    }
+
+        .menu-main a, .menu-main a:visited {
+            color: black;
+        }
+
+            .menu-main a.current, .menu-main a:hover {
+                color: #feb386;
+            }
+
+
+          
+
+@media (max-width: 550px) {
+    .menu-main {
+        padding-top: 0;
+    }
+
+        .menu-main li {
+            display: block;
+        }
+
+            .menu-main li:after {
+                content: none;
+            }
+
+        .menu-main a {
+            padding: 25px 0 20px;
+            margin: 0 30px;
+        }
+}
+
+
+
+.category__container {
+    margin-bottom: auto;
+}
+
+.category__row {
+    text-align: center; 
+
+}
+
+.category__column {
+    margin-top: 65px;
+}
+
+.a__category {
+    background-color: #ffc84d;
+    display: inline-block;
+    padding: 15px 32px 14px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #fff;
+    text-decoration: none;
+    width: 175px;
+    margin: 0 auto;
+    border-radius: 4px;
+    border: 1px solid #ffc84d;
+    transition: all 0.3s;
+}
+
+    .a__category:hover {
+        color: #000;
+        background-color: #fff;
+        border: 1px solid rgb(188, 208, 229);
+    }
+
+.file__item {
+    display: inline-block;
+    text-align: center;
+}
+
+.fileshow {
+    background-color: white;
+}
+
+.download__item {
+    display: inline-block;
+    padding: 15px;
+}
+
+.admincategory {
+    margin-bottom: auto;
+}
+
+.menu__input {
+    text-align: left;
+}
+
+.row__input {
+    display: grid;
+    margin: 0px 0px 16px;
+    padding: 0 15px;
+
+}
+
+.menu__input__item {
+    margin-top: 10px;
+    max-width: 30%;
+    height: 20px;
+    padding: 0.375rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+    .menu__input__item::placeholder {
+        color: #212529;
+        opacity: 0.4;
+    }
+
+    .menu__input__item:focus {
+        color: #212529;
+        background-color: #fff;
+        border-color: #bdbdbd;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+    }
+
+
+a.btn__menu__input  {
+    background-color: dodgerBlue;
+    border: 0;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    color: black;
+    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    padding: .75rem 1rem;
+    text-align: center;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: .3s;
+}
+
+    a.btn__menu__input:hover {
+        background-color: #0950cf;
+        border-color: dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+
+    a.btn__menu__input:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }
+
+    a.btn__menu__input:focus-visible {
+        box-shadow: none;
+    }
+
+
+.btn__menu__input {
+    margin-left: 16px;
+    background-color: dodgerBlue;
+    border: 0;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    padding: .75rem 1rem;
+    text-align: center;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: .3s;
+}
+
+    .btn__menu__input:hover {
+        background-color: #0950cf;
+        border-color: dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+
+    .btn__menu__input:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }
+
+    .btn__menu__input:focus-visible {
+        box-shadow: none;
+    }
+
+
+.table {
+    text-align: left;
+    margin-top: 20px;   
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+
+.table__row {
+    border: 1px solid #dddddd;
+    padding: 5px;
+}
+
+.table__firstitem {
+    width: 400px;
+}
+
+.table__seconditem {
+    width: 230px;
+}
+
+.table__link {
+    color:darkblue;
+    padding-left: 30px;
+
+}
+
+.table__categorylink {
+    color: darkblue;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+
+    .inputfile + .inputfile__label {
+        margin-top: 10px;
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        background-color: dodgerBlue;
+        border-radius: .5rem;
+        display: inline-block;
+        width: 200px;
+        cursor: pointer;
+        text-align: center;
+        transition: .3s;
+    }
+
+        .inputfile:focus + .inputfile__label,
+        .inputfile + .inputfile__label:hover {
+            background-color: #9b0948;
+        }
+
+
+
+.input__checkboxmenu {
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+
+
+input[type=checkbox] {
+    display: none;
+}
+
+    input[type=checkbox] + label span {
+        border: 1px solid dodgerBlue;
+        font-size: 24pt;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        line-height: 0.25em;
+        margin: 4px 8px 8px 16px;
+        padding: 2px;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    input[type=checkbox]:checked + label span::after {
+        content: "\2713";
+    }

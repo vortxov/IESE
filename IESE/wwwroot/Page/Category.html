@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Категории</title>
+    <link href="../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="/index.html">Главная</a></li>
+                <li><a href="/Page/PersonalAccount.html">Личный Кабинет</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </nav>
+
+        <h3 class="title__category">Категории документов:</h3>
+        <div class="category__container ">
+            <div id="rowData" class="category__row center">
+                
+            </div>
+        </div>
+
+
+
+    </header>
+
+
+    <script>
+        async function GetCategories() { 
+            const response = await fetch("/category", { //Запросом получаем список категорий
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const categories = await response.json();
+                let rows = document.getElementById("rowData"); //Находим элемент в который будем вносить список категорий
+                categories.forEach(category => { //Циклом вносим каждую категорию в таблицу
+                    rows.append(row(category)); //В таблицу вносим строку которую выдает функция
+                });
+            }
+        }
+
+
+        function row(category) { //Функция для создание страки в таблицу
+            const div = document.createElement("div"); 
+            div.setAttribute("class", "category__column") //Добавляем стиль строке
+
+            const nameA = document.createElement("a");
+            nameA.setAttribute('href', "Document.html?id=" + category.id)
+            nameA.append(category.nameCategory);
+            nameA.setAttribute("class", "a__category"); //Добавляем стиль ячейке
+            div.append(nameA);
+
+            return div;
+        }
+
+        GetCategories();
+
+    </script>
+</body>
+</html>

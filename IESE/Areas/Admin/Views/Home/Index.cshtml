@@ -1,0 +1,21 @@
+﻿@model TemplateCheckBoxModel
+
+@*<div>
+    <form asp-area="Admin" asp-action="AddFile" asp-controller="Document" method="post" enctype="multipart/form-data">
+        @foreach (var item in Model.AvailableTemplate)
+        {
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           name="SelectedFruits"
+                           value="@item"
+                           @if (Model.SelectTemplate.Contains(item)) { <text> checked </text> } /> @item.Template
+                    </label>
+                </div>
+            }
+
+        <input type="file" name="uploadedFile" /><br>
+        <input type="text" name="TitleFile" /><br>
+        <input type="submit" value="Загрузить" />
+    </form>
+</div>*@

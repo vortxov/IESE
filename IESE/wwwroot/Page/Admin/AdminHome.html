@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>AdminPage</title>
+    <link href="../../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="#">
+            <img class="logo__img" src="../../images/ikon.png" alt="Logo" />
+        </a>
+        <h1 class="header__title">
+            Страница модераторов
+        </h1>
+
+        <ul class="menu admin__menu">
+            <li class="menu__item">
+                <a class="menu__link link__inside">Главная</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link link__outside link__animation" href="Category.html">Редактировать документы</a>
+            </li>
+        </ul>
+    </header>
+    <script src="../../js/Main.js"></script>
+    <script>
+        CheckAuthorizeRole();
+    </script>
+</body>
+</html>
