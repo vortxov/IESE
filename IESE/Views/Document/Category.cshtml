@@ -1,8 +1,0 @@
-﻿@model List<DocumentCategory>
-
-@foreach (var item in Model)
-{
-    <form  asp-controller="Document" asp-action="Documents" method="get"  asp-route-id="@item.Id">
-        <input type="button" value="@item.NameCategory" />
-    </form>
-}

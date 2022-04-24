@@ -20,10 +20,12 @@
                 <input type="hidden" name="id" value="0" />
 
                 <div class="row__input">
-                    <label for="name">Название категории:</label>
+                    <label for="name">Название документа:</label>
                     <input class="menu__input__item" placeholder="Название документа" name="name" />
-                    <input type="file"  name="uploadedFile" id="uploadedFile" class="inputfile" />
-                    <label class="inputfile__label" for="uploadedFile">Choose a file</label>
+                    <div class="container">
+                        <div id="editor">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="input__checkboxmenu">
@@ -44,7 +46,50 @@
         </div>
     </header>
     <script src="../../js/Main.js"></script>
+    <script src="../../ckeditor/build/ckeditor.js"></script>
     <script>
+
+        var myEditor = null;
+
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+
+                licenseKey: '',
+                //plugins: [ExportWord],
+              //  toolbar: [
+              //      'exportWord', '|',
+               // ],
+                exportWord: {
+                    stylesheets: [
+                        'EDITOR_STYLES',
+                        './styles/format.css'
+                    ],
+                    fileName: 'my-document.docx',
+                    converterOptions: {
+                        // Document format settings with proper margins.
+                        format: 'Letter',
+                        margin_top: '19mm',
+                        margin_bottom: '19mm',
+                        margin_right: '19mm',
+                        margin_left: '19mm',
+                    }
+                }
+
+
+            })
+            .then(editor => {
+                myEditor = editor;
+
+
+
+
+            })
+            .catch(error => {
+                console.error('Oops, something went wrong!');
+                console.error(error);
+            });
+
         async function GetDocuments() { //Запрос для заполнения таблицы списком документов
             const response = await fetch("/admindocument/category/" + categoryId, {
                 method: "GET",
@@ -103,7 +148,7 @@
                     rows.append(checkbox);
                     var span = document.createElement('span');
                     var label = document.createElement('label');
-                    label.setAttribute('for', item.id ) ;
+                    label.setAttribute('for', item.id);
                     label.append(span);
                     label.append(item.name);
                     rows.append(label);
@@ -111,7 +156,7 @@
             }
         }
 
-        async function CreateDocument(data) { //Запрос создания документа 
+        async function CreateDocument(data) { //Запрос создания документа
 
             const response = await fetch("/admindocument", {
                 method: "POST",
@@ -217,7 +262,7 @@
 
 
 
-        function addErrors(errors) { //Функция добавляет в строку ошибки лист ошибок которые были допущены 
+        function addErrors(errors) { //Функция добавляет в строку ошибки лист ошибок которые были допущены
             errors.forEach(error => {
                 const p = document.createElement("p");
                 p.append(error);
@@ -242,39 +287,42 @@
 
         document.forms["userForm"].addEventListener("submit", e => { //Создаем ивент для кнопки сохранить и пишем для нее фунцию сохранения
             e.preventDefault();
-            const form = document.forms["userForm"]; //Получаем форму 
+            const form = document.forms["userForm"]; //Получаем форму
             const id = form.elements["id"].value; //Получаем айди значение id(Если мы собираемся изменить файл, то оно не будет равно 0)
-            const title = form.elements["name"].value; //Получаем название файла 
-            var myfile = form.elements["uploadedFile"].files; //Получаем фалй который внес модератор
+            const title = form.elements["name"].value; //Получаем название файла
+            //var myfile = form.elements["uploadedFile"].files; //Получаем фалй который внес модератор
             var data = new FormData(); //Создаем класс в который занесутся все данные об файле
 
-            if (myfile.length > 0) { //Если размер файла больше 0 
-                for (var i = 0; i < myfile.length; i++) {
-                    data.append('uploadedFile', myfile[i]); //Добавляем все файлы в список для файлом
-                }
-            }
+            //if (myfile.length > 0) { //Если размер файла больше 0
+            //    for (var i = 0; i < myfile.length; i++) {
+            //        data.append('uploadedFile', myfile[i]); //Добавляем все файлы в список для файлом
+            //    }
+            //}
+            var result = myEditor.getData({ pagination: true });
+
+
+            data.append('uploadedFile', result);
             data.append('Title', title); //Добавляем название файла
             data.append('IdCategory', categoryId); //Добавляем id категории в которую занесется файл
 
 
-            const templates = []; //Создаем пустой лист для шаблонов
+            //const templates = []; //Создаем пустой лист для шаблонов
 
-            var l = document.querySelector("abody").children;
-            for (let i = 0; i < l.length; i++) {
-                if (l[i].type == "checkbox") {
-                    if (l[i].checked)
-                        templates.push(l[i].id); //добавляем в лист те шаблоны которые помечены модератором
-                }
-            }
-            data.append('Templates', templates); //Добавляем лист шаблонов в класс для хранения
+            //var l = document.querySelector("abody").children;
+            //for (let i = 0; i < l.length; i++) {
+            //    if (l[i].type == "checkbox") {
+            //        if (l[i].checked)
+            //            templates.push(l[i].id); //добавляем в лист те шаблоны которые помечены модератором
+            //    }
+            //}
+            //data.append('Templates', templates); //Добавляем лист шаблонов в класс для хранения
 
             if (title == "") { //TODO: Сделать красивые ошибки
                 addError("Пустой Title") //Если название пусто то отобразит ошибку
             }
-            else if (myfile.length == 0)
-            {
-                addError("Не выбран файл") //Если количество файло равно 0 то отобразит ошибку
-            }
+            //else if (myfile.length == 0) {
+            //    addError("Не выбран файл") //Если количество файло равно 0 то отобразит ошибку
+            //}
             else {
 
                 if (id == 0) //Если id равно 0 то создаем новый файл в бд

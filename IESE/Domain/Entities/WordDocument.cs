@@ -14,7 +14,7 @@ namespace IESE.Domain.Entities
         public string Path { get; set; }
         public string PathPDF { get; set; }
         public string PathHTM { get; set; }
-
+        public DateTime DateCreate { get; set; }
         public string Title { get; set; }
         [JsonIgnore]
         public List<WordTemplate> Templates { get; set; } = new List<WordTemplate>();

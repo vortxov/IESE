@@ -1,6 +1,7 @@
 ﻿using IESE.Domain;
 using IESE.Domain.Entities;
 using IESE.Models;
+using IESE.Service;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +52,7 @@ namespace IESE.Areas.Admin.Controllers
         }
 
         [HttpPost] //Пост запрос для добавления файла на сервер
-        public async Task<IActionResult> AddFile([FromForm] AddTemp model)   
+        public async Task<IActionResult> AddFile([FromForm] AddTemp model)
         {
 
             if (!ModelState.IsValid)
@@ -59,12 +60,10 @@ namespace IESE.Areas.Admin.Controllers
 
             if (model != null)
             {
-                string path = "/WordFiles/" + model.uploadedFile.FileName; //Пишем путь к файлу
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create)) //записываем в память информацию о новом файле  //TODO:ПРОВЕРКА НА ОДИНКОВЫЕ ФАЙЛЫ
-                {
-                    await model.uploadedFile.CopyToAsync(fileStream); //сохраняем файл по данным
-                }
-                WordDocument file = new WordDocument { NameFile = model.uploadedFile.FileName.Split(".")[0], Path = path, Title = model.Title }; //Создаем класс для бд
+                var helper = new WordHelper(_appEnvironment);
+                string path = helper.CreateDocument(model.uploadedFile);
+
+                WordDocument file = new WordDocument { NameFile = model.Title, Path = path, Title = model.Title, DateCreate = DateTime.Now }; //Создаем класс для бд
 
                 var templates = new List<WordTemplate>();
                 foreach (var item in model.Templates[0].Split(','))
@@ -74,7 +73,7 @@ namespace IESE.Areas.Admin.Controllers
 
                 file.Templates.AddRange(templates); //Добавляем в бд эти шаблоны
 
-               
+
 
                 FileInfo fileInfo = new FileInfo(_appEnvironment.WebRootPath + path); //Получаем данные о файле
 
@@ -131,62 +130,62 @@ namespace IESE.Areas.Admin.Controllers
             return NotFound();
         }
 
-        [HttpPut] //Пут запрос для изменения документа
-        public async Task<IActionResult> UpdateFile([FromForm] AddTemp model)   
-        {
-            if (model != null)
-            {
-                var file = dataManager.WordDocument.GetWordDocmentById(model.Id); //Находим документ в бд
-                var fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.Path); //Получаем информацию о файле
-                
-                if(fileInfo.Exists)
-                {
-                    fileInfo.Delete(); //Удаляем docx файл
-                }
+        //[HttpPut] //Пут запрос для изменения документа
+        //public async Task<IActionResult> UpdateFile([FromForm] AddTemp model)   
+        //{
+        //    if (model != null)
+        //    {
+        //        var file = dataManager.WordDocument.GetWordDocmentById(model.Id); //Находим документ в бд
+        //        var fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.Path); //Получаем информацию о файле
 
-                fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathPDF);
+        //        if(fileInfo.Exists)
+        //        {
+        //            fileInfo.Delete(); //Удаляем docx файл
+        //        }
 
-                if (fileInfo.Exists)
-                {
-                    fileInfo.Delete(); //Удаляем pdf файл
-                }
+        //        fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathPDF);
 
-                fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathHTM);
+        //        if (fileInfo.Exists)
+        //        {
+        //            fileInfo.Delete(); //Удаляем pdf файл
+        //        }
 
-                if (fileInfo.Exists)
-                {
-                    fileInfo.Delete(); //Удаляем html файл
-                }
+        //        fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathHTM);
 
-                file.Title = model.Title; //Меняем строки
-                file.Id = model.Id; //Меняем строки
-                file.NameFile = model.uploadedFile.FileName; //Меняем строки
+        //        if (fileInfo.Exists)
+        //        {
+        //            fileInfo.Delete(); //Удаляем html файл
+        //        }
 
-                string path = "/WordFiles/" + model.uploadedFile.FileName; //Записываем новый путь
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create)) //записываем в память инфу
-                {
-                    await model.uploadedFile.CopyToAsync(fileStream); //Сохраняем файл по данным
-                }
-                file.Path = path;
+        //        file.Title = model.Title; //Меняем строки
+        //        file.Id = model.Id; //Меняем строки
+        //        file.NameFile = model.uploadedFile.FileName; //Меняем строки
 
-                var templates = new List<WordTemplate>();
-                foreach (var item in model.Templates[0].Split(','))
-                {
-                    templates.Add(dataManager.WordTepmlate.GetWordTemplateById(new Guid(item))); //Записываем список шаблонов
-                }
+        //        string path = "/WordFiles/" + model.uploadedFile.FileName; //Записываем новый путь
+        //        using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create)) //записываем в память инфу
+        //        {
+        //            await model.uploadedFile.CopyToAsync(fileStream); //Сохраняем файл по данным
+        //        }
+        //        file.Path = path;
 
-                file.Templates.AddRange(templates); //Добавляем в документ
+        //        var templates = new List<WordTemplate>();
+        //        foreach (var item in model.Templates[0].Split(','))
+        //        {
+        //            templates.Add(dataManager.WordTepmlate.GetWordTemplateById(new Guid(item))); //Записываем список шаблонов
+        //        }
 
-                var category = dataManager.DocumentCategory.GetDocumentCategoryById(model.IdCategory); //ищем категорию
+        //        file.Templates.AddRange(templates); //Добавляем в документ
 
-                file.Categories.Add(category); //Добавляем категорию в файл
+        //        var category = dataManager.DocumentCategory.GetDocumentCategoryById(model.IdCategory); //ищем категорию
 
-                dataManager.WordDocument.SaveWordDocument(file); //Сохраняем измененый документ в бд
-                return Ok(file);
-            }
+        //        file.Categories.Add(category); //Добавляем категорию в файл
 
-            return NotFound();
-        }
+        //        dataManager.WordDocument.SaveWordDocument(file); //Сохраняем измененый документ в бд
+        //        return Ok(file);
+        //    }
+
+        //    return NotFound();
+        //}
 
 
         [HttpDelete("{id}")] //Делит запрос

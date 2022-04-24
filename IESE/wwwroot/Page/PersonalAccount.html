@@ -72,14 +72,7 @@
 
             let accountmenu = document.getElementById("accountmenu");
 
-            let linkPlan = document.createElement("li");
-            linkPlan.setAttribute("class", "accountmenu__item");
-            let planA = document.createElement("a");
-            planA.append("Учебный план");
-            planA.setAttribute("href", "#");
-            planA.setAttribute("class", "accountmenu__link");
-            linkPlan.append(planA);
-            accountmenu.append(linkPlan);
+            
 
             let linkDocument = document.createElement("li");
             linkDocument.setAttribute("class", "accountmenu__item");
@@ -89,24 +82,6 @@
             documentA.setAttribute("class", "accountmenu__link");
             linkDocument.append(documentA); 
             accountmenu.append(linkDocument);
-
-            let linkBRS = document.createElement("li");
-            linkBRS.setAttribute("class", "accountmenu__item");
-            let brsA = document.createElement("a");
-            brsA.append("Балльно-рейтинговая система");
-            brsA.setAttribute("href", "#");
-            brsA.setAttribute("class", "accountmenu__link");
-            linkBRS.append(brsA);
-            accountmenu.append(linkBRS);
-
-            let linkDialog = document.createElement("li");
-            linkDialog.setAttribute("class", "accountmenu__item");
-            let dialogA = document.createElement("a");
-            dialogA.append("Диалоги");
-            dialogA.setAttribute("href", "#");
-            dialogA.setAttribute("class", "accountmenu__link");
-            linkDialog.append(dialogA);
-            accountmenu.append(linkDialog);
 
             let linkOut = document.createElement("li");
             linkOut.setAttribute("class", "accountmenu__item");

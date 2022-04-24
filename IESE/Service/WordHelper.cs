@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,11 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Word = Microsoft.Office.Interop.Word;
 
+using MariGold.OpenXHTML;
+using Microsoft.AspNetCore.Mvc;
+
 namespace IESE.Service
 {
     class WordHelper //Класс для изменение шаблонов в файле ворд
     {
         private FileInfo fileInfo;
+        IWebHostEnvironment _appEnvironment;
         public WordHelper(string filename)
         {
             if(File.Exists(filename)) //Проверяем есть ли файл
@@ -22,6 +27,11 @@ namespace IESE.Service
             {
                 throw new ArgumentException("file not found"); //Если нет файла то ошибка 
             }
+        }
+
+        public WordHelper(IWebHostEnvironment appEnvironment)
+        {
+            this._appEnvironment = appEnvironment;
         }
 
 
@@ -84,6 +94,21 @@ namespace IESE.Service
                 }
             }
             return null;
+        }
+
+        public string CreateDocument(string text)
+        {
+            using (MemoryStream mem = new MemoryStream())
+            {
+                WordDocument doc1 = new WordDocument(mem);
+                doc1.Process(new MariGold.OpenXHTML.HtmlParser(text));
+                doc1.Save();
+
+                var path = _appEnvironment.WebRootPath + "/WordFiles/" + Guid.NewGuid() + ".docx";
+
+                File.WriteAllBytes(_appEnvironment.WebRootPath + "/WordFiles/" + Guid.NewGuid() + ".docx", mem.ToArray());
+                return path;
+            }            
         }
     }
 }

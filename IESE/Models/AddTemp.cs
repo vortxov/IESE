@@ -15,7 +15,7 @@ namespace IESE.Models
         [Required(ErrorMessage = "Пустое название")]
         [Display(Name = "Title")]
         public string Title { get; set; }
-        public IFormFile uploadedFile { get; set; }
+        public string uploadedFile { get; set; }
         public AddTemp()
         {
           

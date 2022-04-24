@@ -14,6 +14,12 @@ html, body {
     margin: 0;
 }
 
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .header {
     background-image: url(../images/fon.jpg);
     min-height: 100vh;
@@ -68,9 +74,25 @@ html, body {
     text-align: center;
     padding: 12px 24px;
     margin: 10px auto;
-    background-color: #FFFFFF99;
-    opacity: .8;
 }
+
+    .accountmenu__link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        display: block;
+        background: none repeat scroll 0 0 transparent;
+        height: 2px;
+        width: 0;
+        background: black;
+        transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    }
+
+    .accountmenu__link:hover::after {
+        width: 100%;
+        left: 0;
+    }
 
 .link__inside::after {
     content: "";
@@ -257,24 +279,42 @@ html, body {
 }
 
 .a__category {
-    background-color: #ffc84d;
+    /*background-color: #ffc84d;*/
     display: inline-block;
     padding: 15px 32px 14px;
     font-weight: 700;
     line-height: 24px;
-    color: #fff;
-    text-decoration: none;
-    width: 175px;
-    margin: 0 auto;
-    border-radius: 4px;
-    border: 1px solid #ffc84d;
-    transition: all 0.3s;
+    color: black;
+    text-decoration: solid;
+    /*width: 175px;
+    margin: 0 auto;*/
+  /*  border-radius: 4px;
+    border: 1px solid #ffc84d;*/
+    /*transition: all 0.3s;*/
 }
 
-    .a__category:hover {
+/*    .a__category:hover {
         color: #000;
         background-color: #fff;
         border: 1px solid rgb(188, 208, 229);
+    }*/
+
+    .a__category::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        display: block;
+        background: none repeat scroll 0 0 transparent;
+        height: 2px;
+        width: 0;
+        background: black;
+        transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    }
+
+    .a__category:hover::after {
+        width: 100%;
+        left: 0;
     }
 
 .file__item {

@@ -76,9 +76,9 @@ namespace IESE.Controllers
 
         private async Task Authenticate(ApplicationUser user) //Функция для создания куки
         {
-            if (userManager.GetRolesAsync(user).Result.FirstOrDefault() == "user") //Проверяем роль аккаунта на обычного пользователя, так как админу не нужно скачивать файл это в правилах должно быть у админов
+            //if (userManager.GetRolesAsync(user).Result.FirstOrDefault() == "user") //Проверяем роль аккаунта на обычного пользователя, так как админу не нужно скачивать файл это в правилах должно быть у админов
                                                                                    //так как админы не студенты и у них нет данных в бд которые нужны некоторым документа
-            {
+          //  {
                 var claims = new List<Claim> //Список который должен заносится в куки, тоесть там имя студента факультет и так далее
             {
                 new Claim(ClaimTypes.Email, user.Email),
@@ -86,13 +86,13 @@ namespace IESE.Controllers
                 new Claim("FIO", user.Surname + " " + user.Firstname + " " + user.Patronymic),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, userManager.GetRolesAsync(user).Result.FirstOrDefault()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim("course", user.Course.ToString()),
-                new Claim("group", user.Group),
-                new Claim("faculty", user.Faculty),
-                new Claim("dateend", user.DateEnd.ToString()),
-                new Claim("birthdate", user.BirthDate.ToString()),
-                new Claim("specialization", user.Specialization),
-                new Claim("formofeducation", user.FormOfEducation),
+                //new Claim("course", user.Course.ToString()),
+                //new Claim("group", user.Group),
+                //new Claim("faculty", user.Faculty),
+                //new Claim("dateend", user.DateEnd.ToString()),
+                //new Claim("birthdate", user.BirthDate.ToString()),
+                //new Claim("specialization", user.Specialization),
+                //new Claim("formofeducation", user.FormOfEducation),
                 //new Claim("formofeducation", user.FormOfEducation),
                 //new Claim("formofeducation", user.FormOfEducation),
                 //new Claim("formofeducation", user.FormOfEducation),
@@ -107,7 +107,7 @@ namespace IESE.Controllers
                                                                                                 //TODO: ПЕРЕДЕЛАТЬ КУКИ МАЙКРОСОФТ ЭДЖ, МАКЕТ ДОЛЖЭЕН БЫТЬ С ДАННЫМИ СРАЗУ
 
 
-            }
+          //  }
         }
     }
 }

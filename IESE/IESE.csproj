@@ -17,6 +17,86 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\ckeditor\ckeditor.js" />
+    <None Include="wwwroot\ckeditor\ckeditor.js.map" />
+    <None Include="wwwroot\ckeditor\index.html" />
+    <None Include="wwwroot\ckeditor\LICENSE.md" />
+    <None Include="wwwroot\ckeditor\README.md" />
+    <None Include="wwwroot\ckeditor\sample\css\sample.css" />
+    <None Include="wwwroot\ckeditor\sample\img\bg.png" />
+    <None Include="wwwroot\ckeditor\sample\img\github.svg" />
+    <None Include="wwwroot\ckeditor\sample\img\logo.svg" />
+    <None Include="wwwroot\ckeditor\sample\img\umbrellas.jpg" />
+    <None Include="wwwroot\ckeditor\translations\af.js" />
+    <None Include="wwwroot\ckeditor\translations\ar.js" />
+    <None Include="wwwroot\ckeditor\translations\ast.js" />
+    <None Include="wwwroot\ckeditor\translations\az.js" />
+    <None Include="wwwroot\ckeditor\translations\bg.js" />
+    <None Include="wwwroot\ckeditor\translations\ca.js" />
+    <None Include="wwwroot\ckeditor\translations\cs.js" />
+    <None Include="wwwroot\ckeditor\translations\da.js" />
+    <None Include="wwwroot\ckeditor\translations\de-ch.js" />
+    <None Include="wwwroot\ckeditor\translations\de.js" />
+    <None Include="wwwroot\ckeditor\translations\el.js" />
+    <None Include="wwwroot\ckeditor\translations\en-au.js" />
+    <None Include="wwwroot\ckeditor\translations\en-gb.js" />
+    <None Include="wwwroot\ckeditor\translations\eo.js" />
+    <None Include="wwwroot\ckeditor\translations\es.js" />
+    <None Include="wwwroot\ckeditor\translations\et.js" />
+    <None Include="wwwroot\ckeditor\translations\eu.js" />
+    <None Include="wwwroot\ckeditor\translations\fa.js" />
+    <None Include="wwwroot\ckeditor\translations\fi.js" />
+    <None Include="wwwroot\ckeditor\translations\fr.js" />
+    <None Include="wwwroot\ckeditor\translations\gl.js" />
+    <None Include="wwwroot\ckeditor\translations\gu.js" />
+    <None Include="wwwroot\ckeditor\translations\he.js" />
+    <None Include="wwwroot\ckeditor\translations\hi.js" />
+    <None Include="wwwroot\ckeditor\translations\hr.js" />
+    <None Include="wwwroot\ckeditor\translations\hu.js" />
+    <None Include="wwwroot\ckeditor\translations\id.js" />
+    <None Include="wwwroot\ckeditor\translations\it.js" />
+    <None Include="wwwroot\ckeditor\translations\ja.js" />
+    <None Include="wwwroot\ckeditor\translations\km.js" />
+    <None Include="wwwroot\ckeditor\translations\kn.js" />
+    <None Include="wwwroot\ckeditor\translations\ko.js" />
+    <None Include="wwwroot\ckeditor\translations\ku.js" />
+    <None Include="wwwroot\ckeditor\translations\lt.js" />
+    <None Include="wwwroot\ckeditor\translations\lv.js" />
+    <None Include="wwwroot\ckeditor\translations\ms.js" />
+    <None Include="wwwroot\ckeditor\translations\nb.js" />
+    <None Include="wwwroot\ckeditor\translations\ne.js" />
+    <None Include="wwwroot\ckeditor\translations\nl.js" />
+    <None Include="wwwroot\ckeditor\translations\no.js" />
+    <None Include="wwwroot\ckeditor\translations\oc.js" />
+    <None Include="wwwroot\ckeditor\translations\pl.js" />
+    <None Include="wwwroot\ckeditor\translations\pt-br.js" />
+    <None Include="wwwroot\ckeditor\translations\pt.js" />
+    <None Include="wwwroot\ckeditor\translations\ro.js" />
+    <None Include="wwwroot\ckeditor\translations\ru.js" />
+    <None Include="wwwroot\ckeditor\translations\si.js" />
+    <None Include="wwwroot\ckeditor\translations\sk.js" />
+    <None Include="wwwroot\ckeditor\translations\sl.js" />
+    <None Include="wwwroot\ckeditor\translations\sq.js" />
+    <None Include="wwwroot\ckeditor\translations\sr-latn.js" />
+    <None Include="wwwroot\ckeditor\translations\sr.js" />
+    <None Include="wwwroot\ckeditor\translations\sv.js" />
+    <None Include="wwwroot\ckeditor\translations\th.js" />
+    <None Include="wwwroot\ckeditor\translations\tk.js" />
+    <None Include="wwwroot\ckeditor\translations\tr.js" />
+    <None Include="wwwroot\ckeditor\translations\tt.js" />
+    <None Include="wwwroot\ckeditor\translations\ug.js" />
+    <None Include="wwwroot\ckeditor\translations\uk.js" />
+    <None Include="wwwroot\ckeditor\translations\vi.js" />
+    <None Include="wwwroot\ckeditor\translations\zh-cn.js" />
+    <None Include="wwwroot\ckeditor\translations\zh.js" />
+    <None Include="wwwroot\ckeditor\vendor.js" />
+    <None Include="wwwroot\ckeditor\vendor.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
+    <PackageReference Include="MariGold.HtmlParser" Version="1.1.1" />
+    <PackageReference Include="MariGold.OpenXHTML" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
