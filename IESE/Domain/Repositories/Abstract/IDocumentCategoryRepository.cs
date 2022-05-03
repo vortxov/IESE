@@ -10,8 +10,8 @@ namespace IESE.Domain.Repositories.Abstract
     {
         IQueryable<DocumentCategory> GetDocumentCatigories();
         DocumentCategory GetDocumentCategoryById(Guid id);
-        void SaveDocumentCategory(DocumentCategory entity);
-        void DeleteDocumentCategory(Guid id);
+        Task SaveDocumentCategory(DocumentCategory entity);
+        Task DeleteDocumentCategory(Guid id);
         Task UpdateDocumentCategory(DocumentCategory entity);
     }
 }

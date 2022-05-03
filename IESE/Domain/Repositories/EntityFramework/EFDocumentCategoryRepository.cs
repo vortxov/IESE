@@ -15,7 +15,7 @@ namespace IESE.Domain.Repositories.EntityFramework
         {
             this.context = context;
         }
-        public void DeleteDocumentCategory(Guid id)
+        public async Task DeleteDocumentCategory(Guid id)
         {
             context.Remove(GetDocumentCategoryById(id));
             context.SaveChanges();
@@ -31,11 +31,11 @@ namespace IESE.Domain.Repositories.EntityFramework
             return context.DocumentCategories;
         }
 
-        public void SaveDocumentCategory(DocumentCategory entity)
+        public async Task SaveDocumentCategory(DocumentCategory entity)
         {
             if (context.DocumentCategories.FirstOrDefault(x => x.Id == entity.Id) == null)
             {
-                context.DocumentCategories.Add(entity);
+                context.DocumentCategories.AddAsync(entity);
                 context.SaveChanges();
             }
         }

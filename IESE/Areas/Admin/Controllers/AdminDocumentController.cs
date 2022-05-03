@@ -31,18 +31,13 @@ namespace IESE.Areas.Admin.Controllers
         [HttpGet("category/{id}")]
         public async Task<IEnumerable<WordDocument>> Documents(Guid id) //Гет запрос получения списка документов в какой то категории
         {
+            var catrgory = dataManager.DocumentCategory.GetDocumentCategoryById(id);
             return dataManager.DocumentCategory.GetDocumentCategoryById(id).Documents;
         }
         [HttpGet("{id}")]
         public async Task<WordDocument> Document(Guid id) //Получение одного документа в бд по id
         {
             return dataManager.WordDocument.GetWordDocmentById(id);
-        }
-
-        [HttpGet("templatesfordocument/{id}")] //Гет запрос Получения списка шаблонов которые прикреплены к документу
-        public async Task<IEnumerable<WordTemplate>> TemlatesDocument(Guid id)
-        {
-            return dataManager.WordDocument.GetWordDocmentById(id).Templates;
         }
 
         [HttpGet("templates")] // Гет запрос Получение всех возможных шаблонов
@@ -65,17 +60,17 @@ namespace IESE.Areas.Admin.Controllers
 
                 WordDocument file = new WordDocument { NameFile = model.Title, Path = path, Title = model.Title, DateCreate = DateTime.Now }; //Создаем класс для бд
 
-                var templates = new List<WordTemplate>();
-                foreach (var item in model.Templates[0].Split(','))
-                {
-                    templates.Add(dataManager.WordTepmlate.GetWordTemplateById(new Guid(item))); //Добавляем шаблоны к этому файлу
-                }
+                //var templates = new List<WordTemplate>();
+                //foreach (var item in model.Templates[0].Split(','))
+                //{
+                //    templates.Add(dataManager.WordTepmlate.GetWordTemplateById(new Guid(item))); //Добавляем шаблоны к этому файлу
+                //}
 
-                file.Templates.AddRange(templates); //Добавляем в бд эти шаблоны
+                //file.Templates.AddRange(templates); //Добавляем в бд эти шаблоны
 
 
 
-                FileInfo fileInfo = new FileInfo(_appEnvironment.WebRootPath + path); //Получаем данные о файле
+                FileInfo fileInfo = new FileInfo(path); //Получаем данные о файле
 
 
                 Word.Application app = null;
@@ -120,7 +115,7 @@ namespace IESE.Areas.Admin.Controllers
 
                 file.Categories.Add(category); //Добавляем категорию в документ чтобы добавить в список документов этой категории
 
-                dataManager.WordDocument.SaveWordDocument(file); //Сохраняем документ в бд
+                await dataManager.WordDocument.SaveWordDocument(file); //Сохраняем документ в бд
 
 
 

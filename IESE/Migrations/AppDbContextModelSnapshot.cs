@@ -134,7 +134,7 @@ namespace IESE.Migrations
                             Id = "832095e2-5c23-4da1-a83f-b7800e8473a6",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c0bc231f-eba5-4fba-8b33-57d0493cd6f1",
+                            ConcurrencyStamp = "2657bdcd-35ae-4175-969b-0b44c22b3cf3",
                             Course = 0,
                             DateEnd = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@email.com",
@@ -142,7 +142,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA8nETcQX/aG8DlvxF+NIFMUevTLMb26rwl4g1vHbcb17P5t8WGhCv1nkaarRf598A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO+vUEtnLhSwQyLLpojyJ859zn+Y9R/lsB5EH/mZMwe3hCKa2DOrEeUdZMIiMUdoEQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -153,7 +153,7 @@ namespace IESE.Migrations
                             Id = "f757a680-51b0-4df8-89f9-c19ed6c08d85",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "6b59720f-602c-4146-b55d-dc7d3e701c79",
+                            ConcurrencyStamp = "02293d6b-1660-49f6-a7f4-ac8c6b649de2",
                             Course = 0,
                             DateEnd = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@email.com",
@@ -161,7 +161,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@EMAIL.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPpgThVjPGGelOly7z2HnQD+cf8B3BEsSpHFer50adb+FGbte+Rd2MF4qMpZeWgshw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO26p/6ftsDitPEvUk3OsGCPoZ4oiJluHA+echLw4mrY5Hc0u9yosFY6WvJMsm4+0g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -172,7 +172,7 @@ namespace IESE.Migrations
                             Id = "f07b07c6-f9f2-43cf-b4db-14903b8215e8",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "08debfd5-585a-45d1-8f68-9da4ad296672",
+                            ConcurrencyStamp = "510f7b78-28e4-4991-9104-688e6c612855",
                             Course = 0,
                             DateEnd = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "otdelcadrov@email.com",
@@ -180,7 +180,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "OTDELCADROV@EMAIL.COM",
                             NormalizedUserName = "OTDELCADROV",
-                            PasswordHash = "AQAAAAEAACcQAAAAECTbNnB9cEBenDozZ3NRYtqXqeY72uJYI6NjQ/9gBtX6Nh+vDf1lYmEdFQRcRyYQ+g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJe7BVnP8om7ySvPiVDqRDRc4ik1/+oBMe4FLzmVAdjQyvAxT4KwlV7FibnuZmh4Zw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -191,7 +191,7 @@ namespace IESE.Migrations
                             Id = "05301c29-f5f6-49a9-b967-25025c22922e",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9ef019cd-9996-4cab-825f-91ab94916fd1",
+                            ConcurrencyStamp = "14022737-0010-4ba9-99fe-d18bec31a014",
                             Course = 0,
                             DateEnd = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "teacher@email.com",
@@ -199,7 +199,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEACHER@EMAIL.COM",
                             NormalizedUserName = "TEACHER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH2wiSczXKzvviUZoK5+nsbPjqIvquHW0eydIMtYcChUcaTXshVDf+lNd/qTDMueWQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOW5zYHaTEPLVELT58QQGIaKy2pO/xaLrEzwTPtZ0SHUmkd2iCK7pnUU9YHxuSiGKQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -210,7 +210,7 @@ namespace IESE.Migrations
                             Id = "83e5cde4-3926-4d97-a42c-ecbcfd5f051b",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "799546d0-8dd8-494c-b450-2713b6e2c6bc",
+                            ConcurrencyStamp = "b3a60879-4719-4359-9590-9b2fcc5426d5",
                             Course = 0,
                             DateEnd = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "teacheruser@email.com",
@@ -218,7 +218,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEACHERUSER@EMAIL.COM",
                             NormalizedUserName = "TEACHERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAELVG0+DOLhHbtU3bvgF0yHR9NbYvi16dsKF83OHF5sSXLpTfukQtalXwCwt1gaWW4A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL8eEFRTJ3T7D/OhhcCrEinnGNWPrvwLN5p2267U9B9AFG/j3V7+saWWWL2NAAnFpg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -246,6 +246,9 @@ namespace IESE.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NameFile")
                         .HasColumnType("nvarchar(max)");
@@ -317,35 +320,35 @@ namespace IESE.Migrations
                         new
                         {
                             Id = "eb91da24-af76-4b5c-ad48-cce1a100bb31",
-                            ConcurrencyStamp = "8ab65d4c-f01c-442f-bfd6-282d90853cdf",
+                            ConcurrencyStamp = "50d5428f-7628-4c76-ab56-690cc9344d2b",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "836d1908-8acb-464e-8d76-426153642557",
-                            ConcurrencyStamp = "e57bdd23-c306-434a-ab04-56a27a2bc738",
+                            ConcurrencyStamp = "b333d21d-69f8-4eaa-8c55-cbbf57cb0813",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "a9f1088f-76ba-4052-8f77-d3572e0ffc90",
-                            ConcurrencyStamp = "3d321542-53c6-4100-a7c1-d204020822c0",
+                            ConcurrencyStamp = "d1215d2e-0ab0-45ad-93ac-164091088274",
                             Name = "otdelcadrov",
                             NormalizedName = "OTDELCADROV"
                         },
                         new
                         {
                             Id = "392fb190-6b32-4623-9e6f-adc884524345",
-                            ConcurrencyStamp = "3f95924f-5941-435b-9f20-3041ed4afd20",
+                            ConcurrencyStamp = "4ec56727-3f5a-42ea-af6a-783de181a3ea",
                             Name = "teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
                             Id = "a8f8feb0-be4a-4637-8634-4d46d4b06c0d",
-                            ConcurrencyStamp = "248ae717-b69e-49c5-b570-1c7f73f733bb",
+                            ConcurrencyStamp = "66ff43e5-9cef-4d35-a4c2-8fec3db9edeb",
                             Name = "teacheruser",
                             NormalizedName = "TEACHERUSER"
                         });
@@ -482,21 +485,6 @@ namespace IESE.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WordDocumentWordTemplate", b =>
-                {
-                    b.Property<Guid>("DocumentsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TemplatesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DocumentsId", "TemplatesId");
-
-                    b.HasIndex("TemplatesId");
-
-                    b.ToTable("WordDocumentWordTemplate");
-                });
-
             modelBuilder.Entity("DocumentCategoryWordDocument", b =>
                 {
                     b.HasOne("IESE.Domain.Entities.DocumentCategory", null)
@@ -559,21 +547,6 @@ namespace IESE.Migrations
                     b.HasOne("IESE.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WordDocumentWordTemplate", b =>
-                {
-                    b.HasOne("IESE.Domain.Entities.WordDocument", null)
-                        .WithMany()
-                        .HasForeignKey("DocumentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IESE.Domain.Entities.WordTemplate", null)
-                        .WithMany()
-                        .HasForeignKey("TemplatesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

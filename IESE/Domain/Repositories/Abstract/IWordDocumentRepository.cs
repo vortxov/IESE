@@ -10,7 +10,8 @@ namespace IESE.Domain.Repositories.Abstract
     {
         IQueryable<WordDocument> GetWordDocuments();
         WordDocument GetWordDocmentById(Guid id);
-        void SaveWordDocument(WordDocument entity);
-        void DeleteWordDocument(Guid id);
+        Task SaveWordDocument(WordDocument entity);
+        Task DeleteWordDocument(Guid id);
+        Task UpdateWordDocument(WordDocument entity);
     }
 }

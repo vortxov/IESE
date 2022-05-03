@@ -17,8 +17,6 @@ namespace IESE.Domain.Entities
         public DateTime DateCreate { get; set; }
         public string Title { get; set; }
         [JsonIgnore]
-        public List<WordTemplate> Templates { get; set; } = new List<WordTemplate>();
-        [JsonIgnore]
         public List<DocumentCategory> Categories { get; set; } = new List<DocumentCategory>();
     }
 }

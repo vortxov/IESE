@@ -11,6 +11,5 @@ namespace IESE.Domain.Entities
         public string Name { get; set; }
         public string Template { get; set; }
         public string ClaimType { get; set; }
-        public List<WordDocument> Documents { get; set; } = new List<WordDocument>();
     }
 }

@@ -15,7 +15,7 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
         {
             this.context = context;
         }
-        public void DeleteWordDocument(Guid id)
+        public async Task DeleteWordDocument(Guid id)
         {
             context.WordDocuments.Remove(GetWordDocmentById(id));
             context.SaveChanges();
@@ -23,7 +23,7 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
 
         public WordDocument GetWordDocmentById(Guid id)
         {
-            return context.WordDocuments.Include(x => x.Templates).FirstOrDefault(x => x.Id == id);
+            return context.WordDocuments.FirstOrDefault(x => x.Id == id);
         }
 
         public IQueryable<WordDocument> GetWordDocuments()
@@ -31,13 +31,19 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
             return context.WordDocuments;
         }
 
-        public void SaveWordDocument(WordDocument entity)
+        public async Task SaveWordDocument(WordDocument entity)
         {
-            if (context.WordDocuments.FirstOrDefault(x => x.Id == entity.Id) == null)
-            {
-                context.WordDocuments.Add(entity);
-                context.SaveChanges();
-            }
+        //    if (context.WordDocuments.FirstOrDefault(x => x.Id == entity.Id) == null)
+         //   {
+                await context.WordDocuments.AddAsync(entity);
+                await context.SaveChangesAsync();
+       //     }
+        }
+
+        public async Task UpdateWordDocument(WordDocument entity)
+        {
+            context.WordDocuments.Update(entity);
+            await context.SaveChangesAsync();
         }
     }
 }

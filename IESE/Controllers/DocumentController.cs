@@ -3,11 +3,13 @@ using IESE.Domain.Entities;
 using IESE.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IESE.Controllers
@@ -16,6 +18,7 @@ namespace IESE.Controllers
     [Route("[controller]")]
     public class DocumentController : Controller
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly DataManager dataManager;
         IWebHostEnvironment _appEnvironment;
 
@@ -49,10 +52,24 @@ namespace IESE.Controllers
                 var wordHelper = new WordHelper(path); //Передаем конструктору класса для изменения шаблона в ворде путь к файлу и он найдет сам файл
                 var temp = new Dictionary<string, string>();
 
-                var listTemplate = file.Templates; //передаем все шаблоны которые есть в файле
+                var listTemplate = dataManager.WordTepmlate.GetWordTemplates();
+
+                var user = userManager.FindByIdAsync(User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value).Result;
 
                 foreach (var item in listTemplate)
                 {
+                    var res = "";
+                    foreach (var type in item.ClaimType.Split(":"))
+                    {
+                        switch (type)
+                        {
+                            case "fm":
+                                res += user.Firstname + " " + user.Surname + " " + user.Patronymic;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     temp.Add(item.Template, User.FindFirst(x => x.Type == item.ClaimType).Value); //Заполняем список чего нужно изменить в файле
                 }
                 temp.Add("DATA", DateTime.Now.ToString()); //Добавляем к этому списку еще дату на данный момент 
