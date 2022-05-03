@@ -251,18 +251,18 @@
                     var templatesButton = document.createElement("a");
                     templatesButton.setAttribute("data-id", item.id);
                     templatesButton.setAttribute("class", "table__link");
-                    templatesButton.text(item.name);
+                    templatesButton.text = item.name;
                     templatesButton.addEventListener("click", e => {
                         var button = event.target;
-                        //   if (event.target.type === 'button' && event.target.className.includes('testtokenbutton')) {
+            //            //   if (event.target.type === 'button' && event.target.className.includes('testtokenbutton')) {
 
                         myEditor.model.change(writer => {
                             const insertPosition = myEditor.model.document.selection.getFirstPosition();
 
                             writer.insertText(item.template, insertPosition);
-                        });
+                       });
 
-            //  }
+                        //}
                     });
 
                     rows.append(templatesButton);
