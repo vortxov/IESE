@@ -106,7 +106,7 @@ namespace IESE.Service
 
                 var path = _appEnvironment.WebRootPath + "/WordFiles/" + Guid.NewGuid() + ".docx";
 
-                File.WriteAllBytes(_appEnvironment.WebRootPath + "/WordFiles/" + Guid.NewGuid() + ".docx", mem.ToArray());
+                File.WriteAllBytes(path, mem.ToArray());
                 return path;
             }            
         }

@@ -21,7 +21,7 @@ html, body {
 }
 
 .header {
-    background-image: url(../images/fon.jpg);
+    background: #FFFFFF;
     min-height: 100vh;
     max-height: auto;
     background-repeat: no-repeat;
