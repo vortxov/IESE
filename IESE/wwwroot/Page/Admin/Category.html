@@ -113,7 +113,7 @@
 
             const nameTd = document.createElement("td");
             const nameA = document.createElement("a");
-            nameA.setAttribute('href', "Document.html?id=" + category.id)
+            nameA.setAttribute('href', "ListDocument.html?id=" + category.id)
             nameA.setAttribute("class", "table__categorylink");
             nameA.append(category.nameCategory);
             nameTd.append(nameA);
@@ -183,7 +183,15 @@
             }
 
         });
-        CheckAuthorizeRole();
+        async function CheckRole() {
+            var role = await CheckAuthorizeRole();
+            if (role != "admin" && role != "otdelcadrov") {
+                const a = document.createElement('a');
+                a.setAttribute('href', "/index.html");
+                a.click();
+            }
+        }
+        CheckRole();
         GetCategories();
 
     </script>

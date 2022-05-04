@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace IESE.Domain.Entities
         public string PathPDF { get; set; }
         public string PathHTM { get; set; }
         public DateTime DateCreate { get; set; }
+        public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
         public string Title { get; set; }
         [JsonIgnore]
         public List<DocumentCategory> Categories { get; set; } = new List<DocumentCategory>();

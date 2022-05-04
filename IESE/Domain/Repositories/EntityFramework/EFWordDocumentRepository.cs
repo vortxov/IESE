@@ -33,10 +33,17 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
 
         public async Task SaveWordDocument(WordDocument entity)
         {
-        //    if (context.WordDocuments.FirstOrDefault(x => x.Id == entity.Id) == null)
-         //   {
+            //    if (context.WordDocuments.FirstOrDefault(x => x.Id == entity.Id) == null)
+            //   {
+            try
+            {
                 await context.WordDocuments.AddAsync(entity);
                 await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
        //     }
         }
 

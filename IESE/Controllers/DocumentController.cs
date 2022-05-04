@@ -22,10 +22,11 @@ namespace IESE.Controllers
         private readonly DataManager dataManager;
         IWebHostEnvironment _appEnvironment;
 
-        public DocumentController(DataManager dataManager, IWebHostEnvironment appEnvironment)
+        public DocumentController(DataManager dataManager, IWebHostEnvironment appEnvironment, UserManager<ApplicationUser> userManager)
         {
             this.dataManager = dataManager;
             this._appEnvironment = appEnvironment;
+            this.userManager = userManager;
         }
 
         [HttpGet("{id}")] //Гет запрос для получения списка всех документов в определенной категории (Категорию определяем через его id)
@@ -47,14 +48,13 @@ namespace IESE.Controllers
             try
             {
                 file = dataManager.WordDocument.GetWordDocmentById(file.Id); //Ищем файл в бд по id
-                var path = _appEnvironment.WebRootPath + file.Path; //Находим путь к файлу 
+                var path = file.Path; //Находим путь к файлу 
 
                 var wordHelper = new WordHelper(path); //Передаем конструктору класса для изменения шаблона в ворде путь к файлу и он найдет сам файл
                 var temp = new Dictionary<string, string>();
 
                 var listTemplate = dataManager.WordTepmlate.GetWordTemplates();
-
-                var user = userManager.FindByIdAsync(User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value).Result;
+                var user = await userManager.FindByIdAsync(User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
                 foreach (var item in listTemplate)
                 {
@@ -70,7 +70,7 @@ namespace IESE.Controllers
                                 break;
                         }
                     }
-                    temp.Add(item.Template, User.FindFirst(x => x.Type == item.ClaimType).Value); //Заполняем список чего нужно изменить в файле
+                    temp.Add(item.Template, res); //Заполняем список чего нужно изменить в файле
                 }
                 temp.Add("DATA", DateTime.Now.ToString()); //Добавляем к этому списку еще дату на данный момент 
 
@@ -100,7 +100,7 @@ namespace IESE.Controllers
                         System.IO.File.Delete(path); //После передачи файла запросу удаляем его на сервере, чтобы не накапливалась 
                     }
                 }
-                return Ok();
+                return NotFound();
             }
             catch (Exception ex)
             {

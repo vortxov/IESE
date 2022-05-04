@@ -24,7 +24,15 @@
     </header>
     <script src="../../js/Main.js"></script>
     <script>
-        CheckAuthorizeRole();
+        async function CheckRole() {
+            var role = await CheckAuthorizeRole();
+            if (role != "admin" && role != "otdelcadrov") {
+                const a = document.createElement('a');
+                a.setAttribute('href', "/index.html");
+                a.click();
+            }
+        }
+        CheckRole();
     </script>
 </body>
 </html>

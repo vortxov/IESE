@@ -28,15 +28,15 @@ namespace IESE.Domain.Repositories.EntityFramework
 
         public IQueryable<DocumentCategory> GetDocumentCatigories()
         {
-            return context.DocumentCategories;
+            return context.DocumentCategories.Include(x => x.Documents).ThenInclude(x => x.Roles);
         }
 
         public async Task SaveDocumentCategory(DocumentCategory entity)
         {
             if (context.DocumentCategories.FirstOrDefault(x => x.Id == entity.Id) == null)
             {
-                context.DocumentCategories.AddAsync(entity);
-                context.SaveChanges();
+                await context.DocumentCategories.AddAsync(entity);
+                await context.SaveChangesAsync();
             }
         }
 

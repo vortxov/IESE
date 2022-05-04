@@ -11,7 +11,7 @@ namespace IESE.Models
     {
         public Guid Id { get; set; }
         public Guid IdCategory { get; set; }
-        public List<string> Templates { get; set; }
+        public List<string> RoleDocument { get; set; }
         [Required(ErrorMessage = "Пустое название")]
         [Display(Name = "Title")]
         public string Title { get; set; }

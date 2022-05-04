@@ -24,16 +24,32 @@
                     <label for="name">Название документа:</label>
                     <input class="menu__input__item" placeholder="Название документа" name="name" />
                 </div>
-
                 <div class="input__checkboxmenu">
-                    <abody>
-                    </abody>
+                    <!--<label for="rdoc">Выберите доступность документа:</label>-->
+                    <p>
+                        <input type="checkbox" id="Студент" name="a" value="Студент">
+                        <label for="Студент"><span>Студент</span></label>
+                    </p>
+                    <p>
+                        <input type="checkbox" id="Преподаватель" value="Преподаватель">
+                        <label for="Преподаватель"><span>Преподаватель</span></label>
+                    </p>
+                    <p>
+                        <input type="checkbox" id="Преподаватель-Студент" value="Преподаватель-Студент">
+                        <label for="Преподаватель-Студент"><span>Преподаватель-Студент</span></label>
+                    </p>
                 </div>
-
                 <div class="">
                     <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
                     <a id="reset" class="btn__menu__input">Сбросить</a>
                 </div>
+
+                <table class="table">
+                    <tbody>
+                    </tbody>
+                </table>
+
+
             </form>
         </div>
         
@@ -78,23 +94,7 @@
                                     <th>Japanese</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Real friends should</td>
-                                    <td>Be very frank</td>
-                                    <td>Help each other</td>
-                                </tr>
-                                <tr>
-                                    <td>I will probably become</td>
-                                    <td>A teacher</td>
-                                    <td>A housewife</td>
-                                </tr>
-                                <tr>
-                                    <td>When there is a conflict with family</td>
-                                    <td>I do what I want</td>
-                                    <td>It's a time of great unhappiness</td>
-                                </tr>
-                            </tbody>
+                            
                         </table>
                         <p>
                             More recent <a href="https://books.google.pl/books?id=1LMhWGHGkRUC">studies</a> show, the language a person speaks affects
@@ -210,20 +210,6 @@
             //  }
         });
 
-        async function GetDocuments() { //Запрос для заполнения таблицы списком документов
-            const response = await fetch("/admindocument/category/" + categoryId, {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-                const documents = await response.json();
-                let rows = document.querySelector("abody");
-                documents.forEach(item => {
-                    rows.append(row(item));
-                });
-
-            }
-        }
         async function GetDocument(id) { //Запрос для получение одного документа по его id
             const response = await fetch("/admindocument/" + id, {
                 method: "GET",
@@ -334,45 +320,7 @@
         }
 
 
-        function row(item) { //Создание строки которая вносится в таблицу
-            const tr = document.createElement("tr");
-            tr.setAttribute("document-rowid", item.id);
-
-            const nameTd = document.createElement("td");
-            nameTd.append(item.title);
-            nameTd.setAttribute("class", "table__firstitem table__row");
-            tr.append(nameTd);
-
-            const linksTd = document.createElement("td");
-
-            const editLink = document.createElement("a");
-            editLink.setAttribute("data-id", item.id);
-            editLink.setAttribute("class", "table__link");
-            editLink.setAttribute("style", "cursor:pointer;padding:15px;");
-            editLink.append("Изменить");
-            editLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                GetDocument(item.id);
-            });
-            linksTd.append(editLink);
-
-            const removeLink = document.createElement("a");
-            removeLink.setAttribute("data-id", item.id);
-            removeLink.setAttribute("class", "table__link");
-            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
-            removeLink.append("Удалить");
-            removeLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                DeleteDocument(item.id);
-            });
-            linksTd.setAttribute("class", "table__seconditem table__row");
-            linksTd.append(removeLink);
-            tr.appendChild(linksTd);
-
-            return tr;
-        }
+       
 
 
 
@@ -412,13 +360,27 @@
             //        data.append('uploadedFile', myfile[i]); //Добавляем все файлы в список для файлом
             //    }
             //}
-            var result = myEditor.getData({ pagination: true });
+            var result = myEditor.getData(/*{ pagination: true }*/);
 
 
             data.append('uploadedFile', result);
             data.append('Title', title); //Добавляем название файла
             data.append('IdCategory', categoryId); //Добавляем id категории в которую занесется файл
 
+            const roles = [];
+
+            var st = document.querySelector("#Студент")
+            if (st.checked) {
+                roles.push(st.value)
+            }
+            var pt = document.querySelector("#Преподаватель")
+            if (pt.checked) {
+                roles.push(pt.value)
+            }
+            var ptst = document.querySelector("#Преподаватель-Студент")
+            if (ptst.checked) {
+                roles.push(ptst.value)
+            }
 
             //const templates = []; //Создаем пустой лист для шаблонов
 
@@ -429,7 +391,7 @@
             //            templates.push(l[i].id); //добавляем в лист те шаблоны которые помечены модератором
             //    }
             //}
-            //data.append('Templates', templates); //Добавляем лист шаблонов в класс для хранения
+            data.append('RoleDocument', roles); //Добавляем лист шаблонов в класс для хранения
 
             if (title == "") { //TODO: Сделать красивые ошибки
                 addError("Пустой Title") //Если название пусто то отобразит ошибку
@@ -451,11 +413,19 @@
 
 
 
-        CheckAuthorizeRole(); //Проверяем авторизацию
+        async function CheckRole() {
+            var role = await CheckAuthorizeRole();
+            if (role != "admin" && role != "otdelcadrov") {
+                const a = document.createElement('a');
+                a.setAttribute('href', "/index.html");
+                a.click();
+            }
+        }
+        CheckRole();
 
         var categoryId = window.location.href.split("?")[1].split("=")[1]; //Получаем id категории
 
-        GetDocuments(); //Вызываем функцию для получения списков документов
+     //   GetDocuments(); //Вызываем функцию для получения списков документов
         GetTemplates(); //Вызываем функцию для получения списка шаблонов
 
 

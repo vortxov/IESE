@@ -15,9 +15,7 @@ async function CheckAuthorizeRole() {//ЯВЛЯЕТСЯ ЛИ АВТОРИЗИР�
         method: "GET",
         headers: { "Accept": "application/json" },
     });
-    if (response.ok === false) {
-        const a = document.createElement('a'); 
-        a.setAttribute('href', "/index.html");
-        a.click();
+    if (response.ok === true) {
+       return await response.json();
     }
 }

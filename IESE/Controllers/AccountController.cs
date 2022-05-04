@@ -69,8 +69,7 @@ namespace IESE.Controllers
         public async Task<IActionResult> AuthorizeRole()
         {
             if (User.Identity.IsAuthenticated) //Проверяем есть ли авторизация
-                if (User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value == "admin") //Если есть авторизация то проверяем роль аккаунт
-                    return Ok(); //Если роль аккаунта админ то выдаем это
+                return Ok(User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value); //Если роль аккаунта админ то выдаем это
             return NotFound(); //Если роль user или вообще не авторизирован то ошибка
         }
 
@@ -83,7 +82,6 @@ namespace IESE.Controllers
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim("FIO", user.Surname + " " + user.Firstname + " " + user.Patronymic),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, userManager.GetRolesAsync(user).Result.FirstOrDefault()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 //new Claim("course", user.Course.ToString()),

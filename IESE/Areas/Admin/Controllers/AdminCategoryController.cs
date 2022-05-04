@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IESE.Areas.Admin.Controllers
@@ -31,7 +32,8 @@ namespace IESE.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IEnumerable<DocumentCategory>> Get() //Гет запрос для получение всех категорий в бд
         {
-            return dataManager.DocumentCategory.GetDocumentCatigories();
+            var category = dataManager.DocumentCategory.GetDocumentCatigories().ToList();
+            return category;
         }
 
         [HttpPost]
@@ -41,7 +43,7 @@ namespace IESE.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-             dataManager.DocumentCategory.SaveDocumentCategory(category);
+             await dataManager.DocumentCategory.SaveDocumentCategory(category);
              return Ok(category);
         }
 

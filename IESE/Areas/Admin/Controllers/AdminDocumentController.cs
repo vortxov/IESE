@@ -4,6 +4,7 @@ using IESE.Models;
 using IESE.Service;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Office.Interop.Word;
 using System;
@@ -22,11 +23,13 @@ namespace IESE.Areas.Admin.Controllers
     {
         private readonly DataManager dataManager;
         IWebHostEnvironment _appEnvironment;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public AdminDocumentController(DataManager dataManager, IWebHostEnvironment appEnvironment)
+        public AdminDocumentController(DataManager dataManager, IWebHostEnvironment appEnvironment, RoleManager<IdentityRole> roleManager)
         {
             this.dataManager = dataManager;
             this._appEnvironment = appEnvironment;
+            this.roleManager = roleManager;
         }
         [HttpGet("category/{id}")]
         public async Task<IEnumerable<WordDocument>> Documents(Guid id) //Гет запрос получения списка документов в какой то категории
@@ -57,17 +60,28 @@ namespace IESE.Areas.Admin.Controllers
             {
                 var helper = new WordHelper(_appEnvironment);
                 string path = helper.CreateDocument(model.uploadedFile);
+                List<IdentityRole> roles = new List<IdentityRole>();
 
-                WordDocument file = new WordDocument { NameFile = model.Title, Path = path, Title = model.Title, DateCreate = DateTime.Now }; //Создаем класс для бд
+                foreach (var roleModel in model.RoleDocument[0].Split(","))
+                {
+                    switch (roleModel)
+                    {
+                        case "Студент":
+                            roles.Add(await roleManager.FindByNameAsync("user"));
+                            break;
+                        case "Преподаватель":
+                            roles.Add(await roleManager.FindByNameAsync("teacher"));
+                            break;
+                        case "Преподаватель-Студент":
+                            roles.Add(await roleManager.FindByNameAsync("teacheruser"));
+                            break;
+                        default:
+                            return BadRequest();
+                    }
+                }
+                
 
-                //var templates = new List<WordTemplate>();
-                //foreach (var item in model.Templates[0].Split(','))
-                //{
-                //    templates.Add(dataManager.WordTepmlate.GetWordTemplateById(new Guid(item))); //Добавляем шаблоны к этому файлу
-                //}
-
-                //file.Templates.AddRange(templates); //Добавляем в бд эти шаблоны
-
+                WordDocument file = new WordDocument { NameFile = model.Title, Path = path, Title = model.Title, DateCreate = DateTime.Now, Roles = roles }; //Создаем класс для бд
 
 
                 FileInfo fileInfo = new FileInfo(path); //Получаем данные о файле
@@ -103,6 +117,7 @@ namespace IESE.Areas.Admin.Controllers
                 {
 
                     Console.WriteLine(ex.Message);
+                    return BadRequest();
                 }
                 finally
                 {
@@ -115,7 +130,7 @@ namespace IESE.Areas.Admin.Controllers
 
                 file.Categories.Add(category); //Добавляем категорию в документ чтобы добавить в список документов этой категории
 
-                await dataManager.WordDocument.SaveWordDocument(file); //Сохраняем документ в бд
+                dataManager.WordDocument.SaveWordDocument(file); //Сохраняем документ в бд
 
 
 

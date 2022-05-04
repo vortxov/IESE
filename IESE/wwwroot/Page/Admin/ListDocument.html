@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>ListDocument</title>
+    <link href="../../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="top-menu">
+        <ul class="menu-main">
+            <li><a href="AdminHome.html">Главная</a></li>
+        </ul>
+    </nav>
+    <div class="admincategory">
+        <a id="new" href="Document.html" class="btn__menu__input">Создать новый</a>
+        <table class="table">
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script src="../../js/Main.js"></script>
+    <script>
+
+        async function GetDocuments() { //Запрос для заполнения таблицы списком документов
+            const response = await fetch("/admindocument/category/" + categoryId, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const documents = await response.json();
+                let rows = document.querySelector("tbody");
+                documents.forEach(item => {
+                    rows.append(row(item));
+                });
+
+            }
+        }
+
+        function row(item) { //Создание строки которая вносится в таблицу
+            const tr = document.createElement("tr");
+            tr.setAttribute("document-rowid", item.id);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(item.title);
+            nameTd.setAttribute("class", "table__firstitem table__row");
+            tr.append(nameTd);
+
+            const linksTd = document.createElement("td");
+
+            const editLink = document.createElement("a");
+            editLink.setAttribute("data-id", item.id);
+            editLink.setAttribute("class", "table__link");
+            editLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            editLink.append("Изменить");
+            editLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                GetDocument(item.id);
+            });
+            linksTd.append(editLink);
+
+            const removeLink = document.createElement("a");
+            removeLink.setAttribute("data-id", item.id);
+            removeLink.setAttribute("class", "table__link");
+            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            removeLink.append("Удалить");
+            removeLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                DeleteDocument(item.id);
+            });
+            linksTd.setAttribute("class", "table__seconditem table__row");
+            linksTd.append(removeLink);
+            tr.appendChild(linksTd);
+
+            return tr;
+        }
+
+        async function CheckRole() {
+            var role = await CheckAuthorizeRole();
+            if (role != "admin" && role != "otdelcadrov") {
+                const a = document.createElement('a');
+                a.setAttribute('href', "/index.html");
+                a.click();
+            }
+        }
+
+        var categoryId = window.location.href.split("?")[1].split("=")[1];
+
+        var doc = document.querySelector("#new")
+        doc.href = "Document.html?id=" + categoryId;
+
+        GetDocuments();
+        CheckRole();
+    </script>
+</body >
+</html >

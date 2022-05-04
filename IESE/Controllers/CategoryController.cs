@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IESE.Controllers
@@ -24,7 +25,22 @@ namespace IESE.Controllers
         [HttpGet] //Гет запрос для получения всех категорий из бд
         public IEnumerable<DocumentCategory> Get()
         {
-            return dataManager.DocumentCategory.GetDocumentCatigories();
+            var categorydb = dataManager.DocumentCategory.GetDocumentCatigories().ToList();
+            List<DocumentCategory> categories = new List<DocumentCategory>();
+
+            foreach (var category in categorydb)
+            {
+                foreach (var doc in category.Documents)
+                {
+                    if(doc.Roles.FirstOrDefault(x => x.Name == User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value) != null)
+                    {
+                        categories.Add(category);
+                        break;
+                    }
+                }
+            }
+
+            return categories;
         }
 
         [HttpGet("{id}")] //Гет запрос для получения одной катерогии из бд по его id
@@ -33,34 +49,34 @@ namespace IESE.Controllers
             return dataManager.DocumentCategory.GetDocumentCategoryById(id);
         }
 
-        [HttpPost] //Пост запрос для внесения новой категории в бд
-        public async Task<ActionResult<DocumentCategory>> Post(DocumentCategory category) 
-        {
-            if (category == null) //Если запрос не прислал новую категорию или она пустая то выдает ошибку в запрос
-            {
-                return BadRequest();
-            }
+        //[HttpPost] //Пост запрос для внесения новой категории в бд
+        //public async Task<ActionResult<DocumentCategory>> Post(DocumentCategory category) 
+        //{
+        //    if (category == null) //Если запрос не прислал новую категорию или она пустая то выдает ошибку в запрос
+        //    {
+        //        return BadRequest();
+        //    }
 
-            dataManager.DocumentCategory.SaveDocumentCategory(category); //Если все хорошо сохраняем категорию в бд
-            return Ok(category); //Передаем хороший результат запросу и приклепляем категорию для того чтобы отобразить на странице
-        }
+        //    dataManager.DocumentCategory.SaveDocumentCategory(category); //Если все хорошо сохраняем категорию в бд
+        //    return Ok(category); //Передаем хороший результат запросу и приклепляем категорию для того чтобы отобразить на странице
+        //}
 
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<DocumentCategory>> Put(DocumentCategory category)
-        {
-            if (category == null)
-            {
-                return BadRequest();
-            }
-            if (dataManager.DocumentCategory.GetDocumentCategoryById(category.Id) == null)
-            {
-                return NotFound();
-            }
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<DocumentCategory>> Put(DocumentCategory category)
+        //{
+        //    if (category == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    if (dataManager.DocumentCategory.GetDocumentCategoryById(category.Id) == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            await dataManager.DocumentCategory.UpdateDocumentCategory(category);
+        //    await dataManager.DocumentCategory.UpdateDocumentCategory(category);
             
-            return Ok(category);
-        }
+        //    return Ok(category);
+        //}
     }
 }
