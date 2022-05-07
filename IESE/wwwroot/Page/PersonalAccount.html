@@ -39,40 +39,50 @@
             }
         }
 
-        async function GetAccount() {
-                let rows = document.getElementById("menu");
-                let liMain = document.createElement("li");
-                liMain.setAttribute("class", "menu__item");
-                let mainA = document.createElement("a");
-                mainA.append("Главная");
-                mainA.setAttribute("href", "/index.html")
-                mainA.setAttribute("class", "menu__link link__outside link__animation");
-                liMain.append(mainA);
-                rows.append(liMain);
+        function GetAccount() {
+            let rows = document.getElementById("menu");
+            let liMain = document.createElement("li");
+            liMain.setAttribute("class", "menu__item");
+            let mainA = document.createElement("a");
+            mainA.append("Главная");
+            mainA.setAttribute("href", "/index.html")
+            mainA.setAttribute("class", "menu__link link__outside link__animation");
+            liMain.append(mainA);
+            rows.append(liMain);
 
-                let liAuthorize = document.createElement("li");
-                liAuthorize.setAttribute("class", "menu__item");
+            let liAuthorize = document.createElement("li");
+            liAuthorize.setAttribute("class", "menu__item");
+            let authorizeA = document.createElement("a");
+            authorizeA.append("Личный кабинет");
+            authorizeA.setAttribute("href", "#")
+            authorizeA.setAttribute("class", "menu__link link__inside");
+            liAuthorize.append(authorizeA);
+            rows.append(liAuthorize);
+
+            let liFAQ = document.createElement("li");
+            liFAQ.setAttribute("class", "menu__item");
+            let FAQa = document.createElement("a");
+            FAQa.append("FAQ");
+            FAQa.setAttribute("href", "#")
+            FAQa.setAttribute("class", "menu__link link__outside link__animation");
+            liFAQ.append(FAQa);
+            rows.append(liFAQ);
+
+            if (role == "admin" || role == "otdelcadrov") {
+                let liAdmin = document.createElement("li");
+                liAdmin.setAttribute("class", "menu__item");
                 let authorizeA = document.createElement("a");
-                authorizeA.append("Личный кабинет");
-                authorizeA.setAttribute("href", "#")
-                authorizeA.setAttribute("class", "menu__link link__inside");
-                liAuthorize.append(authorizeA);
-                rows.append(liAuthorize);
-
-                let liFAQ = document.createElement("li");
-                liFAQ.setAttribute("class", "menu__item");
-                let FAQa = document.createElement("a");
-                FAQa.append("FAQ");
-                FAQa.setAttribute("href", "#")
-                FAQa.setAttribute("class", "menu__link link__outside link__animation");
-                liFAQ.append(FAQa);
-                rows.append(liFAQ);
-
+                authorizeA.append("Админка");
+                authorizeA.setAttribute("href", "/Page/Admin/AdminHome.html")
+                authorizeA.setAttribute("class", "menu__link link__outside link__animation");
+                liAdmin.append(authorizeA);
+                rows.append(liAdmin);
+            }
 
 
             let accountmenu = document.getElementById("accountmenu");
 
-            
+
 
             let linkDocument = document.createElement("li");
             linkDocument.setAttribute("class", "accountmenu__item");
@@ -80,7 +90,7 @@
             documentA.append("Документы");
             documentA.setAttribute("href", "/Page/Category.html");
             documentA.setAttribute("class", "accountmenu__link");
-            linkDocument.append(documentA); 
+            linkDocument.append(documentA);
             accountmenu.append(linkDocument);
 
             let linkOut = document.createElement("li");
@@ -98,8 +108,18 @@
             accountmenu.append(linkOut);
         }
 
-        CheckAuthorize()
-        GetAccount();
+        async function GetAuthorize() {
+            role = await CheckAuthorizeRole();
+            if (role == null) {
+                window.location.href = '/Account.html';
+            }
+
+            GetAccount();
+        }
+
+        var role;
+
+        GetAuthorize();
     </script>
 </body>
 </html>

@@ -13,7 +13,7 @@
             Страница модераторов
         </h1>
 
-        <ul class="menu admin__menu">
+        <ul id="ul-menu" class="menu admin__menu">
             <li class="menu__item">
                 <a class="menu__link link__inside">Главная</a>
             </li>
@@ -25,13 +25,27 @@
     <script src="../../js/Main.js"></script>
     <script>
         async function CheckRole() {
-            var role = await CheckAuthorizeRole();
+            role = await CheckAuthorizeRole();
             if (role != "admin" && role != "otdelcadrov") {
                 const a = document.createElement('a');
                 a.setAttribute('href', "/index.html");
                 a.click();
             }
+            if (role == "admin") {
+                var ul = document.querySelector("#ul-menu");
+                var li = document.createElement("li");
+                li.setAttribute("class", "meny__item");
+                var a = document.createElement("a");
+                a.setAttribute("class", "menu__link link__outside link__animation");
+                a.setAttribute("href", "EditUser.html");
+                a.text = "Редактирование пользователей";
+                li.append(a);
+                ul.append(li);
+            }
         }
+
+        var role;
+
         CheckRole();
     </script>
 </body>

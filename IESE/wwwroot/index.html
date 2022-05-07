@@ -16,7 +16,6 @@
         </h1>
 
         <ul class="menu">
-            
         </ul>
 
 
@@ -26,24 +25,20 @@
 
     </header>
 
-
+    <script src="/js/Main.js"></script>
     <script>
         async function GetAuthorize() {
-            const response = await fetch("/account/Authorize", {
-                method: "GET",
-                headers: { "Accept": "application/json" },
-            });
-            if (response.ok === false) {
-                let rows = document.querySelector("ul");
-                let liMain = document.createElement("li");
-                liMain.setAttribute("class", "menu__item");
-                let mainA = document.createElement("a");
-                mainA.append("Главная");
-                //FAQa.setAttribute("href", "#")
-                mainA.setAttribute("class", "menu__link link__inside");
-                liMain.append(mainA);
-                rows.append(liMain);
+            role = await CheckAuthorizeRole();
+            let rows = document.querySelector("ul");
+            let liMain = document.createElement("li");
+            liMain.setAttribute("class", "menu__item");
+            let mainA = document.createElement("a");
+            mainA.append("Главная");
+            mainA.setAttribute("class", "menu__link link__inside");
+            liMain.append(mainA);
+            rows.append(liMain);
 
+            if (role == null) {
                 let liAuthorize = document.createElement("li");
                 liAuthorize.setAttribute("class", "menu__item");
                 let authorizeA = document.createElement("a");
@@ -52,26 +47,8 @@
                 authorizeA.setAttribute("class", "menu__link link__outside link__animation");
                 liAuthorize.append(authorizeA);
                 rows.append(liAuthorize);
-
-                let liFAQ = document.createElement("li");
-                liFAQ.setAttribute("class", "menu__item");
-                let FAQa = document.createElement("a");
-                FAQa.append("FAQ");
-                FAQa.setAttribute("href", "#")
-                FAQa.setAttribute("class", "menu__link link__outside link__animation");
-                liFAQ.append(FAQa);
-                rows.append(liFAQ);
             }
             else {
-                let rows = document.querySelector("ul");
-                let liMain = document.createElement("li");
-                liMain.setAttribute("class", "menu__item");
-                let mainA = document.createElement("a");
-                mainA.append("Главная");
-                //FAQa.setAttribute("href", "#")
-                mainA.setAttribute("class", "menu__link link__inside");
-                liMain.append(mainA);
-                rows.append(liMain);
 
                 let liAuthorize = document.createElement("li");
                 liAuthorize.setAttribute("class", "menu__item");
@@ -81,21 +58,34 @@
                 authorizeA.setAttribute("class", "menu__link link__outside link__animation");
                 liAuthorize.append(authorizeA);
                 rows.append(liAuthorize);
-
-                let liFAQ = document.createElement("li");
-                liFAQ.setAttribute("class", "menu__item");
-                let FAQa = document.createElement("a");
-                FAQa.append("FAQ");
-                FAQa.setAttribute("href", "#")
-                FAQa.setAttribute("class", "menu__link link__outside link__animation");
-                liFAQ.append(FAQa);
-                rows.append(liFAQ);
             }
+
+            let liFAQ = document.createElement("li");
+            liFAQ.setAttribute("class", "menu__item");
+            let FAQa = document.createElement("a");
+            FAQa.append("FAQ");
+            FAQa.setAttribute("href", "#")
+            FAQa.setAttribute("class", "menu__link link__outside link__animation");
+            liFAQ.append(FAQa);
+            rows.append(liFAQ);
+
+            if (role == "admin" || role == "otdelcadrov")
+            {
+                let liAdmin = document.createElement("li");
+                liAdmin.setAttribute("class", "menu__item");
+                let authorizeA = document.createElement("a");
+                authorizeA.append("Админка");
+                authorizeA.setAttribute("href", "/Page/Admin/AdminHome.html")
+                authorizeA.setAttribute("class", "menu__link link__outside link__animation");
+                liAdmin.append(authorizeA);
+                rows.append(liAdmin);
+            }
+
         }
 
-
+        var role
         GetAuthorize();
     </script>
-   
+
 </body>
 </html>

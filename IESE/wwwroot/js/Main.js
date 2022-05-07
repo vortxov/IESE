@@ -16,6 +16,9 @@ async function CheckAuthorizeRole() {//ЯВЛЯЕТСЯ ЛИ АВТОРИЗИР�
         headers: { "Accept": "application/json" },
     });
     if (response.ok === true) {
-       return await response.json();
+        return await response.json();
+    }
+    else {
+        return null;
     }
 }

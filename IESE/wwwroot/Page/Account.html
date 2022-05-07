@@ -103,11 +103,8 @@
 
 
         async function GetAuthorize() { //Функция для настройки менюшки начальной
-            const response = await fetch("/account/Authorize", {
-                method: "GET",
-                headers: { "Accept": "application/json" },
-            });
-            if (response.ok === true) {
+            role = await CheckAuthorizeRole();
+            if (role != null) {
                 window.location.href = '/index.html';
             }
 
@@ -141,6 +138,7 @@
             rows.append(liFAQ);
 
         }
+        var role;
 
         GetAuthorize();
     </script>

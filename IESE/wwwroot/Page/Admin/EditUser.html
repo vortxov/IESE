@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>EditUser</title>
+    <link href="../../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="AdminHome.html">Главная</a></li>
+            </ul>
+        </nav>
+        <h4>Редактор пользователей</h4>
+        <div class="admincategory">
+            <div class="error" id="errors"></div>
+            <form class="menu__input" name="userForm">
+                <input type="hidden" name="id" value="0" />
+                <div class="row__input">
+                    <input type="file" name="uploadedFile" id="uploadedFile" class="inputfile" />
+                    <label class="inputfile__label" for="uploadedFile">Choose a file</label>
+                </div>
+                <div class="">
+                    <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
+                </div>
+            </form>
+            <table class="table">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </header>
+    <script src="../../js/Main.js"></script>
+    <script>
+
+
+        async function CheckRole() {
+            var role = await CheckAuthorizeRole();
+            if (role != "admin") {
+                const a = document.createElement('a');
+                a.setAttribute('href', "/index.html");
+                a.click();
+            }
+        }
+        CheckRole();
+    </script>
+</body>
+</html>
