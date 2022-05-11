@@ -10,13 +10,13 @@ namespace IESE.Domain.Entities
         public string Surname { get; set; }
         public string Firstname { get; set; }
         public string Patronymic { get; set; }
-        public string FormOfEducation { get; set; }
-        public int Course { get; set; }
-        public string Group { get; set; }
-        public string Faculty { get; set; }
-        public DateTime DateEnd { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Specialization { get; set; }
+        public string? FormOfEducation { get; set; }
+        public int? Course { get; set; }
+        public string? Group { get; set; }
+        public string? Faculty { get; set; }
+        public DateTime? DateEnd { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string? Specialization { get; set; }
 
 
     }

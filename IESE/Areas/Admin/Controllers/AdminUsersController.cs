@@ -1,4 +1,6 @@
-﻿using IESE.Domain;
+﻿using ClosedXML.Excel;
+using IESE.Domain;
+using IESE.Domain.Entities;
 using IESE.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +27,28 @@ namespace IESE.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> PostFile([FromForm] UserFileModel model) 
+        public async Task<IActionResult> PostFile([FromForm] UserFileModel model)
         {
-            return NotFound();
+            using (XLWorkbook workBook = new XLWorkbook(model.File.OpenReadStream(), XLEventTracking.Disabled))
+            {
+                foreach (IXLWorksheet worksheet in workBook.Worksheets)
+                {
+                    foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
+                    {
+                        try
+                        {
+                            ApplicationUser user = new ApplicationUser();
+                            user.Surname = row.Cell(1).Value.ToString();
+
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                    }
+                }
+            }
+                return NotFound();
         }
     }
 }

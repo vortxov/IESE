@@ -8,111 +8,69 @@
 </head>
 <body data-editor="DecoupledDocumentEditor" data-collaboration="false" data-revision-history="false">
     <!--<header class="header">-->
-        <nav class="top-menu">
-            <ul class="menu-main">
-                <li><a href="AdminHome.html">Главная</a></li>
-            </ul>
-        </nav>
-        <div class="admincategory">
-            <h4>Документы</h4>
-            <div id="errors" class="error" style="display:none;"></div>
-            <form class="menu__input" name="userForm">
+    <nav class="top-menu">
+        <ul class="menu-main">
+            <li><a href="AdminHome.html">Главная</a></li>
+        </ul>
+    </nav>
+    <div class="admincategory">
+        <h1 align="center"> Создание нового документа </h1>
+        <div id="errors" class="error" style="display:none;"></div>
+        <form class="menu__input" name="userForm">
 
-                <input type="hidden" name="id" value="0" />
+            <input type="hidden" name="id" value="0" />
 
-                <div class="row__input">
-                    <label for="name">Название документа:</label>
-                    <input class="menu__input__item" placeholder="Название документа" name="name" />
-                </div>
-                <div class="input__checkboxmenu">
-                    <label for="rdoc">Выберите доступность документа:</label>
-                    <p>
-                        <input type="checkbox" id="Студент" name="a" value="Студент">
-                        <label for="Студент"><span>Студент</span></label>
-                    </p>
-                    <p>
-                        <input type="checkbox" id="Преподаватель" value="Преподаватель">
-                        <label for="Преподаватель"><span>Преподаватель</span></label>
-                    </p>
-                    <p>
-                        <input type="checkbox" id="Преподаватель-Студент" value="Преподаватель-Студент">
-                        <label for="Преподаватель-Студент"><span>Преподаватель-Студент</span></label>
-                    </p>
-                </div>
-                <div class="">
-                    <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
-                    <a id="reset" class="btn__menu__input">Сбросить</a>
-                </div>
-
-                <table class="table">
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="row__input">
+                <label for="name">Название документа:</label>
+                <input class="menu__input__item" placeholder="Введите название будущего документа" name="name" />
+            </div>
 
 
-            </form>
-        </div>
-        
+
+
+            <div class="">
+                <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
+                <a id="reset" class="btn__menu__input">Сбросить</a>
+            </div>
+
+            <div class="vertical-menu">
+                <lbody>
+
+                </lbody>
+            </div>
+
+
+
+
+
+        </form>
+    </div>
+
+
+
     <!--</header>-->
-   
-    <main >
+
+    <main>
         <div class="centered">
             <div class="row">
                 <div class="document-editor__toolbar"></div>
             </div>
+
             <div class="row row-editor">
+
                 <div class="editor-container">
                     <div class="editor">
-                        <h2>Bilingual Personality Disorder</h2>
-                        <figure class="image image-style-side">
-                            <img src="https://c.cksource.com/a/1/img/docs/sample-image-bilingual-personality-disorder.jpg">
-                            <figcaption>One language, one person.</figcaption>
-                        </figure>
-                        <p>
-                            This may be the first time you hear about this made-up disorder but
-                            it actually isn’t so far from the truth. Even the studies that were conducted almost half a century show that
-                            <strong>the language you speak has more effects on you than you realise</strong>.
-                        </p>
-                        <p>
-                            One of the very first experiments conducted on this topic dates back to 1964.
-                            <a href="https://www.researchgate.net/publication/9440038_Language_and_TAT_content_in_bilinguals">In the experiment</a>
-                            designed by linguist Ervin-Tripp who is an authority expert in psycholinguistic and sociolinguistic studies,
-                            adults who are bilingual in English in French were showed series of pictures and were asked to create 3-minute stories.
-                            In the end participants emphasized drastically different dynamics for stories in English and French.
-                        </p>
-                        <p>
-                            Another ground-breaking experiment which included bilingual Japanese women married to American men in San Francisco were
-                            asked to complete sentences. The goal of the experiment was to investigate whether or not human feelings and thoughts
-                            are expressed differently in <strong>different language mindsets</strong>.
-                            Here is a sample from the the experiment:
-                        </p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>English</th>
-                                    <th>Japanese</th>
-                                </tr>
-                            </thead>
-                            
-                        </table>
-                        <p>
-                            More recent <a href="https://books.google.pl/books?id=1LMhWGHGkRUC">studies</a> show, the language a person speaks affects
-                            their cognition, behaviour, emotions and hence <strong>their personality</strong>.
-                            This shouldn’t come as a surprise
-                            <a href="https://en.wikipedia.org/wiki/Lateralization_of_brain_function">since we already know</a> that different regions
-                            of the brain become more active depending on the person’s activity at hand. Since structure, information and especially
-                            <strong>the culture</strong> of languages varies substantially and the language a person speaks is an essential element of daily life.
-                        </p>
+
+
+
+
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
-        <div>
-            <lbody>
 
-            </lbody>
-        </div>
+
+
     </main>
 
 
@@ -210,6 +168,20 @@
             //  }
         });
 
+        async function GetDocuments() { //Запрос для заполнения таблицы списком документов
+            const response = await fetch("/admindocument/category/" + categoryId, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const documents = await response.json();
+                let rows = document.querySelector("abody");
+                documents.forEach(item => {
+                    rows.append(row(item));
+                });
+
+            }
+        }
         async function GetDocument(id) { //Запрос для получение одного документа по его id
             const response = await fetch("/admindocument/" + id, {
                 method: "GET",
@@ -240,13 +212,13 @@
                     templatesButton.text = item.name;
                     templatesButton.addEventListener("click", e => {
                         var button = event.target;
-            //            //   if (event.target.type === 'button' && event.target.className.includes('testtokenbutton')) {
+                        //            //   if (event.target.type === 'button' && event.target.className.includes('testtokenbutton')) {
 
                         myEditor.model.change(writer => {
                             const insertPosition = myEditor.model.document.selection.getFirstPosition();
 
                             writer.insertText(item.template, insertPosition);
-                       });
+                        });
 
                         //}
                     });
@@ -320,7 +292,45 @@
         }
 
 
-       
+        function row(item) { //Создание строки которая вносится в таблицу
+            const tr = document.createElement("tr");
+            tr.setAttribute("document-rowid", item.id);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(item.title);
+            nameTd.setAttribute("class", "table__firstitem table__row");
+            tr.append(nameTd);
+
+            const linksTd = document.createElement("td");
+
+            const editLink = document.createElement("a");
+            editLink.setAttribute("data-id", item.id);
+            editLink.setAttribute("class", "table__link");
+            editLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            editLink.append("Изменить");
+            editLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                GetDocument(item.id);
+            });
+            linksTd.append(editLink);
+
+            const removeLink = document.createElement("a");
+            removeLink.setAttribute("data-id", item.id);
+            removeLink.setAttribute("class", "table__link");
+            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
+            removeLink.append("Удалить");
+            removeLink.addEventListener("click", e => {
+
+                e.preventDefault();
+                DeleteDocument(item.id);
+            });
+            linksTd.setAttribute("class", "table__seconditem table__row");
+            linksTd.append(removeLink);
+            tr.appendChild(linksTd);
+
+            return tr;
+        }
 
 
 
@@ -360,27 +370,13 @@
             //        data.append('uploadedFile', myfile[i]); //Добавляем все файлы в список для файлом
             //    }
             //}
-            var result = myEditor.getData(/*{ pagination: true }*/);
+            var result = myEditor.getData({ pagination: true });
 
 
             data.append('uploadedFile', result);
             data.append('Title', title); //Добавляем название файла
             data.append('IdCategory', categoryId); //Добавляем id категории в которую занесется файл
 
-            const roles = [];
-
-            var st = document.querySelector("#Студент")
-            if (st.checked) {
-                roles.push(st.value)
-            }
-            var pt = document.querySelector("#Преподаватель")
-            if (pt.checked) {
-                roles.push(pt.value)
-            }
-            var ptst = document.querySelector("#Преподаватель-Студент")
-            if (ptst.checked) {
-                roles.push(ptst.value)
-            }
 
             //const templates = []; //Создаем пустой лист для шаблонов
 
@@ -391,7 +387,7 @@
             //            templates.push(l[i].id); //добавляем в лист те шаблоны которые помечены модератором
             //    }
             //}
-            data.append('RoleDocument', roles); //Добавляем лист шаблонов в класс для хранения
+            //data.append('Templates', templates); //Добавляем лист шаблонов в класс для хранения
 
             if (title == "") { //TODO: Сделать красивые ошибки
                 addError("Пустой Title") //Если название пусто то отобразит ошибку
@@ -413,19 +409,11 @@
 
 
 
-        async function CheckRole() {
-            var role = await CheckAuthorizeRole();
-            if (role != "admin" && role != "otdelcadrov") {
-                const a = document.createElement('a');
-                a.setAttribute('href', "/index.html");
-                a.click();
-            }
-        }
-        CheckRole();
+        CheckAuthorizeRole(); //Проверяем авторизацию
 
         var categoryId = window.location.href.split("?")[1].split("=")[1]; //Получаем id категории
 
-     //   GetDocuments(); //Вызываем функцию для получения списков документов
+        GetDocuments(); //Вызываем функцию для получения списков документов
         GetTemplates(); //Вызываем функцию для получения списка шаблонов
 
 

@@ -13,6 +13,7 @@
             </ul>
         </nav>
         <h4>Редактор пользователей</h4>
+        <div id="errors" class="error" style="display:none;"></div>
         <div class="admincategory">
             <div class="error" id="errors"></div>
             <form class="menu__input" name="userForm">
@@ -34,6 +35,40 @@
     <script src="../../js/Main.js"></script>
     <script>
 
+        async function PostUserFile(data) {
+
+            const response = await fetch("/adminusers", {
+                method: "POST",
+                body: data,
+            });
+            if (response.ok === true) {
+            }
+            else {
+
+                document.getElementById("errors").style.display = "block";
+            }
+        }
+
+        document.forms["userForm"].addEventListener("submit", e => {
+            e.preventDefault();
+            const form = document.forms["userForm"];
+            var myfile = form.elements["uploadedFile"].files;
+            var data = new FormData();
+
+            if (myfile.length > 0) {
+                for (var i = 0; i < myfile.length; i++) {
+                    data.append('uploadedFile', myfile[i]);
+                }
+            }
+
+            if (myfile.length == 0) {
+                addError("Не выбран файл")
+            }
+            else {
+
+                PostUserFile(data);
+            }
+        });
 
         async function CheckRole() {
             var role = await CheckAuthorizeRole();
