@@ -10,10 +10,12 @@
             <li><a href="AdminHome.html">Главная</a></li>
         </ul>
     </nav>
-    <div class="admincategory">
+    <div class="admincategory" style="margin-top: 20px;">
         <a id="new" href="Document.html" class="btn__menu__input">Создать новый</a>
+        
         <table class="table">
             <tbody>
+                <tr><td class="table__firstitem table__row"></td><td class="table__seconditem table__row"><button >Удалить</button><button>Выделить все</button></td></tr>
             </tbody>
         </table>
     </div>
@@ -38,6 +40,13 @@
         function row(item) { //Создание строки которая вносится в таблицу
             const tr = document.createElement("tr");
             tr.setAttribute("document-rowid", item.id);
+
+            const nameTdC = document.createElement("td");
+            var ch = document.createElement("input");
+            ch.type = "checkbox";
+            nameTdC.append(ch);
+            nameTdC.setAttribute("class", "table__firstitem table__row");
+            tr.append(nameTdC);
 
             const nameTd = document.createElement("td");
             nameTd.append(item.title);

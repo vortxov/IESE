@@ -6,7 +6,7 @@ a {
     position: relative;
 }
 
-ul{
+ul {
     list-style: none;
 }
 
@@ -22,8 +22,6 @@ html, body {
 
 .header {
     background: #FFFFFF;
-    min-height: 100vh;
-    max-height: auto;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -59,7 +57,7 @@ html, body {
     margin-bottom: auto;
 }
 
-.menu__item{
+.menu__item {
     padding: 0 15px;
 }
 
@@ -146,10 +144,10 @@ html, body {
     transition: .3s;
 }
 
-.input__user:focus {
-    border-color:dodgerBlue;
-    box-shadow:0 0 8px 0 dodgerBlue;
-}
+    .input__user:focus {
+        border-color: dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
 
 
 
@@ -187,7 +185,6 @@ html, body {
     .user__button:focus {
         outline: 2px solid transparent;
         outline-offset: 2px;
-        
     }
 
     .user__button:focus-visible {
@@ -200,9 +197,9 @@ html, body {
     margin: 0; /*убираем отступы*/
     padding-left: 0; /*убираем отступы*/
     margin-top: 0; /*делаем отступ сверху*/
-    background: #B0C4DE; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
+    background: #5380bff2; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
     height: 50px;
-    text-align: right;
+    text-align: left;
 }
 
     .menu-main li {
@@ -242,7 +239,7 @@ html, body {
             }
 
 
-          
+
 
 @media (max-width: 550px) {
     .menu-main {
@@ -270,8 +267,7 @@ html, body {
 }
 
 .category__row {
-    text-align: center; 
-
+    text-align: center;
 }
 
 .category__column {
@@ -288,12 +284,12 @@ html, body {
     text-decoration: solid;
     /*width: 175px;
     margin: 0 auto;*/
-  /*  border-radius: 4px;
+    /*  border-radius: 4px;
     border: 1px solid #ffc84d;*/
     /*transition: all 0.3s;*/
 }
 
-/*    .a__category:hover {
+    /*    .a__category:hover {
         color: #000;
         background-color: #fff;
         border: 1px solid rgb(188, 208, 229);
@@ -379,16 +375,17 @@ html, body {
 
 
 a.btn__menu__input {
+    margin-left: 16px;
     background-color: #5380bff2;
     border: 0;
     border-radius: .3rem;
     box-sizing: border-box;
     color: black;
     font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: .875rem;
+    font-size: 1.1rem;
     font-weight: 600;
     line-height: 1.25rem;
-    padding: .75rem 1rem;
+    padding: .65rem 1rem;
     text-align: center;
     text-decoration-thickness: auto;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -398,6 +395,8 @@ a.btn__menu__input {
     touch-action: manipulation;
     transition: .3s;
 }
+
+
 
     a.btn__menu__input:hover {
         background-color: #aaa;
@@ -423,7 +422,7 @@ a.btn__menu__input {
     box-sizing: border-box;
     color: black;
     font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: .875rem;
+    font-size: 1.1rem;
     font-weight: 600;
     line-height: 1.25rem;
     padding: .75rem 1rem;
@@ -455,29 +454,33 @@ a.btn__menu__input {
 
 .table {
     text-align: left;
-    margin-top: 20px;   
+    margin-top: 40px;
     border: 1px solid #dddddd;
     border-collapse: collapse;
+    position: fixed;
+    left: 20px;
 }
 
 .table__row {
     border: 1px solid #dddddd;
-    padding: 5px;
+    padding: 7px;
 }
 
 .table__firstitem {
     width: 400px;
 }
 
+
 .table__seconditem {
-    width: 230px;
+    width: 30px;
 }
 
 .table__link {
-    color:darkblue;
+    color: darkblue;
     padding-left: 30px;
-
 }
+
+
 
 .table__categorylink {
     color: darkblue;
@@ -495,13 +498,13 @@ a.btn__menu__input {
 
     .inputfile + .inputfile__label {
         margin-top: 10px;
-        font-size: 1.25em;
-        font-weight: 700;
-        color: white;
-        background-color: dodgerBlue;
-        border-radius: .5rem;
+        font-size: 0.7em;
+        font-weight: 500;
+        color: black;
+        background-color: #5380bff2;
+        border-radius: 0.3rem;
         display: inline-block;
-        width: 200px;
+        width: 170px;
         cursor: pointer;
         text-align: center;
         transition: .3s;
@@ -509,13 +512,13 @@ a.btn__menu__input {
 
         .inputfile:focus + .inputfile__label,
         .inputfile + .inputfile__label:hover {
-            background-color: #9b0948;
+            background-color: #bdbdbd;
         }
 
 
 
 .input__checkboxmenu {
-    margin-top:20px;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -549,34 +552,179 @@ input[type=checkbox] {
 
 .vertical-menu {
     width: 200px; /* Set a width if you like */
-   
 }
 
-.vertical-menu a {
-    background-color: #eee; /* Grey background color */
-    color: black; /* Black text color */
-    display: block; /* Make the links appear below each other */
-    padding: 12px; /* Add some padding */
-    
-    text-decoration: none; /* Remove underline from links */
-}
+    .vertical-menu a {
+        background-color: #eee; /* Grey background color */
+        color: black; /* Black text color */
+        display: block; /* Make the links appear below each other */
+        padding: 12px; /* Add some padding */
 
-            .vertical-menu a:hover {
-                background-color: #5380bff2; /* Dark grey background on mouse-over */
+        text-decoration: none; /* Remove underline from links */
+    }
 
-            }
+        .vertical-menu a:hover {
+            background-color: #5380bff2; /* Dark grey background on mouse-over */
+        }
 
-            .vertical-menu a.active {
-                background-color: #FFFFFF; /* Add a green color to the "active/current" link */
-                color: white;
-
-            }
+        .vertical-menu a.active {
+            background-color: #FFFFFF; /* Add a green color to the "active/current" link */
+            color: white;
+        }
 
 .vertical-menu {
-    width: 400px;
+    width: 300px;
     height: 150px;
     overflow-y: auto;
     position: center;
-    bottom:-10px;
+    bottom: -10px;
     font-weight: bold
+}
+
+.petuh {
+    Margin-top: 20px
+}
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic);
+
+
+
+
+.pechat {
+    margin-left: 16px;
+    margin-right: 91%;
+    margin-top: 10px;
+    border: 0;
+}
+
+    .pechat ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .pechat ul:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+    .pechat a {
+        text-decoration: auto;
+        display: block;
+        width: 119.56px;
+        padding: 0px;
+        margin-right: auto;
+        font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1.25rem;
+        background-color: #5380bff2;
+        border-radius: 0.5rem;
+        transition: .3s linear;
+    }
+
+.topmenu > li {
+    float: left;
+    position: relative;
+}
+
+    .topmenu > li:first-child {
+        border-left: 0;
+    }
+
+    .topmenu > li > a {
+        padding: 20px 30px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #5380bff2;
+        letter-spacing: 2px;
+    }
+
+        .topmenu > li > a.active,
+        .submenu a:hover {
+            color: black;
+        }
+
+.topmenu .fa,
+.submenu .fa {
+    margin-left: 5px;
+    color: inherit;
+}
+
+.submenu {
+    position: absolute;
+    z-index: 5;
+    min-width: 20px;
+    background-color: white;
+    border-top: 1px solid #CBCBCC;
+    border-left: 1px solid #CBCBCC;
+    border-right: 1px solid #CBCBCC;
+    visibility: hidden;
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: rotateX(-90deg);
+    transition: .3s linear;
+}
+
+    .submenu li {
+        position: relative;
+        width: 50px;
+    }
+
+        .submenu li a {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            font-size: 13px;
+            border-bottom: 4px solid black;
+        }
+
+    .submenu .submenu {
+        position: absolute;
+        left: 130px;
+        top: -1px;
+        transition: .3s linear;
+    }
+
+nav li:hover > .submenu {
+    transform: rotateX(0deg);
+    visibility: visible;
+    opacity: 1;
+}
+
+.pechat1 {
+    background-color: white;
+    color: black;
+}
+
+.vertical-menu1 {
+    width: 1000px; /* Set a width if you like */
+}
+
+    .vertical-menu1 a {
+        background-color: #eee; /* Grey background color */
+        color: black; /* Black text color */
+        display: block; /* Make the links appear below each other */
+        padding: 12px; /* Add some padding */
+
+        text-decoration: none; /* Remove underline from links */
+    }
+
+.vertical-menu a:hover {
+    background-color: #5380bff2; /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+    background-color: #FFFFFF; /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+.vertical-menu1 {
+    width: 180px;
+    height: 200px;
+    margin-left: 20px;
+    overflow-y: auto;
+    position: center;
 }

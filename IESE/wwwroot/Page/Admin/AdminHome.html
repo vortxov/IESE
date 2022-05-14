@@ -42,6 +42,16 @@
                 li.append(a);
                 ul.append(li);
             }
+
+            var ul = document.querySelector("#ul-menu");
+            var li = document.createElement("li");
+            li.setAttribute("class", "meny__item");
+            var a = document.createElement("a");
+            a.setAttribute("class", "menu__link link__outside link__animation");
+            a.setAttribute("href", "../../index.html");
+            a.text = "На стартовую страницу";
+            li.append(a);
+            ul.append(li);
         }
 
         var role;

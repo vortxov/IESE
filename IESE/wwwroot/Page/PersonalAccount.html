@@ -93,6 +93,15 @@
             linkDocument.append(documentA);
             accountmenu.append(linkDocument);
 
+            let linkSl = document.createElement("li");
+            linkSl.setAttribute("class", "accountmenu__item");
+            let slA = document.createElement("a");
+            slA.append("Служебка");
+            slA.setAttribute("href", "/Page/ServiceDocument.html");
+            slA.setAttribute("class", "accountmenu__link");
+            linkSl.append(slA);
+            accountmenu.append(linkSl);
+
             let linkOut = document.createElement("li");
             linkOut.setAttribute("class", "accountmenu__item");
             let outA = document.createElement("a");
