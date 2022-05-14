@@ -15,7 +15,7 @@
         
         <table class="table">
             <tbody>
-                <tr><td class="table__firstitem table__row"></td><td class="table__seconditem table__row"><button >Удалить</button><button>Выделить все</button></td></tr>
+                <tr><td class="table__firstitem table__row"></td><td></td><td class="table__seconditem table__row"><button id="removeAll" >Удалить</button><form name="allselect"><button id="submit">Выделить все</button></form></td></tr>
             </tbody>
         </table>
     </div>
@@ -44,7 +44,8 @@
             const nameTdC = document.createElement("td");
             var ch = document.createElement("input");
             ch.type = "checkbox";
-            nameTdC.append(ch);
+            ch.setAttribute("id", "ch");
+            nameTdC.append(ch);            
             nameTdC.setAttribute("class", "table__firstitem table__row");
             tr.append(nameTdC);
 
@@ -84,6 +85,35 @@
             return tr;
         }
 
+
+
+
+        //document.getElementById("allselect").addEventListener(e => {
+        //    //e.preventDefault();
+        //    //var ch = document.querySelector("input[checkbox]");
+        //    //ch.forEach(item => {
+
+        //    //});
+        //});
+
+        document.forms["allselect"].addEventListener("submit", e => {
+            e.preventDefault();
+                var ch = document.querySelector("tbody");
+            //ch.children.forEach(item => {
+            //    if (item.type == "checkbox") {
+            //        item.checked = true;
+            //    }
+            //});
+            var sq = ch.querySelectorAll("#ch");
+            for (var i = 0; i < sq.length; i++) {
+                if (sq[i].type == "checkbox") {
+                    sq[i].checked = true;
+                }
+            }
+        });
+
+
+
         async function CheckRole() {
             var role = await CheckAuthorizeRole();
             if (role != "admin" && role != "otdelcadrov") {
@@ -92,6 +122,9 @@
                 a.click();
             }
         }
+
+
+
 
         var categoryId = window.location.href.split("?")[1].split("=")[1];
 

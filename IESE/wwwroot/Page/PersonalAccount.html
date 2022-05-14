@@ -102,6 +102,15 @@
             linkSl.append(slA);
             accountmenu.append(linkSl);
 
+            let linkArchive = document.createElement("li");
+            linkArchive.setAttribute("class", "accountmenu__item");
+            let archiveA = document.createElement("a");
+            archiveA.append("Архив");
+            archiveA.setAttribute("href", "/Page/ServiceDocument.html");
+            archiveA.setAttribute("class", "accountmenu__link");
+            linkArchive.append(archiveA);
+            accountmenu.append(linkArchive);
+
             let linkOut = document.createElement("li");
             linkOut.setAttribute("class", "accountmenu__item");
             let outA = document.createElement("a");
