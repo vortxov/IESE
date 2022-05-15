@@ -197,7 +197,7 @@ html, body {
     margin: 0; /*убираем отступы*/
     padding-left: 0; /*убираем отступы*/
     margin-top: 0; /*делаем отступ сверху*/
-    background: #5380bff2; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
+    background: ; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
     height: 50px;
     text-align: left;
 }
@@ -765,3 +765,5 @@ nav li:hover > .submenu {
     .table1 tbody tr:nth-child(even) {
         background: #F7F7F7;
     }
+
+

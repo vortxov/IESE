@@ -8,9 +8,9 @@
 	--ck-sample-color-white: #fff;
 	--ck-sample-color-green: #279863;
 	--ck-sample-color-blue: #1a9aef;
-	--ck-sample-container-width: 1285px;
+	--ck-sample-container-width: 1280px;
 	--ck-sample-sidebar-width: 350px;
-	--ck-sample-editor-min-height: 400px;
+	--ck-sample-editor-min-height: 40px;
 	--ck-sample-editor-z-index: 10;
 }
 
@@ -25,7 +25,7 @@ main .ck-editor[role='application'] .ck.ck-content,
 /* Inline & Balloon build. */
 .ck.editor[role='textbox'] {
 	width: 100%;
-	background: #fff;
+	background: black;
 	font-size: 1em;
 	line-height: 1.6em;
 	min-height: var(--ck-sample-editor-min-height);
@@ -39,27 +39,31 @@ main .ck-editor[role='application'] {
 .ck.ck-editor__editable {
 	background: #fff;
 	border: 1px solid hsl(0, 0%, 70%);
-	width: 100%;
+	width: 10%;
+
 }
 
 /* Because of sidebar `position: relative`, Edge is overriding the outline of a focused editor. */
 .ck.ck-editor__editable {
 	position: relative;
 	z-index: var(--ck-sample-editor-z-index);
+
 }
 
 .editor-container {
-	display: flex;
+	display: 100%;
 	flex-direction: row;
     flex-wrap: nowrap;
     position: relative;
-	width: 100%;
+	width: 1000px;
 	justify-content: center;
+
 }
 
 /* --------- DECOUPLED (DOCUMENT) BUILD. ---------------------------------------------*/
 body[data-editor='DecoupledDocumentEditor'] .document-editor__toolbar {
 	width: 100%;
+
 }
 
 body[data-editor='DecoupledDocumentEditor'] .collaboration-demo__editable,
@@ -67,6 +71,7 @@ body[data-editor='DecoupledDocumentEditor'] .row-editor .editor {
 	/* A pixel is added for each of the border. */
 	width: calc(21cm + 2px);
 	min-height: calc(29.7cm + 2px);
+	
 	/* To avoid having extra scrolls inside the editor container. */
 	height: fit-content;
 	padding: 2cm 1.2cm;
@@ -75,6 +80,8 @@ body[data-editor='DecoupledDocumentEditor'] .row-editor .editor {
 	background-color: var(--ck-sample-color-white);
 	box-shadow: 0 0 5px hsla( 0, 0%, 0%, .1 );
 	box-sizing: border-box;
+
+
 }
 
 body[data-editor='DecoupledDocumentEditor'] .row-editor {
@@ -85,13 +92,16 @@ body[data-editor='DecoupledDocumentEditor'] .row-editor {
 	background-color: #f2f2f2;
 	border: 1px solid hsl(0, 0%, 77%);
 	/* Limit the max-height of the editor to avoid scrolling from bottom to top to see the toolbar. */
-	max-height: 700px;
+	max-height: 3508px;
+	max-width: 2480px;
 }
 
 body[data-editor='DecoupledDocumentEditor'] .sidebar {
 	background: transparent;
 	border: 0;
 	box-shadow: none;
+
+
 }
 
 /* --------- COMMENTS & TRACK CHANGES FEATURE ---------------------------------------------------------------------- */
@@ -116,11 +126,13 @@ body[data-editor='DecoupledDocumentEditor'] .sidebar {
 	width: unset;
 	padding: 0;
 	background: transparent;
+
 }
 
 .sidebar.narrow {
 	min-width: 60px;
 	flex-grow: 0;
+
 }
 
 .sidebar.hidden {
@@ -140,11 +152,13 @@ body[data-editor='DecoupledDocumentEditor'] .sidebar {
 	color: hsl( 0, 0%, 50% );
 	transition: 250ms ease color;
 	background-color: transparent;
+
 }
 
 #sidebar-display-toggle:hover {
 	color: hsl( 0, 0%, 30% );
 	cursor: pointer;
+
 }
 
 #sidebar-display-toggle:focus,
@@ -175,11 +189,13 @@ body[data-editor='DecoupledDocumentEditor'] .sidebar {
 .ck.ck-presence-list {
     flex: 1;
     padding: 1.25rem .75rem;
+
 }
 
 .presence .ck.ck-presence-list__counter {
 	order: 2;
-	margin-left: var(--ck-spacing-large)
+	margin-left: var(--ck-spacing-large);
+
 }
 
 /* --------- REAL TIME COLLABORATION FEATURES (SHARE TOPBAR CONTAINER) --------------------------------------------- */
@@ -194,6 +210,7 @@ body[data-editor='DecoupledDocumentEditor'] .sidebar {
 
 body[data-editor='InlineEditor'] .collaboration-demo__row {
 	border: 0;
+
 }
 
 .collaboration-demo__container {
@@ -231,6 +248,7 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
 .collaboration-demo__share {
 	display: flex;
 	align-items: center;
+
 	padding: 1.25rem .75rem
 }
 
@@ -238,6 +256,7 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
 	margin: 0;
 	font-weight: bold;
 	font-size: 0.9em;
+
 }
 
 .collaboration-demo__share input {
@@ -246,7 +265,8 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
 	min-width: 220px;
 	margin: 0 10px;
 	border-radius: 4px;
-	border: 1px solid var(--ck-color-toolbar-border)
+	border: 1px solid var(--ck-color-toolbar-border);
+
 }
 
 .collaboration-demo__share button,
@@ -271,6 +291,7 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
     pointer-events: none;
     transition: all .15s cubic-bezier(.5,1,.25,1);
 	z-index: 1;
+
 }
 
 .collaboration-demo__share button[data-tooltip]::before {
@@ -285,6 +306,7 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
     left: 50%;
     margin-top: 5px;
     transform: translateX(-50%);
+
 }
 
 .collaboration-demo__share button[data-tooltip]::after {
@@ -298,22 +320,26 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
     transform: translateX(-50%);
     border-bottom: 5px solid #111;
 	border-top: none;
+
 }
 
 .collaboration-demo__share button[data-tooltip]:hover:before,
 .collaboration-demo__share button[data-tooltip]:hover:after {
 	visibility: visible;
     opacity: 1;
+
 }
 
 .collaboration-demo--ready {
 	overflow: visible;
 	height: auto;
+
 }
 
 .collaboration-demo--ready .presence,
 .collaboration-demo--ready .collaboration-demo__row {
 	opacity: 1;
+
 }
 
 /* --------- PAGINATION FEATURE ------------------------------------------------------------------------------------ */
@@ -322,12 +348,15 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
    otherwise it will be hidden underneath. */
 .ck.ck-pagination-view-line {
 	z-index: var(--ck-sample-editor-z-index);
+
 }
 
 /* --------- REVISION HISTORY FEATURE ------------------------------------------------------------------------------ */
 
 .revision-viewer-container {
-    display: none;
+	display: none;
+
+	
 }
 
 .revision-viewer-sidebar {
@@ -337,6 +366,7 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
     background: var(--ck-color-toolbar-background);
     border: 1px solid var(--ck-color-toolbar-border);
     margin-left: -1px;
+
 }
 
 /* A case when Pagination and Revision History features are enabled in the editor. */
@@ -345,6 +375,7 @@ body[data-revision-history='true'] .ck.ck-pagination-view-line::after {
 	transform: translateX(-100%) !important;
 	left: -1px !important;
 	right: unset !important;
+
 }
 
 /* --------- SAMPLE GENERIC STYLES (not related to CKEditor) ------------------------------------------------------- */
@@ -355,19 +386,23 @@ body, html {
 	font-family: sans-serif, Arial, Verdana, "Trebuchet MS", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	font-size: 16px;
 	line-height: 1.5;
+
 }
 
 body {
 	height: 100%;
 	color: #2D3A4A;
+
 }
 
 body * {
 	box-sizing: border-box;
+		
 }
 
 a {
 	color: #38A5EE;
+
 }
 
 header .centered {
@@ -376,6 +411,7 @@ header .centered {
 	justify-content: space-between;
 	align-items: center;
 	min-height: 8em;
+
 }
 
 header h1 a {
@@ -384,21 +420,25 @@ header h1 a {
 	align-items: center;
 	color: #2D3A4A;
 	text-decoration: none;
+
 }
 
 header h1 img {
 	display: block;
 	height: 64px;
+	
 }
 
 header nav ul {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
+
 }
 
 header nav ul li {
 	display: inline-block;
+
 }
 
 header nav ul li + li {
@@ -409,6 +449,7 @@ header nav ul li a {
 	font-weight: bold;
 	text-decoration: none;
 	color: #2D3A4A;
+
 }
 
 header nav ul li a:hover {
@@ -419,24 +460,28 @@ main .message {
 	padding: 0 0 var(--ck-sample-base-spacing);
 	background: var(--ck-sample-color-green);
 	color: var(--ck-sample-color-white);
+	
+
 }
 
-main .message::after {
-	content: "";
-	z-index: -1;
-	display: block;
-	height: 10em;
-	width: 100%;
-	background: var(--ck-sample-color-green);
-	position: absolute;
-	left: 0;
-}
+	main .message::after {
+		content: "";
+		z-index: -1;
+		display: block;
+		height: 10em;
+		width: 100%;
+		background: var(--ck-sample-color-green);
+		position: absolute;
+		left: 0;
+		
+	}
 
-main .message h2 {
-	position: relative;
-	padding-top: 1em;
-	font-size: 2em;
-}
+	main .message h2 {
+		position: relative;
+		padding-top: 1em;
+		font-size: 2em;
+		
+	}
 
 .centered {
 	/* Hide overlapping comments. */
@@ -444,11 +489,13 @@ main .message h2 {
 	max-width: var(--ck-sample-container-width);
 	margin: 0 auto;
 	padding: 0 var(--ck-sample-base-spacing);
+	
 }
 
 .row {
 	display: flex;
 	position: relative;
+	
 }
 
 .btn {
@@ -462,11 +509,13 @@ main .message h2 {
 	border-color: var(--ck-sample-color-button-blue);
 	color: var(--ck-sample-color-white);
 	display: inline-block;
+	
 }
 
 .btn--tiny {
 	padding: 6px 12px;
 	font-size: .8rem;
+	
 }
 
 footer {
@@ -474,6 +523,7 @@ footer {
 	font-size: .8em;
 	text-align: center;
 	color: rgba(0,0,0,.4);
+	
 }
 
 /* --------- RWD --------------------------------------------------------------------------------------------------- */
@@ -497,4 +547,9 @@ footer {
 	main .message h2 {
 		font-size: 1.5em;
 	}
+}
+
+.ck-editor__editable:not(.ck-editor__nested-editable) {
+	max-height: 40px;
+
 }

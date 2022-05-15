@@ -48,6 +48,27 @@ namespace IESE.Controllers
             try
             {
                 file = dataManager.WordDocument.GetWordDocmentById(file.Id); //Ищем файл в бд по id
+
+                var fileArchive = dataManager.ArchiveDocument.GetArchiveDocumentByIdDocument(file.Id);
+                if(fileArchive != null)
+                {
+                    try
+                    {
+                        var memory = new MemoryStream();
+                        using (var stream = new FileStream(fileArchive.PathPDF, FileMode.Open)) //Открываем файл 
+                        {
+                            await stream.CopyToAsync(memory); //копируем его в память 
+                        }
+                        memory.Position = 0;
+                        var ext = Path.GetExtension(fileArchive.PathPDF).ToLowerInvariant(); //Получаем данные о файле 
+                        return File(memory, "application/vnd.ms-word", Path.GetFileName(fileArchive.PathPDF)); //Передаем файл запросу в приложение ворд и его имя
+                    }
+                    catch (Exception e)
+                    {
+                        throw new ArgumentException(e.Message); //Если была ошибка то напишет //TODO: Изменить ошибку
+                    }
+                }
+
                 var path = file.Path; //Находим путь к файлу 
 
                 var wordHelper = new WordHelper(path); //Передаем конструктору класса для изменения шаблона в ворде путь к файлу и он найдет сам файл

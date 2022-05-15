@@ -28,11 +28,13 @@ namespace IESE.Controllers
             var categorydb = dataManager.DocumentCategory.GetDocumentCatigories().ToList();
             List<DocumentCategory> categories = new List<DocumentCategory>();
 
+            var userRole = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
+
             foreach (var category in categorydb)
             {
                 foreach (var doc in category.Documents)
                 {
-                    if(doc.Roles.FirstOrDefault(x => x.Name == User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value) != null)
+                    if(doc.Roles.FirstOrDefault(x => x.Name == userRole) != null || "admin" == userRole)
                     {
                         categories.Add(category);
                         break;

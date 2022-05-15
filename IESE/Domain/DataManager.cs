@@ -11,13 +11,15 @@ namespace IESE.Domain
         public IWordDocumentRepository WordDocument { get; set; }
         public IWordTemplateRepository WordTepmlate { get; set; }
         public IDocumentCategoryRepository DocumentCategory { get; set; }
+        public IArchiveDocumentRepository ArchiveDocument { get; set; }
 
         public DataManager(IWordDocumentRepository wordDocumentRepository, IWordTemplateRepository templateRepository,
-                            IDocumentCategoryRepository documentCategoryRepository)
+                            IDocumentCategoryRepository documentCategoryRepository, IArchiveDocumentRepository archiveDocumentRepository)
         {
             WordDocument = wordDocumentRepository;
             WordTepmlate = templateRepository;
             DocumentCategory = documentCategoryRepository;
+            ArchiveDocument = archiveDocumentRepository;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace IESE.Domain.Repositories.EntityFramework
         }
         public async Task DeleteDocumentCategory(Guid id)
         {
-            context.Remove(GetDocumentCategoryById(id));
+            context.DocumentCategories.Remove(GetDocumentCategoryById(id));
             context.SaveChanges();
         }
 

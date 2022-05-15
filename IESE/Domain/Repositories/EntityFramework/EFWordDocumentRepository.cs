@@ -38,7 +38,7 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
             try
             {
                 await context.WordDocuments.AddAsync(entity);
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
         public async Task UpdateWordDocument(WordDocument entity)
         {
             context.WordDocuments.Update(entity);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
     }
 }

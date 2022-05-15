@@ -16,7 +16,7 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
         }
         public void DeleteWordTemplate(Guid id)
         {
-            context.Remove(new WordTemplate() { Id = id });
+            context.WordTemplates.Remove(new WordTemplate() { Id = id });
             context.SaveChanges();
         }
 

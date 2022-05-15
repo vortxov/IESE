@@ -16,6 +16,7 @@ namespace IESE.Domain.Entities
         public string PathPDF { get; set; }
         public string PathHTM { get; set; }
         public DateTime DateCreate { get; set; }
+        [JsonIgnore]
         public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
         public string Title { get; set; }
         [JsonIgnore]

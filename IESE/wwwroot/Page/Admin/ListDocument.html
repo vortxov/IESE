@@ -12,10 +12,10 @@
     </nav>
     <div class="admincategory" style="margin-top: 20px;">
         <a id="new" href="Document.html" class="btn__menu__input">Создать новый</a>
-        
+
         <table class="table">
             <tbody>
-                <tr><td class="table__firstitem table__row"></td><td></td><td class="table__seconditem table__row"><button id="removeAll" >Удалить</button><form name="allselect"><button id="submit">Выделить все</button></form></td></tr>
+                <tr><td class="table__firstitem table__row"></td><td></td><td class="table__seconditem table__row"><form name="removeAll"><button id="submit">Удалить</button></form><form name="allselect"><button id="submit">Выделить все</button></form></td></tr>
             </tbody>
         </table>
     </div>
@@ -45,7 +45,8 @@
             var ch = document.createElement("input");
             ch.type = "checkbox";
             ch.setAttribute("id", "ch");
-            nameTdC.append(ch);            
+            ch.setAttribute("name", item.id);
+            nameTdC.append(ch);
             nameTdC.setAttribute("class", "table__firstitem table__row");
             tr.append(nameTdC);
 
@@ -85,6 +86,19 @@
             return tr;
         }
 
+        async function DeleteDocument(id) { //Запрос удаления документа из бд
+            const response = await fetch("/admindocument/" + id, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const item = await response.json();
+                cher = document.querySelector("tr");
+                document.querySelector("tr[document-rowid='" + item + "']").remove();
+
+            }
+        }
+
 
 
 
@@ -96,20 +110,48 @@
         //    //});
         //});
 
+
+        async function RemoveSelects(str) {
+            var data = new FormData();
+            data.append("files", str);
+            const response = await fetch("/admindocument/removeSelect", {
+                method: "POST",
+                body: data
+            });
+            if (response.ok == true) {
+                str.forEach(item => {
+                    var cher = document.querySelector("tr");
+                    document.querySelector("tr[document-rowid='" + item + "']").remove();
+                });
+                
+            }
+        }
+
         document.forms["allselect"].addEventListener("submit", e => {
             e.preventDefault();
-                var ch = document.querySelector("tbody");
-            //ch.children.forEach(item => {
-            //    if (item.type == "checkbox") {
-            //        item.checked = true;
-            //    }
-            //});
+            var ch = document.querySelector("tbody");
             var sq = ch.querySelectorAll("#ch");
             for (var i = 0; i < sq.length; i++) {
                 if (sq[i].type == "checkbox") {
                     sq[i].checked = true;
                 }
             }
+        });
+
+        document.forms["removeAll"].addEventListener("submit", e => {
+            e.preventDefault();
+            var ch = document.querySelector("tbody");
+            var sq = ch.querySelectorAll("#ch");
+            var arrayId = [];
+            for (var i = 0; i < sq.length; i++) {
+                if (sq[i].type == "checkbox") {
+                    if (sq[i].checked == true) {
+                        arrayId.push(sq[i].name);
+                    }
+                }
+            }
+
+            RemoveSelects(arrayId);
         });
 
 
@@ -134,5 +176,5 @@
         GetDocuments();
         CheckRole();
     </script>
-</body >
-</html >
+</body>
+</html>

@@ -15,6 +15,7 @@ namespace IESE.Domain
         public DbSet<WordDocument> WordDocuments { get; set; }
         public DbSet<WordTemplate> WordTemplates { get; set; }
         public DbSet<DocumentCategory> DocumentCategories { get; set; }
+        public DbSet<ArchiveDocument> ArchiveDocuments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) //Функция для стандартных строк в бд, если их нет то создаст если есть то ничего не сделает
         {
             base.OnModelCreating(modelBuilder);

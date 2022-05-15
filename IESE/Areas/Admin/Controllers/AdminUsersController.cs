@@ -79,6 +79,8 @@ namespace IESE.Areas.Admin.Controllers
 
                             user.Roles.Add(role);
 
+                            await userManager.CreateAsync(user);
+
                         }
                         catch (Exception e)
                         {

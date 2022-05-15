@@ -96,7 +96,7 @@ namespace IESE.Service
             return null;
         }
 
-        public string CreateDocument(string text)
+        public string CreateDocument(string text, string name)
         {
             using (MemoryStream mem = new MemoryStream())
             {
@@ -104,7 +104,15 @@ namespace IESE.Service
                 doc1.Process(new MariGold.OpenXHTML.HtmlParser(text));
                 doc1.Save();
 
-                var path = _appEnvironment.WebRootPath + "/WordFiles/" + Guid.NewGuid() + ".docx";
+                var path = _appEnvironment.WebRootPath + "/WordFiles/" + name + DateTime.Now.Year;
+
+                DirectoryInfo dirInfo = new DirectoryInfo(path);
+                if (!dirInfo.Exists)
+                {
+                    dirInfo.Create();
+                }
+
+                path += "/" + name + ".docx";
 
                 File.WriteAllBytes(path, mem.ToArray());
                 return path;

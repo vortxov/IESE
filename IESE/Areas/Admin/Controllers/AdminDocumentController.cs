@@ -59,7 +59,7 @@ namespace IESE.Areas.Admin.Controllers
             if (model != null)
             {
                 var helper = new WordHelper(_appEnvironment);
-                string path = helper.CreateDocument(model.uploadedFile);
+                string path = helper.CreateDocument(model.uploadedFile, model.Title);
                 List<IdentityRole> roles = new List<IdentityRole>();
 
                 foreach (var roleModel in model.RoleDocument[0].Split(","))
@@ -79,7 +79,7 @@ namespace IESE.Areas.Admin.Controllers
                             return BadRequest();
                     }
                 }
-                
+
 
                 WordDocument file = new WordDocument { NameFile = model.Title, Path = path, Title = model.Title, DateCreate = DateTime.Now, Roles = roles }; //Создаем класс для бд
 
@@ -201,32 +201,26 @@ namespace IESE.Areas.Admin.Controllers
         [HttpDelete("{id}")] //Делит запрос
         public async Task<IActionResult> DeleteFile(Guid id)
         {
-            var file = dataManager.WordDocument.GetWordDocmentById(id); //Находим документ по id 
-            var fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.Path); //находим файл и получаем его данные
-
-            if (fileInfo.Exists) //Проверяем есть ли файл 
-            {
-                fileInfo.Delete();//Удаляем docx файл
-            }
-
-            fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathPDF);
-
-            if (fileInfo.Exists)
-            {
-                fileInfo.Delete();//Удаляем pdf файл
-            }
-
-            fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathHTM);
-
-            if (fileInfo.Exists)
-            {
-                fileInfo.Delete();//Удаляем html файл
-            }
+         //   var file = dataManager.WordDocument.GetWordDocmentById(id); //Находим документ по id 
 
 
             dataManager.WordDocument.DeleteWordDocument(id); //Удаляем из бд
 
             return Ok(id);
+        }
+
+        [HttpPost("removeSelect")] //Делит запрос
+        public async Task<IActionResult> DeleteSelects([FromForm] List<string> files)
+        {
+            foreach (var filesId in files[0].Split(","))
+            {
+                var id = Guid.Parse(filesId);
+                // var file = dataManager.WordDocument.GetWordDocmentById(id); //Находим документ по id 
+
+                dataManager.WordDocument.DeleteWordDocument(id); //Удаляем из бд
+            }
+
+            return Ok(files);
         }
 
     }
