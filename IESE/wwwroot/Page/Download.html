@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta charset="Windows-1251 " />
     <title>Download</title>
     <link href="../css/style.css" rel="stylesheet" />
 </head>
@@ -97,7 +98,7 @@
                     a.setAttribute('href', "../" + item.pathPDF);
                     a.click();}; 
 
-                let iframe = document.getElementById("iframe"); //Находим панель для отображения файла
+                let iframe = document.getElementById("iframe"); //Находим панель для отображения файла //TODO: кодировка
                 iframe.setAttribute("src", item.pathHTM); //Устанавливаем ссылку на файл чтобы отобразить его
             }
         }
