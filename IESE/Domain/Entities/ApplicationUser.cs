@@ -22,6 +22,7 @@ namespace IESE.Domain.Entities
         public string? QualificationLevel { get; set; }
         public string? FinancialSupport { get; set; }
         public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
+        public List<ArchiveDocument> Archives { get; set; } = new List<ArchiveDocument>();
 
     }
 }

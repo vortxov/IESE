@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace IESE.Domain.Entities
@@ -11,8 +12,11 @@ namespace IESE.Domain.Entities
         public Guid Id { get; set; }
         public Guid IdDocument { get; set; }
         public string Title { get; set; }
+        public string CategoryTitle { get; set; }
         public string PathWord { get; set; }
         public string PathPDF { get; set; }
-        public DateTime DateCreate { get; set; }
+        public string DateCreate { get; set; }
+        [JsonIgnore]
+        public ApplicationUser User { get; set; }
     }
 }

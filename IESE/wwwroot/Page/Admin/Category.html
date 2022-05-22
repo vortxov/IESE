@@ -14,13 +14,15 @@
                 <li><a href="#">FAQ</a></li>
             </ul>
         </nav>
-        <h4>Категории документов</h4>
+        <center><h3 class="title__category1">Категории документов:</h3></center>
+        
         <div class="admincategory">
-            <div class="error" id="errors"></div>
+
             <form class="menu__input" name="userForm">
                 <input type="hidden" name="id" value="0" />
                 <div class="row__input">
                     <label for="name">Название категории:</label>
+                    <div class="error" id="errors"></div>
                     <input class="menu__input__item" placeholder="Категория" name="name" />
                 </div>
                 <div class="">
@@ -174,7 +176,7 @@
             const nameCategory = form.elements["name"].value;
 
             if (nameCategory == "") {
-                addError("Пустое название категории")
+                addError("ПУСТОЕ ПОЛЕ ВВОДА")
                 document.getElementById("errors").style.display = "block";
             }
             else {

@@ -4,20 +4,37 @@ using IESE.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IESE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220518140441_archive7.2")]
+    partial class archive72
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DocumentCategoryWordDocument", b =>
+                {
+                    b.Property<Guid>("CategoriesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DocumentsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CategoriesId", "DocumentsId");
+
+                    b.HasIndex("DocumentsId");
+
+                    b.ToTable("DocumentCategoryWordDocument");
+                });
 
             modelBuilder.Entity("IESE.Domain.Entities.ApplicationUser", b =>
                 {
@@ -127,13 +144,13 @@ namespace IESE.Migrations
                         {
                             Id = "832095e2-5c23-4da1-a83f-b7800e8473a6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ce347df-2397-4891-9f36-e30e24ff50a9",
+                            ConcurrencyStamp = "2a6724d6-571d-479f-a761-190f7ec137f0",
                             Email = "admin@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENrWlOl2IPZ3MKElEbVSs7wKFS1FdoE6IucZx+i0jR9gzhQI74uTpBBMi2rQ/IaT0w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGRhSSdI6bvC/rpRFNUP8GzAEc9P9s5A3JsJWyPGxFuRTvsTHn7sI1MNBdkO195GnA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -143,13 +160,13 @@ namespace IESE.Migrations
                         {
                             Id = "f757a680-51b0-4df8-89f9-c19ed6c08d85",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d379899f-1cfb-4bbf-b461-d29861b6dcae",
+                            ConcurrencyStamp = "3b0ab38e-a2ac-4420-8482-58f851cadfd9",
                             Email = "user@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@EMAIL.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK6FWXd3OS1YMTkfFsi2qHiQ0rFn2C1nWl5SBPFzvJmFS0NsMneIehwynJEET7wtBQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH+cK5GrMFJxLQq+WoQj23Sgv6AqQWVxHNppnq4U5wGWI40Wi7ablYQy36nowVovug==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -159,13 +176,13 @@ namespace IESE.Migrations
                         {
                             Id = "f07b07c6-f9f2-43cf-b4db-14903b8215e8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e09e5a56-3996-48c5-b7de-e71fc2c9ad2e",
+                            ConcurrencyStamp = "8860247b-bb24-4b89-8730-758fdd22b4a0",
                             Email = "otdelcadrov@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OTDELCADROV@EMAIL.COM",
                             NormalizedUserName = "OTDELCADROV",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN0Uk4isTkCpOLa1t1kpCEs2ybzKcDGSLxhEfgQa8Ql+3UF1j5FpMfCnexgbGyaXbQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK/9tXEE7VwMr+V+dLfRpg8umF7oU8hby/HxJacVoNfN3LK9RiDau3PCoDjDlP/M/w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -175,13 +192,13 @@ namespace IESE.Migrations
                         {
                             Id = "05301c29-f5f6-49a9-b967-25025c22922e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4a2d2ae3-6088-4286-922d-646d1e0c80cd",
+                            ConcurrencyStamp = "6fd43b32-1faf-458c-a0e7-02b932f90e53",
                             Email = "teacher@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEACHER@EMAIL.COM",
                             NormalizedUserName = "TEACHER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDkI4BdGaJuDlQ9r2zt7kWbmfLY/SqyJz9+g1qC38s3eAl3s9UC4LYfnSzo8oaKyzA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI0sj8+2qapkmyowftFQsAs/eWDNgYf0cOnFvKGL6JCgJ/Pk0nZrWybZZeY2TMpITQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -191,13 +208,13 @@ namespace IESE.Migrations
                         {
                             Id = "83e5cde4-3926-4d97-a42c-ecbcfd5f051b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "821f76b3-0bd9-4d29-a3f9-68b170289901",
+                            ConcurrencyStamp = "9532b07b-9cf8-44b4-877b-37a37aab499f",
                             Email = "teacheruser@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEACHERUSER@EMAIL.COM",
                             NormalizedUserName = "TEACHERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAENho7xoZLxV8eKy3nm67IJzNlyjkize6yNrfPgJZINgBNvRKQiFfo1oko6auhLwduw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJOE8/do6ZqFJ9qy1oTuYVUPiZhK+Q2n1BfYJB7MmqzfxQ3avTolck+oIP0lfIyXjw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -211,11 +228,8 @@ namespace IESE.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CategoryTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DateCreate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("IdDocument")
                         .HasColumnType("uniqueidentifier");
@@ -260,9 +274,6 @@ namespace IESE.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("DateCreate")
                         .HasColumnType("datetime2");
 
@@ -282,8 +293,6 @@ namespace IESE.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("WordDocuments");
                 });
@@ -348,35 +357,35 @@ namespace IESE.Migrations
                         new
                         {
                             Id = "eb91da24-af76-4b5c-ad48-cce1a100bb31",
-                            ConcurrencyStamp = "0b03e56b-fcd7-4990-a69d-72bdc72b9747",
+                            ConcurrencyStamp = "14f363b6-5f72-4e6c-ba91-3d53a3789de2",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "836d1908-8acb-464e-8d76-426153642557",
-                            ConcurrencyStamp = "161610fb-5d95-4ac0-a280-a864eb7327a7",
+                            ConcurrencyStamp = "754a6c60-b0ed-4313-a60f-a6286af1e72f",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "a9f1088f-76ba-4052-8f77-d3572e0ffc90",
-                            ConcurrencyStamp = "64ec104d-d90c-4f44-8e07-f7d273949450",
+                            ConcurrencyStamp = "50b912c8-f605-4bc5-bd26-e277d7e96f53",
                             Name = "otdelcadrov",
                             NormalizedName = "OTDELCADROV"
                         },
                         new
                         {
                             Id = "392fb190-6b32-4623-9e6f-adc884524345",
-                            ConcurrencyStamp = "0c2d1ae0-cec2-4fcc-8d33-6a55e2eafa23",
+                            ConcurrencyStamp = "ff95f1c5-2b12-402c-8b1a-1ba1ce7676ae",
                             Name = "teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
                             Id = "a8f8feb0-be4a-4637-8634-4d46d4b06c0d",
-                            ConcurrencyStamp = "700e53a6-5302-4a65-be37-44fcb130eebd",
+                            ConcurrencyStamp = "4e4c5acf-2ee8-4c8e-81a7-3293bd1276c6",
                             Name = "teacheruser",
                             NormalizedName = "TEACHERUSER"
                         });
@@ -513,6 +522,21 @@ namespace IESE.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("DocumentCategoryWordDocument", b =>
+                {
+                    b.HasOne("IESE.Domain.Entities.DocumentCategory", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IESE.Domain.Entities.WordDocument", null)
+                        .WithMany()
+                        .HasForeignKey("DocumentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IESE.Domain.Entities.ArchiveDocument", b =>
                 {
                     b.HasOne("IESE.Domain.Entities.ApplicationUser", "User")
@@ -520,15 +544,6 @@ namespace IESE.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IESE.Domain.Entities.WordDocument", b =>
-                {
-                    b.HasOne("IESE.Domain.Entities.DocumentCategory", "Category")
-                        .WithMany("Documents")
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -598,11 +613,6 @@ namespace IESE.Migrations
                     b.Navigation("Archives");
 
                     b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("IESE.Domain.Entities.DocumentCategory", b =>
-                {
-                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("IESE.Domain.Entities.WordDocument", b =>

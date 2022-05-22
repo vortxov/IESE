@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Данные пользователя</title>
+    <link href="../../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="/index.html">Главная</a></li>
+                <li><a href="/Page/PersonalAccount.html">Личный Кабинет</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </nav>
+        <center><h3 class="title__category1">Данные пользователя:</h3></center>
+
+        <div id="errors" class="error" style="display:none;"></div>
+        <div class="admincategory">
+            <div class="error" id="errors"></div>
+            <form class="menu__input" name="userForm">
+                <input type="hidden" name="id" value="0" />
+
+                <div class="">
+                    <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
+                </div>
+            </form>
+            <table class="table1">
+                <thead>
+                    <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Дата рождения</th>
+                        <th>Курс</th>
+                        <th>Группа</th>
+                        <th>Форма обучения</th>
+                        <th>Факультет</th>
+                        <th>Специальность</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table1">
+                <thead>
+                    <tr>
+                        <th>Уровень квалификации</th>
+                        <th>Финансовое обеспечение</th>
+                        <th>Почта</th>
+                        <th>Год поступления</th>
+                        <th>Год окончания</th>
+                        <th>Логин</th>
+                        <th>Пароль</th>
+                        <th>Должность</th>
+                        
+                        
+</thead>
+                <tbody>
+                    <tr>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        <td><input class="userinfo" type="text"></td>
+                        
+                        
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </header>
+
+    
+
+    
+
+    <script src="../../js/Main.js"></script>
+    <script>
+
+        async function PostUserFile(data) {
+
+            const response = await fetch("/adminusers", {
+                method: "POST",
+                body: data,
+            });
+            if (response.ok === true) {
+            }
+            else {
+
+                document.getElementById("errors").style.display = "block";
+            }
+        }
+
+        document.forms["userForm"].addEventListener("submit", e => {
+            e.preventDefault();
+            const form = document.forms["userForm"];
+            var myfile = form.elements["uploadedFile"].files;
+            var data = new FormData();
+
+            if (myfile.length > 0) {
+                for (var i = 0; i < myfile.length; i++) {
+                    data.append('File', myfile[i]);
+                }
+            }
+
+            if (myfile.length == 0) {
+                addError("Не выбран файл")
+            }
+            else {
+
+                PostUserFile(data);
+            }
+        });
+
+        async function CheckRole() {
+            var role = await CheckAuthorizeRole();
+            if (role != "admin") {
+                const a = document.createElement('a');
+                a.setAttribute('href', "/index.html");
+                a.click();
+            }
+        }
+        CheckRole();
+    </script>
+</body>
+</html>

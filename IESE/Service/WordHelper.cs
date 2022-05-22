@@ -35,23 +35,29 @@ namespace IESE.Service
         }
 
 
-        internal string Process(Dictionary<string,string> items) //Функция для изменения шаблонов 
+        internal string Process(Dictionary<string,string> items, string path) //Функция для изменения шаблонов 
         {
             Word.Application app = null;
             if (fileInfo != null) //Проверка есть ли данные о файле
             {
                 try
                 {
+                    DirectoryInfo dirInfo = new DirectoryInfo(path);
+                    if (!dirInfo.Exists)
+                    {
+                        dirInfo.Create();
+                    }
+
                     app = new Word.Application(); //Открывае приложение word
                     Object file = fileInfo.FullName;
 
                     Object missing = Type.Missing;
 
                     app.Documents.Open(file); //Открываем файл по его пути
-                    app.ActiveDocument.SaveAs2(fileInfo.DirectoryName + "/change.docx");  //Создаем копию файла для его изменения
+                    app.ActiveDocument.SaveAs2(path +  fileInfo.Name);  //Создаем копию файла для его изменения
                     app.ActiveDocument.Close(); //Закрываем прошлый файл 
 
-                    app.Documents.Open(fileInfo.DirectoryName + "/change.docx"); // И открываем копию
+                    app.Documents.Open(path +  fileInfo.Name); // И открываем копию
 
 
                     foreach (var item in items) //Из листа шаблонов по одному меняем меняем все
@@ -75,7 +81,7 @@ namespace IESE.Service
                             ReplaceWith: missing, Replace: replace);
                     }
 
-                    string newFileName = fileInfo.DirectoryName + "\\" + Guid.NewGuid() + ".pdf"; //Пишем путь нового файла в пдф формате
+                    string newFileName = path +  fileInfo.Name.Split(".")[0] + ".pdf"; //Пишем путь нового файла в пдф формате
                     app.ActiveDocument.ExportAsFixedFormat(newFileName, WdExportFormat.wdExportFormatPDF); //Сохраняем в новом формате
                     app.ActiveDocument.Close(); //Закрываем файл
 
@@ -83,12 +89,11 @@ namespace IESE.Service
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine(ex.Message);
                 }
                 finally
                 {
-                    System.IO.File.Delete(fileInfo.DirectoryName + "/change.docx"); //Удаляем копию файла из за того что уже не нужен
+                    //System.IO.File.Delete(fileInfo.DirectoryName + "/change.docx"); //Удаляем копию файла из за того что уже не нужен
                     if (app != null)
                         app.Quit(); 
                 }

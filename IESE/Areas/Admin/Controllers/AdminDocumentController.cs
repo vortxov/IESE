@@ -128,9 +128,9 @@ namespace IESE.Areas.Admin.Controllers
 
                 var category = dataManager.DocumentCategory.GetDocumentCategoryById(model.IdCategory); //Находим категорию в которую добавляем файл
 
-                file.Categories.Add(category); //Добавляем категорию в документ чтобы добавить в список документов этой категории
+                file.Category = category; //Добавляем категорию в документ чтобы добавить в список документов этой категории
 
-                dataManager.WordDocument.SaveWordDocument(file); //Сохраняем документ в бд
+                await dataManager.WordDocument.SaveWordDocument(file); //Сохраняем документ в бд
 
 
 

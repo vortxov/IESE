@@ -31,6 +31,14 @@ namespace IESE.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public IEnumerable<ApplicationUser> GetDocumentsUser()
+        {
+            var users = userManager.Users;
+            return users;
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> PostFile([FromForm] UserFileModel model)
         {

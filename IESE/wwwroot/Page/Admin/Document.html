@@ -18,18 +18,20 @@
 
     <div class="admincategory">
 
-        <h1 align="center"> Создание нового документа </h1>
-        <table cellpadding="4" cellspacing="1">
+        <center><h3 class="title__category2">Создание нового документа:</h3></center>
+        
+        <table class="checkboxs" cellpadding="4" cellspacing="1">
             <tr><th><p><input type="checkbox" id="Студент" name="Студент" value="Студент">Студент</p></th><th><p><input type="checkbox" id="Преподаватель-Студент" name="a" value="Преподаватель-Студент" checked>Студент-преподаватель</p></th><th><p><input type="checkbox" id="Преподаватель" name="a" value="Преподаватель" checked>Преподаватель</p></th></tr>
         </table>
-        
-        <div id="errors" class="error" style="display:none;"></div>
+
+
         <form class="menu__input" name="userForm">
 
             <input type="hidden" name="id" value="0" />
 
             <div class="row__input">
                 <label for="name">Название документа:</label>
+                <left><div id="errors" class="error"></div></left>
                 <input class="menu__input__item" placeholder="Введите название будущего документа" name="name" />
             </div>
 
@@ -428,7 +430,7 @@
             data.append('RoleDocument', roles);
 
             if (title == "") { //TODO: Сделать красивые ошибки
-                addError("Пустой Title") //Если название пусто то отобразит ошибку
+                addError("ПУСТОЕ ПОЛЕ ВВОДА") //Если название пусто то отобразит ошибку
             }
             //else if (myfile.length == 0) {
             // addError("Не выбран файл") //Если количество файло равно 0 то отобразит ошибку

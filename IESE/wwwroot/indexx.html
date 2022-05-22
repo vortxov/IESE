@@ -1,43 +1,140 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ckeditor5</title>
-  <style>
-    .container {
-      width: 80%;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-  </style>
+    <script src="https://cdn.tiny.cloud/1/nkepso0ptv9htexm16ahj1l179ij3n6tnxhpnhkfd2sgejz9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
-
 <body>
-
-  <div class="container">
-    <div id="editor">
+    <div style="min-height: 470px;">
+        <p style="margin-top: 20px;">
+            <strong>Current user:</strong> <span id=fakedemouser1></span><br><strong>
+                Collaborator
+                (user in the other editor):
+            </strong> <span id=otherfakeuser1></span>
+        </p>
+        <div id="editor1" style="display: none;" data-rtc-editor-parent>
+<textarea id="rtc-editor-1" data-rtc-editor>
+<h2 style="text-align: center;">Welcome to the TinyMCE editor demo!</h2>
+</textarea>
+        </div>
     </div>
-  </div>
+    <div style="min-height: 470px;">
+        <p style="margin-top: 20px;">
+            <strong>Current user:</strong> <span id=fakedemouser2></span><br><strong>
+                Collaborator
+                (user in the other editor):
+            </strong> <span id=otherfakeuser2></span>
+        </p>
+        <div id="editor2" style="display: none;" data-rtc-editor-parent>
+<textarea id="rtc-editor-2" data-rtc-editor>
+<h2 style="text-align: center;">Welcome to the TinyMCE editor demo!</h2>
+</textarea>
+        </div>
+    </div>  
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+            toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+        });
 
-<a href="home.html" target="_blank">Home</a>
+        /*
+* Initial content for the editor, to be loaded into the editor using the
+* optional `rtc_initial_content_provider` option. This could pulled from
+* a database when using the editor in production.
+*/
+        const initialEditorContent = '<p><img style="display: block; margin-left: auto; margin-right: auto;" title="Tiny Logo" src="https://www.tiny.cloud/docs/images/logos/android-chrome-256x256.png" alt="TinyMCE Logo" width="128" height="128"></p><h2 style="text-align: center;">Welcome to the TinyMCE Real-Time Collaboration demo!</h2><p>This editor is collaborating with the other editor on the page. Try editing the content by adding images, lists, or any other currently supported content, it should appear in the other editor too!</p><p>All network requests made by this demo, fake or real, are logged in the browser console using <a href="https://netflix.github.io/pollyjs" target="_blank" rel="noopener">Polly.js</a> (the browser console is typically accessed using the F12 key).</p><h2>Got questions or need help?</h2><ul><li>Our <a class="mceNonEditable" href="https://www.tiny.cloud/docs/tinymce/6/">documentation</a> is a great resource for learning how to configure TinyMCE.</li><li>Have a specific question? Try the <a href="https://stackoverflow.com/questions/tagged/tinymce" target="_blank" rel="noopener"><code>tinymce</code> tag at Stack Overflow</a>.</li></ul><h2>Found a bug?</h2><p>If you think you have found a bug please create an issue on the <a href="https://github.com/tinymce/tinymce/issues">GitHub repo</a> to report it to the developers.</p><h2>Finally,</h2><p>Thanks for supporting TinyMCE! We hope it helps you and your users create great content.<br>All the best from the TinyMCE team.</p>';
 
-  <script src="/ckeditor/ckeditor.js"></script>
+        /* Set up a connected users object for maintaining a list of connected users */
+        const connectedUsers = {};
 
-  <script>
-
-      var myEditor = null;
-
-      ClassicEditor
-        .create(document.querySelector('#editor'))
-        .then(editor => {
-            myEditor = editor;
-        })
-        .catch(error => {
-        console.error(error)
-      });
-  </script>
+        tinymce.init({
+            selector: 'textarea#rtc',
+            plugins:
+                'rtc advlist charmap emoticons help image insertdatetime link ' +
+                'lists powerpaste save visualblocks wordcount',
+            menubar: 'file edit insert view format table tools help',
+            toolbar:
+                'undo redo | blocks | bold italic underline | ' +
+                'alignleft aligncenter alignright | bullist numlist | insert | help',
+            height: 400,
+            toolbar_groups: {
+                insert: {
+                    icon: 'plus',
+                    tooltip: 'Insert',
+                    items: 'link | charmap emoticons | image | insertdatetime',
+                },
+            },
+            rtc_document_id: documentID,
+            rtc_encryption_provider: ({ documentId, keyHint }) =>
+                fetch('https://api.example/getEncryptionKey/', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ documentId, keyId: keyHint }),
+                })
+                    .then((response) => response.json())
+                    .catch((error) =>
+                        console.log('Failed to return encryption key\n' + error)
+                    ),
+            rtc_token_provider: () =>
+                fetch('https://api.example/getJwtToken/', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userID }),
+                })
+                    .then((response) => response.json())
+                    .catch((error) => console.log('Failed to return a JWT\n' + error)),
+            rtc_user_details_provider: ({ userId }) =>
+                fetch('https://api.example/getUserDetails/', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId }),
+                })
+                    .then((response) => response.json()),
+            rtc_initial_content_provider: () =>
+                Promise.resolve({ content: initialEditorContent }),
+            rtc_client_connected: ({
+                userDetails,
+                userId,
+                caretNumber,
+                clientId,
+            }) => {
+                connectedUsers[clientId] = {
+                    caretNumber,
+                    userDetails,
+                    userId,
+                };
+                /* Adds the collaborator above the editor and logs details to the console */
+                document.getElementById(collaboratorUsernameElem).innerText =
+                    userDetails.fullName;
+                console.log(
+                    `Fake user ${userDetails.fullName} (${userDetails.email}) connected with caret number ${caretNumber}`
+                );
+            },
+            rtc_client_disconnected: ({ clientId, userDetails }) => {
+                delete
+                    connectedUsers[clientId];
+                /* Removes collaborator from above the editor and logs to the console */
+                document.getElementById(collaboratorUsernameElem).innerText =
+                    userDetails.fullName;
+                console.log(
+                    `Fake user ${userDetails.fullName} (${userDetails.email}) disconnected`
+                );
+            },
+        });
+    </script>
 </body>
-
 </html>

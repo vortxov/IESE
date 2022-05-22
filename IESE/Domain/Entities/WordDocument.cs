@@ -20,6 +20,6 @@ namespace IESE.Domain.Entities
         public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
         public string Title { get; set; }
         [JsonIgnore]
-        public List<DocumentCategory> Categories { get; set; } = new List<DocumentCategory>();
+        public DocumentCategory Category { get; set; }
     }
 }

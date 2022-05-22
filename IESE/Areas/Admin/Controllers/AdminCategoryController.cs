@@ -76,11 +76,11 @@ namespace IESE.Areas.Admin.Controllers
                     fileInfo.Delete();
                 }
 
-                dataManager.WordDocument.DeleteWordDocument(item.Id);
+                await dataManager.WordDocument.DeleteWordDocument(item.Id);
             }
 
-            
-            dataManager.DocumentCategory.DeleteDocumentCategory(id);
+
+            await dataManager.DocumentCategory.DeleteDocumentCategory(id);
 
             return Ok();
         }

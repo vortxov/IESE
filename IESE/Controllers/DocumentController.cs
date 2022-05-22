@@ -94,10 +94,12 @@ namespace IESE.Controllers
                     temp.Add(item.Template, res); //Заполняем список чего нужно изменить в файле
                 }
                 temp.Add("DATA", DateTime.Now.ToString()); //Добавляем к этому списку еще дату на данный момент 
+                string pathArchive = _appEnvironment.WebRootPath + "\\Archive\\" + user.Group + user.Firstname + "\\";
 
-
-                path = wordHelper.Process(temp); //И вызываем функцию для изменения шаблонов на текст, передаем функции список необходимых изменений
+                path = wordHelper.Process(temp, pathArchive); //И вызываем функцию для изменения шаблонов на текст, передаем функции список необходимых изменений
                                                  //и получаем путь к новому файлу pdf который содержит в себе изменения 
+
+
 
                 if (path != null) //Если нет пути значит нет файла и произошла ошибка
                 {
@@ -110,15 +112,25 @@ namespace IESE.Controllers
                         }
                         memory.Position = 0;
                         var ext = Path.GetExtension(path).ToLowerInvariant(); //Получаем данные о файле 
+
+                        var arhiveDocument = new ArchiveDocument()
+                        {
+                            PathPDF = path,
+                            PathWord = path.Split(".pdf")[0] + ".docx",
+                            DateCreate = DateTime.Now.Year.ToString() + "." + DateTime.Now.Month.ToString() + "." + DateTime.Now.Day.ToString(),
+                            IdDocument = file.Id,
+                            Title = file.Title,
+                            CategoryTitle = file.Category.NameCategory,
+                            User = user
+                        };
+
+                        await dataManager.ArchiveDocument.SavArchiveDocument(arhiveDocument);
+
                         return File(memory, "application/vnd.ms-word", Path.GetFileName(path)); //Передаем файл запросу в приложение ворд и его имя
                     }
                     catch (Exception e)
                     {
                         throw new ArgumentException(e.Message); //Если была ошибка то напишет //TODO: Изменить ошибку
-                    }
-                    finally
-                    {
-                        System.IO.File.Delete(path); //После передачи файла запросу удаляем его на сервере, чтобы не накапливалась 
                     }
                 }
                 return NotFound();
