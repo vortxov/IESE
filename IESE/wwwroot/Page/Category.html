@@ -6,7 +6,7 @@
     <link href="../css/style.css" rel="stylesheet" />
 </head>
 <body>
-    
+
     <header class="header">
         <nav class="top-menu">
             <ul class="menu-main">
@@ -16,10 +16,10 @@
             </ul>
         </nav>
 
-        <center><h3 class="title__category1">Категории документов:</h3></center>
+        <center><h1>Категории документов:</h1></center>
         <div class="category__container ">
             <div id="rowData" class="category__row center">
-                
+
             </div>
         </div>
 
@@ -29,7 +29,7 @@
 
 
     <script>
-        async function GetCategories() { 
+        async function GetCategories() {
             const response = await fetch("/category", { //Запросом получаем список категорий
                 method: "GET",
                 headers: { "Accept": "application/json" }
@@ -45,7 +45,7 @@
 
 
         function row(category) { //Функция для создание страки в таблицу
-            const div = document.createElement("div"); 
+            const div = document.createElement("div");
             div.setAttribute("class", "category__column") //Добавляем стиль строке
 
             const nameA = document.createElement("a");

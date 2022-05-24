@@ -15,40 +15,140 @@
             </ul>
         </nav>
 
-        <center><h3 class="title__category1">Архив всех справок:</h3></center>
+        <center><h1>Архив всех справок:</h1></center>
 
         <form action="" method="get">
             <input name="s" placeholder="Поиск документа" type="search">
             <button type="submit">Поиск</button>
         </form>
-        
-            <table class="table4">
-                <thead>
-                    <tr>
-                        <th>Дата оформления</th>
-                        <th>Название категории</th>
-                        <th>Название документа</th>
-                        <th>ФИО</th>
-                        <th></th>
+
+        <table class="table4">
+            <thead>
+                <tr>
+                    <th>Дата оформления</th>
+                    <th>Название категории</th>
+                    <th>Название документа</th>
+                    <th>ФИО</th>
+                    <th></th>
 
 
 
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>10/18/1985</td>
-                        <td>Выписки</td>
-                        <td>Выписки с оценками</td>
-                        <td>Дегтянников О.Е</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10/18/1985</td>
+                    <td>Выписки</td>
+                    <td>Выписки с оценками</td>
+                    <td>Дегтянников О.Е</td>
 
-                    </tr>
-                </tbody>
-            </table>
-        
+                </tr>
+            </tbody>
+        </table>
+
 
     </header>
+
+    <script src="../js/Main.js"></script>
+    <script>
+        async function GetTableDocuments(id) {
+            const response = await fetch("/adminusers/archive/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            });
+            if (response.ok === true) {
+                const archives = await response.json();
+                let rows = document.querySelector("tbody");
+                archives.forEach(archive => {
+                    rows.append(row(archive));
+                });
+            }
+
+
+        }
+
+        async function Download(id, title) { //Пост запрос для скачивания файла
+
+
+            const response = await fetch("/archive/", { //Отправляем пост запрос в контроллер /document
+                method: "Post", //То что это пост запрос
+                headers: { "Accept": "application/json", "Content-Type": "application/json" }, //Передается и принимается только json файл
+                body: JSON.stringify({ //В ввиде json отправляем id
+                    id: id
+                })
+            });
+            if (response.ok === true) { //Если приходит результат выполнено успешно
+                const file = await response.blob(); //приравниваем к переменной файл
+
+                const url = URL.createObjectURL(file); //Получаем ссылку к файлу
+                const a = document.createElement('a'); //Создаем пустой элемент <a>
+
+                a.href = url; //К <a href> ставим ссылку на скачивание файла
+                a.download = title + '.pdf' || 'download'; //При скачивание файла через элемент <a> название файла будет filename + '.pdf'
+
+                const clickHandler = () => { //Создаем Ивент для удаления файла после скачивания
+                    setTimeout(() => { //Временная пауза перед удалением
+                        URL.revokeObjectURL(url); //Удаляем ссылку
+                        this.removeEventListener('click', clickHandler); //Удаляем ивент
+                    }, 150); //150 - время для ожидания
+                };
+
+                a.addEventListener('click', clickHandler, false); //Добавляем ивент при клике <a>
+                a.click(); //Имитируем клик, то есть <a> нажимается
+                return a; //Возвращаем <a>
+            }
+        }
+
+
+
+
+        function row(archive) {
+            const tr = document.createElement("tr");
+
+
+            const tdCategoryTitle = document.createElement("td");
+            tdCategoryTitle.append(archive.categoryTitle);
+            tr.append(tdCategoryTitle);
+
+            const tdTitle = document.createElement("td");
+            tdTitle.append(archive.title);
+            tr.append(tdTitle);
+
+            const tdDate = document.createElement("td");
+            tdDate.append(archive.dateCreate);
+            tr.append(tdDate);
+
+            const tdDownload = document.createElement("td");
+            const btnDownload = document.createElement("button");
+            btnDownload.type = "submit";
+            btnDownload.append("Скачать");
+            btnDownload.addEventListener("click", e => {
+
+                e.preventDefault();
+                Download(archive.idArchive, archive.title);
+            });
+            tdDownload.append(btnDownload)
+            tr.append(tdDownload);
+
+
+
+
+            return tr;
+        }
+
+        async function CheckRole() {
+            var role = await CheckAuthorizeRole();
+            if (role != "admin") {
+                const a = document.createElement('a');
+                a.setAttribute('href', "/index.html");
+                a.click();
+            }
+        }
+        CheckRole();
+
+        var userId = window.location.href.split("?")[1].split("=")[1]; //Получаем id категории
+        GetTableDocuments(userId);</script>
 
 
 </body>

@@ -14,11 +14,14 @@
                 <li><a href="#">FAQ</a></li>
             </ul>
         </nav>
-        <center><h3 class="title__category1">Редактор пользователей:</h3></center>
+        <center><h1>Редактор пользователей:</h1></center>
         <form action="" method="get">
-            <input name="s" placeholder="Поиск студента" type="search">
-            <button type="submit">Поиск</button>
+            <input class="Search1" name="s" placeholder="Поиск студента" type="search" size="50" height="">
+            <button class="Search1" type="submit">Поиск</button>
         </form>
+
+
+
         <div id="errors" class="error" style="display:none;"></div>
         <div class="admincategory">
             <div class="error" id="errors"></div>
@@ -41,7 +44,7 @@
                             <th>Отчество</th>
                             <th>Курс</th>
                             <th>Группа</th>
-                            <th>Группа</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +55,7 @@
                             <td>10/18/1985</td>
                             <td>4</td>
 
-                            <td><li><a href="../Admin/userinfo.html">Подробнее</a></li></td>
+                            <td><li><a href="../Admin/userinfo.html" <span style="text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px;">Подробнее</span></a></li></td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,6 +100,68 @@
             }
         });
 
+
+        async function GetTableUsers() {
+            const response = await fetch("/adminusers/", {
+                method: "GET",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            });
+            if (response.ok === true) {
+                const users = await response.json();
+                let rows = document.querySelector("tbody");
+                users.forEach(user => {
+                    rows.append(row(user));
+                });
+            }
+
+
+        }
+
+
+        function row(user) {
+            const tr = document.createElement("tr");
+
+
+            const tdFirstName = document.createElement("td");
+            tdFirstName.append(user.firstname);
+            tr.append(tdFirstName);
+
+            const tdSurname = document.createElement("td");
+            tdSurname.append(user.surname);
+            tr.append(tdSurname);
+
+            const tdPat = document.createElement("td");
+            tdPat.append(user.patronymic);
+            tr.append(tdPat);
+
+            const tdCourse = document.createElement("td");
+            tdCourse.append(user.course);
+            tr.append(tdCourse);
+
+            const tdGroup = document.createElement("td");
+            tdGroup.append(user.group);
+            tr.append(tdGroup);
+
+
+            const tdlink = document.createElement("td");
+            const lilink = document.createElement("li");
+            const alinkdetail = document.createElement("a");
+            alinkdetail.append("Подробнее");
+            alinkdetail.href = "../Admin/userinfo.html?id=" + user.id;
+            lilink.append(alinkdetail);
+            const alinkarchive = document.createElement("a");
+            alinkarchive.append("Его архив");
+            alinkarchive.href = "../Admin/Archive.html?id=" + user.id;
+            lilink.append(alinkarchive);
+            tdlink.append(lilink);
+            tr.append(tdlink);
+
+
+
+
+            return tr;
+        }
+
         async function CheckRole() {
             var role = await CheckAuthorizeRole();
             if (role != "admin") {
@@ -106,6 +171,7 @@
             }
         }
         CheckRole();
+        GetTableUsers();
     </script>
 </body>
 </html>

@@ -69,7 +69,8 @@ html, body {
     justify-content: center;
     align-items: center;
     margin-bottom: 70px;
-    margin-top: 40px;
+    margin-top: 60px;
+    font-size: 23px;
 }
 
 .account__menu {
@@ -85,11 +86,11 @@ html, body {
 }
 
 .menu__item {
-    padding: 0 15px;
+    padding: 0 20px;
 }
 
 .accountmenu__item {
-    padding: 5px;
+    padding: 2px;
 }
 
 .accountmenu__link {
@@ -98,7 +99,9 @@ html, body {
     width: fit-content;
     text-align: center;
     padding: 12px 24px;
+    bottom: -20px;
     margin: 10px auto;
+    font-size: 23px;
 }
 
     .accountmenu__link::after {
@@ -108,41 +111,45 @@ html, body {
         left: 50%;
         display: block;
         background: none repeat scroll 0 0 transparent;
-        height: 2px;
+        height: 3px;
         width: 0;
-        background: red;
-        transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        background: black;
+       
+        font-size: 23px;
     }
 
     .accountmenu__link:hover::after {
         width: 100%;
         left: 0;
+        
     }
 
 .link__inside::after {
     content: "";
+
     position: absolute;
     bottom: 0;
     left: 50%;
     display: block;
     background: none repeat scroll 0 0 transparent;
-    height: 2px;
+    height: 3px;
     width: 100%;
     left: 0;
-    background: #ff0000;
+    background: black;
 }
 
 .link__outside::after {
     content: "";
     position: absolute;
+
     bottom: 0;
     left: 50%;
     display: block;
     background: none repeat scroll 0 0 transparent;
-    height: 2px;
-    width: 0;
-    background: #ff0000;
-    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    height: 3px;
+    width:0;
+    background: black;
+    
 }
 
 .link__outside:hover::after {
@@ -225,10 +232,10 @@ html, body {
     padding-left: 0; /*убираем отступы*/
     margin-top: 0; /*делаем отступ сверху*/
     background:; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
-    height: 50px;
+    height: 58px;
     border-style: solid;
-    border-width: 0px 0px 2px 0px;
-    px 0px;
+    border-width: 0px 0px 3px 0px;
+    
     text-align: left;
     ;
 }
@@ -253,9 +260,9 @@ html, body {
         font-family: 'Ubuntu Condensed', sans-serif;
         letter-spacing: 2px;
         position: relative;
-        padding-bottom: 20px;
-        margin: 0 34px 0 30px;
-        font-size: 17px;
+        padding-bottom: 10px;
+        margin: 0 15px 0 15px;
+        font-size: 22px;
         text-transform: uppercase;
         display: inline-block;
         transition: color .2s;
@@ -266,8 +273,11 @@ html, body {
         }
 
             .menu-main a.current, .menu-main a:hover {
-                color: red;
-                
+                color: black;
+                text-decoration: underline solid;
+                bottom: -2px;
+                text-underline-offset: 5px;
+                text-decoration-thickness: 4px;
             }
 
 
@@ -378,18 +388,18 @@ html, body {
 
 .menu__input__item {
     margin-top: -7px;
-    max-width: 30%;
-    height: 35px;
+    max-width: 40%;
+    height: 45px;
     width: 700px;
     padding: 0.375rem 0.75rem;
     font-family: inherit;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 400;
     line-height: 1.5;
-    color: #5380bff2;
+    color: black;
     background-color: ;
     background-clip: padding-box;
-    border: 1px solid #bdbdbd;
+    border: 1px solid black;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -411,14 +421,14 @@ html, body {
 
 a.btn__menu__input {
     margin-left: 16px;
-    background-color: #5380bff2;
+    background-color: #f5efef;
     border: 0;
     border-radius: .3rem;
     box-sizing: border-box;
     color: black;
     font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 700;
     line-height: 1.25rem;
     padding: .65rem 1rem;
     text-align: center;
@@ -436,7 +446,7 @@ a.btn__menu__input {
     a.btn__menu__input:hover {
         background-color: #aaa;
         border-color: dodgerBlue;
-        box-shadow: 0 0 8px 0 dodgerBlue;
+        box-shadow: 0 0 8px 0 black;
     }
 
     a.btn__menu__input:focus {
@@ -451,14 +461,14 @@ a.btn__menu__input {
 
 .btn__menu__input {
     margin-left: 16px;
-    background-color: #5380bff2;
+    background-color: #f5efef;
     border: 0;
     border-radius: .3rem;
     box-sizing: border-box;
     color: black;
     font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 700;
     line-height: 1.25rem;
     padding: .75rem 1rem;
     text-align: center;
@@ -473,8 +483,8 @@ a.btn__menu__input {
 
     .btn__menu__input:hover {
         background-color: #aaa;
-        border-color: dodgerBlue;
-        box-shadow: 0 0 8px 0 dodgerBlue;
+        border-color: black;
+        box-shadow: 0 0 8px 0 black;
     }
 
     .btn__menu__input:focus {
@@ -493,7 +503,7 @@ a.btn__menu__input {
     border: 1px solid #dddddd;
     border-collapse: collapse;
     position: fixed;
-    left: 20px;
+    left: 30px;
 }
 
 .table__row {
@@ -503,16 +513,18 @@ a.btn__menu__input {
 
 .table__firstitem {
     width: auto;
+    font-size: 30px;
 }
 
 
 .table__seconditem {
-    width: 30px;
+    width: auto;
 }
 
 .table__link {
     color: darkblue;
     padding-left: 30px;
+    font-size: 25px;
 }
 
 
@@ -530,23 +542,22 @@ a.btn__menu__input {
     z-index: -1;
 }
 
-
-    .inputfile + .inputfile__label {
-        margin-top: 10px;
-        font-size: 0.7em;
-        
-        height: 35px;
-        font-weight: 500;
-        color: black;
-        background-color: #5380bff2;
-        border-radius: 0.3rem;
-        display: inline-block;
-        width: 170px;
-        cursor: pointer;
-        text-align: center;
-        vertical-align:middle;
-        transition: .3s;
-    }
+.inputfile + .inputfile__label {
+    margin-top: 10px;
+    height: 45px;
+    font-weight: 500;
+    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1.6rem;
+    color: black;
+    background-color: #f5efef;
+    border-radius: 0.3rem;
+    display: inline-block;
+    width: 180px;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    transition: .3s;
+}
 
         .inputfile:focus + .inputfile__label,
         .inputfile + .inputfile__label:hover {
@@ -602,7 +613,7 @@ input[type=checkbox] {
     }
 
         .vertical-menu a:hover {
-            background-color: #5380bff2; /* Dark grey background on mouse-over */
+            background-color: #f5efef; /* Dark grey background on mouse-over */
         }
 
         .vertical-menu a.active {
@@ -655,10 +666,10 @@ input[type=checkbox] {
         padding: 0px;
         margin-right: auto;
         font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-        font-size: 1.1rem;
+        font-size: 2px;
         font-weight: 700;
         line-height: 1.25rem;
-        background-color: #5380bff2;
+        background-color: #f5efef;
         border-radius: 0.5rem;
         transition: .3s linear;
     }
@@ -673,8 +684,8 @@ input[type=checkbox] {
     }
 
     .topmenu > li > a {
-        padding: 20px 30px;
-        font-size: 12px;
+        padding: 10px 14px;
+        font-size: 20px;
         text-transform: uppercase;
         color: #5380bff2;
         letter-spacing: 2px;
@@ -715,7 +726,7 @@ input[type=checkbox] {
             background-color: white;
             color: black;
             padding: 10px 20px;
-            font-size: 13px;
+            font-size: 20px;
             border-bottom: 4px solid black;
         }
 
@@ -778,14 +789,14 @@ nav li:hover > .submenu {
 
 .table1 {
     border: 1px solid #eee;
-    table-layout: auto;
-    width: 90%;
+    table-layout: fixed;
+    width: 80%;
     margin-top: 20px;
 }
 
     .table1 th {
         font-weight: bold;
-        font-size: 13px;
+        font-size: 26px;
         padding: 5px;
         background: #efefef;
         border: 1px solid #dddddd;
@@ -796,6 +807,7 @@ nav li:hover > .submenu {
         table-layout: auto;
         border: 1px solid #eee;
         text-align: left;
+        font-size: 20px;
     }
 
     .table1 tbody tr:nth-child(odd) {
@@ -807,6 +819,39 @@ nav li:hover > .submenu {
     }
 
 
+
+.table444 {
+    border: 1px solid #eee;
+    table-layout: auto;
+    width: 30%;
+    margin-top: -3px;
+    margin:auto;
+}
+
+    .table444 th {
+        font-weight: bold;
+        font-size: 22px;
+        padding: 2.5px;
+        background: #eee;
+        border: 1px solid #dddddd;
+    }
+
+    .table444 td {
+        padding: 4px 10px;
+        table-layout: auto;
+        border: 1px solid #eee;
+        text-align: left;
+        font-size: 20px;
+       
+    }
+
+    .table444 tbody tr:nth-child(odd) {
+        background: white;
+    }
+
+    .table444 tbody tr:nth-child(even) {
+        background: #F7F7F7;
+    }
 .backbtn{
     width: 100px;
     height: 30px;
@@ -830,5 +875,30 @@ nav li:hover > .submenu {
 .checkboxs{
     margin-top: -50px;
     margin-left: 7px;
+}
+
+
+.userinfo {
+    font-size: 23px;
+    color: black;
+    height: 22px;
+    width: 600px;
+    line-height: 12px; /*вертикальное положение текста*/
+}
+
+.ButtonDelete {
+    color: black;
+    font-size: 20px;
+    background: #f5efef;
+    margin: auto;
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+
+.Search1{
+    color: black;
+    font-size: 25px;
+    
 }
 

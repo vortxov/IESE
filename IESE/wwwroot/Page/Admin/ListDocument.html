@@ -5,23 +5,27 @@
     <link href="../../css/style.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="top-menu">
-        <ul class="menu-main">
-            <li><a href="/index.html">Главная</a></li>
-            <li><a href="/Page/PersonalAccount.html">Личный Кабинет</a></li>
-            <li><a href="#">FAQ</a></li>
-        </ul>
-    </nav>
-    <div class="admincategory" style="margin-top: 20px;">
-        <center><h3 class="title__category2">Документы в этой категории:</h3></center>
-        <a id="new" href="Document.html" class="btn__menu__input">Создать новый</a>
+    <header class="header">
+        <nav class="top-menu">
+            <ul class="menu-main">
+                <li><a href="/index.html">Главная</a></li>
+                <li><a href="/Page/PersonalAccount.html">Личный Кабинет</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </nav>
+        <center><h1>Документы в категории</h1></center>
 
-        <table class="table">
-            <tbody>
-                <tr><td class="table__firstitem table__row"></td><td></td><td class="table__seconditem table__row"><form name="removeAll"><button id="submit">Удалить</button></form><form name="allselect"><button id="submit">Выделить все</button></form></td></tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="admincategory" style="margin-top: 20px;">
+
+            <a id="new" href="Document.html" class="btn__menu__input">Создать новый</a>
+
+            <table class="table">
+                <tbody>
+                    <tr><td class="table__firstitem table__row"></td><td></td><td class="table__seconditem table__row"><form name="removeAll"><button class="ButtonDelete" id="submit">Удалить</button></form><form name="allselect"><button class="ButtonDelete" id="submit">Выделить все</button></form></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </header>
     <script src="../../js/Main.js"></script>
     <script>
 

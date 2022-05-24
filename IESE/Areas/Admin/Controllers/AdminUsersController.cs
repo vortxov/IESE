@@ -5,6 +5,7 @@ using IESE.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,77 @@ namespace IESE.Areas.Admin.Controllers
             var users = userManager.Users;
             return users;
         }
+
+        [HttpGet("archive/{id}")]
+        public IEnumerable<ArchiveUserModel> GetArchiveUser(string id)
+        {
+            var user = userManager.Users.Include(x => x.Archives).First(x => x.Id == id);
+            List<ArchiveUserModel> archiveUserModels = new List<ArchiveUserModel>();
+            foreach (var item in user.Archives)
+            {
+                archiveUserModels.Add(new ArchiveUserModel()
+                {
+                    IdArchive = item.Id,
+                    Title = item.Title,
+                    CategoryTitle = item.CategoryTitle,
+                    DateCreate = item.DateCreate,
+                    PathPDF = item.PathPDF,
+                    FIO = user.Firstname + " " + user.Surname + " " + user.Patronymic
+                });
+            }
+            return archiveUserModels;
+        }
+
+
+        [HttpGet("{id}")]
+        public UserUpdateModel GetUserInfo(string id)
+        {
+            var user = userManager.FindByIdAsync(id).Result;
+            var role = userManager.GetRolesAsync(user).Result.FirstOrDefault();
+            var userModel = new UserUpdateModel() {
+                Firstname = user.Firstname,
+                Surname = user.Surname,
+                Patronymic = user.Patronymic,
+                Specialization = user.Specialization,
+                Group = user.Group,
+                Course = user.Course,
+                BirthDate = user.BirthDate,
+                QualificationLevel = user.QualificationLevel,
+                DateStartYear = user.DateStartYear,
+                DateEndYear = user.DateEndYear,
+                Email = user.Email,
+                Login = user.UserName,
+                FinancialSupport = user.FinancialSupport,
+                Faculty = user.Faculty,
+                FormOfEducation = user.FormOfEducation,
+                Id = id,
+
+            };
+            if(role == "admin")
+            {
+                userModel.Role = "Администратор";
+            }
+            if (role == "user")
+            {
+                userModel.Role = "Студент";
+            }
+            if (role == "teacher")
+            {
+                userModel.Role = "Преподаватель";
+            }
+            if (role == "otdelcadrov")
+            {
+                userModel.Role = "Отдел кадров";
+            }
+            if (role == "teacheruser")
+            {
+                userModel.Role = "Преподаватель-Студент";
+            }
+
+
+            return userModel;
+        }
+
 
 
         [HttpPost]
