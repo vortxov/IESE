@@ -20,7 +20,6 @@
         <div class="admincategory">
             <div class="error" id="errors"></div>
             <form class="menu__input" name="userForm">
-                <input type="hidden" name="id" value="0" />
 
                 <div class="">
                     <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
@@ -173,6 +172,19 @@
             }
         }
 
+
+        async function PostUser(data) {
+            const response = await fetch("/adminusers/edit", {
+                method: "POST",
+                body: data,
+            });
+            if (response.ok === true) {
+                const a = document.createElement('a');
+                a.setAttribute('href', document.referrer);
+                a.click();
+            }
+        }
+
         async function GetInfo(id) {
             const response = await fetch("/adminusers/" + id, {
                 method: "GET",
@@ -214,6 +226,47 @@
                 Seventeen.value = user.role;
             }
         }
+
+        document.forms["userForm"].addEventListener("submit", e => { 
+            e.preventDefault();
+            var data = new FormData();
+            let one = document.querySelector("#One");
+            data.append("Firstname", one.value);
+            let two = document.querySelector("#Two");
+            data.append("Surname", two.value);
+            let Three = document.querySelector("#Three");
+            data.append("Patronymic", Three.value);
+            let Four = document.querySelector("#Four");
+            data.append("BirthDate", Four.value);
+            let Five = document.querySelector("#Five");
+            data.append("Course", Five.value);
+            let Six = document.querySelector("#Six");
+            data.append("Group", Six.value);
+            let Seven = document.querySelector("#Seven");
+            data.append("FormOfEducation", Seven.value);
+            let Eight = document.querySelector("#Eight");
+            data.append("Faculty", Eight.value);
+            let Nine = document.querySelector("#Nine");
+            data.append("Specialization", Nine.value);
+            let Ten = document.querySelector("#Ten");
+            data.append("QualificationLevel", Ten.value);
+            let Eleven = document.querySelector("#Eleven");
+            data.append("FinancialSupport", Eleven.value);
+            let Twelve = document.querySelector("#Twelve");
+            data.append("Email", Twelve.value);
+            let Thirteen = document.querySelector("#Thirteen");
+            data.append("DateStartYear", Thirteen.value);
+            let Fourteen = document.querySelector("#Fourteen");
+            data.append("DateEndYear", Fourteen.value);
+            let Fifteen = document.querySelector("#Fifteen");
+            data.append("Login", Fifteen.value);
+            let Seventeen = document.querySelector("#Seventeen");
+            data.append("Role", Seventeen.value);
+            let Sixteen = document.querySelector("#Sixteen");
+            data.append("Password", Sixteen.value);
+            data.append("Id", id);
+            PostUser(data)
+        });
 
         var id = window.location.href.split("?")[1].split("=")[1];
 

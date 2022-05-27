@@ -41,16 +41,16 @@ html, body {
     height: 28px;
     display: inline-block;
     text-align: center;
-    border-style: solid;
-    border-width: 1px 1px 1px 1px;
+    
+    
 }
 .title__category {
     width: 250px;
     height: 28px;
     display: inline-block;
     text-align: center;
-    border-style: solid;
-    border-width: 1px 1px 1px 1px;
+    font-size: 32px;
+    
 }
 
 
@@ -237,7 +237,6 @@ html, body {
     border-width: 0px 0px 3px 0px;
     
     text-align: left;
-    ;
 }
 
     .menu-main li {
@@ -324,6 +323,7 @@ html, body {
     line-height: 24px;
     color: black;
     text-decoration: solid;
+    font-size: 23px;
     /*width: 175px;
     margin: 0 auto;*/
     /*  border-radius: 4px;
@@ -347,8 +347,8 @@ html, body {
         background: none repeat scroll 0 0 transparent;
         height: 2px;
         width: 0;
-        background: red;
-        color: red;
+        background: black;
+        color: black;
         transition: width 0.3s ease 0s, left 0.3s ease 0s;
     }
 
@@ -790,8 +790,9 @@ nav li:hover > .submenu {
 .table1 {
     border: 1px solid #eee;
     table-layout: fixed;
-    width: 80%;
+    width: 85%;
     margin-top: 20px;
+    margin-left: -100px;
 }
 
     .table1 th {
@@ -853,17 +854,21 @@ nav li:hover > .submenu {
         background: #F7F7F7;
     }
 .backbtn{
-    width: 100px;
-    height: 30px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-}
-
-.downloadbtn {
-    width: 100px;
+    width: 120px;
     height: 40px;
     margin-top: 10px;
     margin-bottom: 15px;
+    background: white;
+    font-size: 20px;
+}
+
+.downloadbtn {
+    width: 120px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    background: white;
+    font-size: 20px;
 }
 
 .error {
@@ -902,3 +907,63 @@ nav li:hover > .submenu {
     
 }
 
+.table555 {
+    border: 1px solid #eee;
+    table-layout: inherit;
+    width: 90%;
+    margin-top: -3px;
+    margin: auto;
+}
+
+    .table555 th {
+        font-weight: bold;
+        font-size: 22px;
+        padding: 4.5px;
+        
+        background: #eee;
+        border: 1px solid #dddddd;
+    }
+
+    .table555 td {
+        padding: 2px 80px;
+        table-layout: auto;
+        border: 1px solid #eee;
+        text-align: left;
+        font-size: 20px;
+    }
+
+    .table555 tbody tr:nth-child(odd) {
+        background: white;
+    }
+
+    .table555 tbody tr:nth-child(even) {
+        background: #F7F7F7;
+    }
+
+.classTEXT {
+    font-size: 20px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+}
+
+
+.archive22 {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+}
+
+.FAq {
+    text-align: left;
+    margin-right: 10%;
+    margin-left: 30px;
+    font-size: 26px;
+    line-height: 55px;
+}
+
+.underU {
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+    cursor: pointer;
+}

@@ -37,7 +37,6 @@
 
             <div class="">
                 <button type="submit" id="submit" class="btn__menu__input">Сохранить</button>
-                <a id="reset" class="btn__menu__input">Сбросить</a>
             </div>
 
 
@@ -186,33 +185,6 @@
                 console.error(error);
             });
 
-        document.addEventListener("reset", (event) => {
-            var button = event.target;
-            // if (event.target.type === 'button' && event.target.className.includes('testtokenbutton')) {
-
-            myEditor.model.change(writer => {
-                const insertPosition = myEditor.model.document.selection.getFirstPosition();
-
-                writer.insertText("Text", insertPosition);
-            });
-
-            // }
-        });
-
-        async function GetDocuments() { //Запрос для заполнения таблицы списком документов
-            const response = await fetch("/admindocument/category/" + categoryId, {
-                method: "GET",
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-                const documents = await response.json();
-                let rows = document.querySelector("abody");
-                documents.forEach(item => {
-                    rows.append(row(item));
-                });
-
-            }
-        }
         async function GetDocument(id) { //Запрос для получение одного документа по его id
             const response = await fetch("/admindocument/" + id, {
                 method: "GET",
@@ -292,76 +264,7 @@
             }
         }
 
-        async function EditDocument(data) { //Запрос изменения документа в бд
-            const response = await fetch("/admindocument", {
-                method: "PUT",
-                body: data
-            });
-            if (response.ok === true) {
-                const item = await response.json();
-                reset();
-                document.querySelector("tr[document-rowid='" + item.id + "']").replaceWith(row(item));
-            }
-        }
-        async function DeleteDocument(id) { //Запрос удаления документа из бд
-            const response = await fetch("/admindocument/" + id, {
-                method: "DELETE",
-                headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-                const item = await response.json();
-                cher = document.querySelector("tr");
-                document.querySelector("tr[document-rowid='" + item + "']").remove();
-
-            }
-        }
-
-        function reset() { //Функция очистки формы где вносится название файла сам файл и тд
-            const form = document.forms["userForm"];
-            form.reset();
-            form.elements["id"].value = 0;
-        }
-
-        function row(item) { //Создание строки которая вносится в таблицу
-            const tr = document.createElement("tr");
-            tr.setAttribute("document-rowid", item.id);
-
-            const nameTd = document.createElement("td");
-            nameTd.append(item.title);
-            nameTd.setAttribute("class", "table__firstitem table__row");
-            tr.append(nameTd);
-
-            const linksTd = document.createElement("td");
-
-            const editLink = document.createElement("a");
-            editLink.setAttribute("data-id", item.id);
-            editLink.setAttribute("class", "table__link");
-            editLink.setAttribute("style", "cursor:pointer;padding:15px;");
-            editLink.append("Изменить");
-            editLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                GetDocument(item.id);
-            });
-            linksTd.append(editLink);
-
-            const removeLink = document.createElement("a");
-            removeLink.setAttribute("data-id", item.id);
-            removeLink.setAttribute("class", "table__link");
-            removeLink.setAttribute("style", "cursor:pointer;padding:15px;");
-            removeLink.append("Удалить");
-            removeLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                DeleteDocument(item.id);
-            });
-            linksTd.setAttribute("class", "table__seconditem table__row");
-            linksTd.append(removeLink);
-            tr.appendChild(linksTd);
-
-            return tr;
-        }
-
+       
         function addErrors(errors) { //Функция добавляет в строку ошибки лист ошибок которые были допущены
             errors.forEach(error => {
                 const p = document.createElement("p");
@@ -376,11 +279,6 @@
             document.getElementById("errors").style.display = "block";
         }
 
-        document.getElementById("reset").onclick = function (e) { //Ищет кнопку обновление и при клике запускает функцию обновление формы
-
-            e.preventDefault();
-            reset();
-        };
 
         document.forms["userForm"].addEventListener("submit", e => { //Создаем ивент для кнопки сохранить и пишем для нее фунцию сохранения
             e.preventDefault();

@@ -93,14 +93,16 @@
             linkDocument.append(documentA);
             accountmenu.append(linkDocument);
 
-            let linkSl = document.createElement("li");
-            linkSl.setAttribute("class", "accountmenu__item");
-            let slA = document.createElement("a");
-            slA.append("Служебная записка");
-            slA.setAttribute("href", "/Page/ServiceDocument.html");
-            slA.setAttribute("class", "accountmenu__link");
-            linkSl.append(slA);
-            accountmenu.append(linkSl);
+            if (role != "user") {
+                let linkSl = document.createElement("li");
+                linkSl.setAttribute("class", "accountmenu__item");
+                let slA = document.createElement("a");
+                slA.append("Служебная записка");
+                slA.setAttribute("href", "/Page/ServiceDocument.html");
+                slA.setAttribute("class", "accountmenu__link");
+                linkSl.append(slA);
+                accountmenu.append(linkSl);
+            }
 
             let linkArchive = document.createElement("li");
             linkArchive.setAttribute("class", "accountmenu__item");

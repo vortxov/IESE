@@ -47,7 +47,7 @@
                 body: JSON.stringify({ // в json отправляем майл пароль и статическую переменную не запоминать акканут(так как еще не работает запоминание)
                     email: userEmail,
                     password: userPassword,
-                    rememberme: false 
+                    rememberme: true 
                 })
             });
             if (response.ok === true) {

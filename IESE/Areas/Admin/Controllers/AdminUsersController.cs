@@ -65,7 +65,8 @@ namespace IESE.Areas.Admin.Controllers
         {
             var user = userManager.FindByIdAsync(id).Result;
             var role = userManager.GetRolesAsync(user).Result.FirstOrDefault();
-            var userModel = new UserUpdateModel() {
+            var userModel = new UserUpdateModel()
+            {
                 Firstname = user.Firstname,
                 Surname = user.Surname,
                 Patronymic = user.Patronymic,
@@ -84,7 +85,7 @@ namespace IESE.Areas.Admin.Controllers
                 Id = id,
 
             };
-            if(role == "admin")
+            if (role == "admin")
             {
                 userModel.Role = "Администратор";
             }
@@ -110,6 +111,85 @@ namespace IESE.Areas.Admin.Controllers
         }
 
 
+        [HttpPost("Edit")]
+        public async Task<IActionResult> PostEdit([FromForm] UserUpdateModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.Id);
+            if (user == null) return BadRequest(model);
+
+            if(model.Firstname != null)
+            {
+                user.Firstname = model.Firstname;
+            }
+            if(model.Specialization != null)
+            {
+                user.Specialization = model.Specialization;
+            }
+            if(model.Patronymic != null)
+            {
+                user.Patronymic = model.Patronymic;
+            }
+            if(model.Email != null)
+            {
+                user.Email = model.Email;
+            }
+            if(model.Login != null)
+            {
+                user.UserName = model.Login;
+            }
+            if(model.QualificationLevel != null)
+            {
+                user.QualificationLevel = model.QualificationLevel;
+            }
+            if(model.BirthDate != null)
+            {
+                user.BirthDate = model.BirthDate;
+            }
+            if(model.DateStartYear != null)
+            {
+                user.DateStartYear = model.DateStartYear;
+            }
+            if(model.DateEndYear != null)
+            {
+                user.DateEndYear = model.DateEndYear;
+            }
+            if(model.Course != null)
+            {
+                user.Course = model.Course;
+            }
+            if(model.Faculty != null)
+            {
+                user.Faculty = model.Faculty;
+            }
+            if(model.FinancialSupport != null)
+            {
+                user.FinancialSupport = model.FinancialSupport;
+            }
+            if(model.FormOfEducation != null)
+            {
+                model.FormOfEducation = model.FormOfEducation;
+            }
+            if(model.Group != null)
+            {
+                user.Group = model.Group;
+            }
+            //if(model.Role != null)
+            //{
+            //    user.Roles = new List<IdentityRole>();
+            //    var role = await roleManager.FindByNameAsync(model.Role);
+            //    user.Roles.Add(role);
+            //}
+            if (model.Password != null)
+            {
+                user.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, model.Password);
+            }
+
+            await userManager.UpdateAsync(user);
+
+            return Ok(user);
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> PostFile([FromForm] UserFileModel model)
@@ -122,7 +202,7 @@ namespace IESE.Areas.Admin.Controllers
                     {
                         try
                         {
-                            ApplicationUser user = new ApplicationUser(); //TODO: БД 
+                            ApplicationUser user = new ApplicationUser();
                             user.Surname = row.Cell(1).Value.ToString();
                             user.Firstname = row.Cell(2).Value.ToString();
                             user.Patronymic = row.Cell(3).Value.ToString();
@@ -160,6 +240,7 @@ namespace IESE.Areas.Admin.Controllers
                             user.Roles.Add(role);
 
                             await userManager.CreateAsync(user);
+                            
 
                         }
                         catch (Exception e)
@@ -167,9 +248,10 @@ namespace IESE.Areas.Admin.Controllers
                             throw new Exception(e.Message);
                         }
                     }
+                    return Ok();
                 }
             }
-                return NotFound();
+            return NotFound();
         }
     }
 }

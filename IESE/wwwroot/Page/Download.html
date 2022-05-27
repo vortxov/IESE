@@ -44,7 +44,7 @@
 
 
             const response = await fetch("/document", { //Отправляем пост запрос в контроллер /document 
-                method: "Post", //То что это пост запрос
+                method: "POST", //То что это пост запрос
                 headers: { "Accept": "application/json", "Content-Type": "application/json" }, //Передается и принимается только json файл
                 body: JSON.stringify({ //В ввиде json отправляем id
                     id: id
@@ -70,7 +70,7 @@
 
                 a.addEventListener('click', clickHandler, false); //Добавляем ивент при клике <a>
                 a.click(); //Имитируем клик, то есть <a> нажимается
-                return a; //Возвращаем <a>
+                return a; 
             }
         }
 
@@ -88,13 +88,7 @@
             let download = document.getElementById("download"); //Находит кнопку для скачивания
             download.onclick = function () { Download(id); }; //При нажатии сработает функция скачивания
 
-           
-                const item = await response.json(); //Заносим ответ на запрос в item 
-                let open = document.getElementById("open"); //Находим кнопку открытия
-                open.onclick = function () { //При нажатии создает ссылку для перехода к файлу
-                    const a = document.createElement('a'); 
-                    a.setAttribute('href', "../" + item.pathPDF);
-                    a.click();}; 
+    
 
                 let iframe = document.getElementById("iframe"); //Находим панель для отображения файла //TODO: кодировка
                 iframe.setAttribute("src", item.pathHTM); //Устанавливаем ссылку на файл чтобы отобразить его

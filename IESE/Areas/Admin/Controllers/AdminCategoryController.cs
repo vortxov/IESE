@@ -64,7 +64,7 @@ namespace IESE.Areas.Admin.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id) //Делит запрос для удаления запроса
+        public async Task<IActionResult> Delete(Guid id) //Делит запрос для удаления категории
         {
             var documents = dataManager.DocumentCategory.GetDocumentCategoryById(id).Documents;
             foreach (var item in documents)
