@@ -72,6 +72,11 @@
                 body: data,
             });
             if (response.ok === true) {
+                const users = await response.json();
+                let rows = document.querySelector("tbody");
+                users.forEach(user => {
+                    rows.append(row(user));
+                });
             }
             else {
 

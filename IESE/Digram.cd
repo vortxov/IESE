@@ -1,42 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="IESE.Domain.Entities.ApplicationUser">
-    <Position X="3.25" Y="1.25" Width="1.5" />
+    <Position X="2" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAGAAAAAAAIAAAIAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAGAAAAAAAIAAAIAAAAQARgAAAAAAgEAIgAAAAEA=</HashCode>
       <FileName>Domain\Entities\ApplicationUser.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="IESE.Domain.Entities.ArchiveDocument">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAKAEAAAAAAAAAAACAEAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Domain\Entities\ArchiveDocument.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="IESE.Domain.Entities.DocumentCategory">
-    <Position X="12.25" Y="1.5" Width="1.5" />
+    <Position X="11.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACACAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Entities\DocumentCategory.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Documents" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="IESE.Domain.Entities.WordDocument">
-    <Position X="9" Y="1.25" Width="1.5" />
+    <Position X="5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAEAAAEIAAAAAAAAAAAAAEAAAAAAAACAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAACAEIAAAAQAAAAAgAEAAAAAAAAACAACAA=</HashCode>
       <FileName>Domain\Entities\WordDocument.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Templates" />
-      <Property Name="Categories" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="IESE.Domain.Entities.WordTemplate">
-    <Position X="6" Y="1.25" Width="1.5" />
+    <Position X="8" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAEAAAAAAQAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAEAAAAAAQAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Entities\WordTemplate.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Documents" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

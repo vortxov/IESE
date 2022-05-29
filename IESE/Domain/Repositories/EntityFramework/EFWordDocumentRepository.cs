@@ -23,7 +23,7 @@ namespace IESE.Domain.Repositories.EntityFramework //функции CRUD
 
         public WordDocument GetWordDocmentById(Guid id)
         {
-            return context.WordDocuments.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+            return context.WordDocuments.Include(x => x.Category).Include(x => x.Roles).FirstOrDefault(x => x.Id == id);
         }
 
         public IQueryable<WordDocument> GetWordDocuments()

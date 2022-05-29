@@ -11,7 +11,7 @@ namespace IESE.Domain.Repositories.Abstract
     {
         IQueryable<ArchiveDocument> GetArchiveDocuments();
         ArchiveDocument GetArchiveDocumentById(Guid id);
-        ArchiveDocument GetArchiveDocumentByIdDocument(Guid id);
+        ArchiveDocument GetArchiveDocumentByIdDocument(Guid id, string idUser);
         Task SavArchiveDocument(ArchiveDocument entity);
         Task DeleteArchiveDocument(Guid id);
         Task UpdateArchiveDocument(ArchiveDocument entity);

@@ -38,9 +38,40 @@ namespace IESE.Areas.Admin.Controllers
             return dataManager.DocumentCategory.GetDocumentCategoryById(id).Documents;
         }
         [HttpGet("{id}")]
-        public async Task<WordDocument> Document(Guid id) //Получение одного документа в бд по id
+        public async Task<IActionResult> Document(Guid id) //Получение одного документа в бд по id
         {
-            return dataManager.WordDocument.GetWordDocmentById(id);
+            var wd = dataManager.WordDocument.GetWordDocmentById(id);
+            if(wd == null)
+            {
+                return BadRequest();
+            }
+            Word.Application app = null;
+            try
+            {
+                app = new Word.Application();
+                
+                var doc = app.Documents.Open(wd.Path); //Открываем копию
+                doc.Activate();
+                var text = doc.Content.Text;
+                
+
+                app.ActiveDocument.Close(); //Закрываем файл
+
+                var model = new EditDocumentModel();
+                model.Title = wd.Title;
+                model.Text = text;
+                foreach (var item in wd.Roles)
+                {
+                    model.Roles.Add(item.Name);
+                }
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+                return BadRequest();
+            }
         }
 
         [HttpGet("templates")] // Гет запрос Получение всех возможных шаблонов
@@ -104,12 +135,12 @@ namespace IESE.Areas.Admin.Controllers
                     string newFileNamePDF = fileInfo.DirectoryName + "\\" + file.NameFile + ".pdf"; //Пишем путь нового файла в пдф формате
                     app.ActiveDocument.ExportAsFixedFormat(newFileNamePDF, WdExportFormat.wdExportFormatPDF); //Сохраняем новый пдф файл
 
-                    file.PathPDF = "/WordFiles/" + file.NameFile + ".pdf"; //Записываем его путь в бд 
+                    file.PathPDF = "/WordFiles/" + file.NameFile + DateTime.Now.Year + "/" + file.NameFile + ".pdf"; //Записываем его путь в бд 
 
                     string newFileNameHTM = fileInfo.DirectoryName + "\\" + file.NameFile + ".htm"; //Пишем путь нового файла в html формате
                     app.ActiveDocument.SaveAs2(newFileNameHTM, Word.WdSaveFormat.wdFormatHTML); //Сохраняем новый html файл
 
-                    file.PathHTM = "/WordFiles/" + file.NameFile + ".htm"; //Записываем его в бд
+                    file.PathHTM = "/WordFiles/" + file.NameFile + DateTime.Now.Year +"/" + file.NameFile + ".htm"; //Записываем его в бд
 
                     app.ActiveDocument.Close(); //Закрываем файл
                 }
@@ -140,68 +171,103 @@ namespace IESE.Areas.Admin.Controllers
             return NotFound();
         }
 
-        //[HttpPut] //Пут запрос для изменения документа
-        //public async Task<IActionResult> UpdateFile([FromForm] AddTemp model)   
-        //{
-        //    if (model != null)
-        //    {
-        //        var file = dataManager.WordDocument.GetWordDocmentById(model.Id); //Находим документ в бд
-        //        var fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.Path); //Получаем информацию о файле
+        [HttpPut] //Пут запрос для изменения документа
+        public async Task<IActionResult> UpdateFile([FromForm] AddTemp model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //        if(fileInfo.Exists)
-        //        {
-        //            fileInfo.Delete(); //Удаляем docx файл
-        //        }
+            if (model != null)
+            {
+                var helper = new WordHelper(_appEnvironment);
+                string path = helper.CreateDocument(model.uploadedFile, model.Title);
+                List<IdentityRole> roles = new List<IdentityRole>();
 
-        //        fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathPDF);
+                foreach (var roleModel in model.RoleDocument[0].Split(","))
+                {
+                    switch (roleModel)
+                    {
+                        case "Студент":
+                            roles.Add(await roleManager.FindByNameAsync("user"));
+                            break;
+                        case "Преподаватель":
+                            roles.Add(await roleManager.FindByNameAsync("teacher"));
+                            break;
+                        case "Преподаватель-Студент":
+                            roles.Add(await roleManager.FindByNameAsync("teacheruser"));
+                            break;
+                        default:
+                            return BadRequest();
+                    }
+                }
 
-        //        if (fileInfo.Exists)
-        //        {
-        //            fileInfo.Delete(); //Удаляем pdf файл
-        //        }
 
-        //        fileInfo = new FileInfo(_appEnvironment.WebRootPath + file.PathHTM);
+                WordDocument file = dataManager.WordDocument.GetWordDocmentById(model.Id);
+                file.Title = model.Title;
+                file.Roles = roles;
 
-        //        if (fileInfo.Exists)
-        //        {
-        //            fileInfo.Delete(); //Удаляем html файл
-        //        }
 
-        //        file.Title = model.Title; //Меняем строки
-        //        file.Id = model.Id; //Меняем строки
-        //        file.NameFile = model.uploadedFile.FileName; //Меняем строки
+                FileInfo fileInfo = new FileInfo(path); //Получаем данные о файле
 
-        //        string path = "/WordFiles/" + model.uploadedFile.FileName; //Записываем новый путь
-        //        using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create)) //записываем в память инфу
-        //        {
-        //            await model.uploadedFile.CopyToAsync(fileStream); //Сохраняем файл по данным
-        //        }
-        //        file.Path = path;
 
-        //        var templates = new List<WordTemplate>();
-        //        foreach (var item in model.Templates[0].Split(','))
-        //        {
-        //            templates.Add(dataManager.WordTepmlate.GetWordTemplateById(new Guid(item))); //Записываем список шаблонов
-        //        }
+                Word.Application app = null;
+                try
+                {
+                    app = new Word.Application();
+                    Object fileW = fileInfo.FullName;
 
-        //        file.Templates.AddRange(templates); //Добавляем в документ
+                    Object missing = Type.Missing;
 
-        //        var category = dataManager.DocumentCategory.GetDocumentCategoryById(model.IdCategory); //ищем категорию
+                    app.Documents.Open(fileW); //Окрываем файл в word приложение
+                    app.ActiveDocument.SaveAs2(fileInfo.DirectoryName + "/change.docx"); //Создаем копию файла
+                    app.ActiveDocument.Close(); //Закрываем файл
 
-        //        file.Categories.Add(category); //Добавляем категорию в файл
+                    app.Documents.Open(fileInfo.DirectoryName + "/change.docx"); //Открываем копию
 
-        //        dataManager.WordDocument.SaveWordDocument(file); //Сохраняем измененый документ в бд
-        //        return Ok(file);
-        //    }
+                    string newFileNamePDF = fileInfo.DirectoryName + "\\" + file.NameFile + ".pdf"; //Пишем путь нового файла в пдф формате
+                    app.ActiveDocument.ExportAsFixedFormat(newFileNamePDF, WdExportFormat.wdExportFormatPDF); //Сохраняем новый пдф файл
 
-        //    return NotFound();
-        //}
+                    file.PathPDF = "/WordFiles/" + file.NameFile + DateTime.Now.Year + "/" + file.NameFile + ".pdf"; //Записываем его путь в бд 
+
+                    string newFileNameHTM = fileInfo.DirectoryName + "\\" + file.NameFile + ".htm"; //Пишем путь нового файла в html формате
+                    app.ActiveDocument.SaveAs2(newFileNameHTM, Word.WdSaveFormat.wdFormatHTML); //Сохраняем новый html файл
+
+                    file.PathHTM = "/WordFiles/" + file.NameFile + DateTime.Now.Year + "/" + file.NameFile + ".htm"; //Записываем его в бд
+
+                    app.ActiveDocument.Close(); //Закрываем файл
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                    return BadRequest();
+                }
+                finally
+                {
+                    System.IO.File.Delete(fileInfo.DirectoryName + "/change.docx"); //Удаляем копию файла 
+                    if (app != null)
+                        app.Quit(); //Выходим из word приложения
+                }
+
+                var category = dataManager.DocumentCategory.GetDocumentCategoryById(model.IdCategory); //Находим категорию в которую добавляем файл
+
+                file.Category = category; //Добавляем категорию в документ чтобы добавить в список документов этой категории
+
+                await dataManager.WordDocument.UpdateWordDocument(file); //Сохраняем документ в бд
+
+
+
+                return Ok(file); //Выводим в запрос что все хорошо с файлом для визуализации на сервер
+            }
+
+            return NotFound();
+        }
 
 
         [HttpDelete("{id}")] //Делит запрос
         public async Task<IActionResult> DeleteFile(Guid id)
         {
-         //   var file = dataManager.WordDocument.GetWordDocmentById(id); //Находим документ по id 
+            //   var file = dataManager.WordDocument.GetWordDocmentById(id); //Находим документ по id 
 
 
             dataManager.WordDocument.DeleteWordDocument(id); //Удаляем из бд

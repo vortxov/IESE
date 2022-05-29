@@ -75,8 +75,8 @@ namespace IESE.Areas.Admin.Controllers
                 Course = user.Course,
                 BirthDate = user.BirthDate,
                 QualificationLevel = user.QualificationLevel,
-                DateStartYear = user.DateStartYear,
-                DateEndYear = user.DateEndYear,
+                DateStartYear = user.DateStart,
+                DateEndYear = user.DateEnd,
                 Email = user.Email,
                 Login = user.UserName,
                 FinancialSupport = user.FinancialSupport,
@@ -147,11 +147,11 @@ namespace IESE.Areas.Admin.Controllers
             }
             if(model.DateStartYear != null)
             {
-                user.DateStartYear = model.DateStartYear;
+                user.DateStart = model.DateStartYear;
             }
             if(model.DateEndYear != null)
             {
-                user.DateEndYear = model.DateEndYear;
+                user.DateEnd = model.DateEndYear;
             }
             if(model.Course != null)
             {
@@ -194,6 +194,7 @@ namespace IESE.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> PostFile([FromForm] UserFileModel model)
         {
+            List<ApplicationUser> users = new List<ApplicationUser>();
             using (XLWorkbook workBook = new XLWorkbook(model.File.OpenReadStream(), XLEventTracking.Disabled))
             {
                 foreach (IXLWorksheet worksheet in workBook.Worksheets)
@@ -206,41 +207,79 @@ namespace IESE.Areas.Admin.Controllers
                             user.Surname = row.Cell(1).Value.ToString();
                             user.Firstname = row.Cell(2).Value.ToString();
                             user.Patronymic = row.Cell(3).Value.ToString();
-                            user.Course = int.Parse(row.Cell(4).Value.ToString());
-                            user.Group = row.Cell(5).Value.ToString();
-                            user.FormOfEducation = row.Cell(6).Value.ToString();
-                            user.Faculty = row.Cell(7).Value.ToString();
-                            user.Specialization = row.Cell(8).Value.ToString();
 
-                            user.QualificationLevel = row.Cell(9).Value.ToString();
+                            var course = row.Cell(4).Value.ToString();
+                            if (course != "")
+                                user.Course = int.Parse(course);
 
-                            user.FinancialSupport = row.Cell(10).Value.ToString();
-                            user.Email = row.Cell(12).Value.ToString();
-                            user.NormalizedEmail = user.Email.ToUpper();
-                            user.DateStartYear = int.Parse(row.Cell(13).Value.ToString());
-                            user.DateEndYear = int.Parse(row.Cell(14).Value.ToString());
-                            user.UserName = row.Cell(15).Value.ToString();
+                            var group = row.Cell(5).Value.ToString();
+                            if (group != "")
+                                user.Group = group;
+
+                            var FormOfEducation = row.Cell(6).Value.ToString();
+                            if (FormOfEducation != "")
+                                user.FormOfEducation = FormOfEducation;
+
+                            var Faculty = row.Cell(7).Value.ToString();
+                            if (Faculty != "")
+                                user.Faculty = Faculty;
+
+                            var Specialization = row.Cell(8).Value.ToString();
+                            if (Specialization != "")
+                                user.Specialization = Specialization;
+
+                            var QualificationLevel = row.Cell(9).Value.ToString();
+                            if (QualificationLevel != "")
+                                user.QualificationLevel = QualificationLevel;
+
+                            var FinancialSupport = row.Cell(10).Value.ToString();
+                            if (FinancialSupport != "")
+                                user.FinancialSupport = FinancialSupport;
+
+                            var Email = row.Cell(11).Value.ToString();
+                            if (Email != "")
+                            {
+                                user.Email = Email;
+                                user.NormalizedEmail = user.Email.ToUpper();
+                            }
+
+                            var DateStartYear = row.Cell(12).Value.ToString();
+                            if (DateStartYear != "")
+                                user.DateStart = DateTime.Parse(DateStartYear);
+
+                            var DateEndYear = row.Cell(13).Value.ToString();
+                            if (DateEndYear != "")
+                                user.DateEnd = DateTime.Parse(DateEndYear);
+
+                            var UserName = row.Cell(14).Value.ToString();
+                            if (UserName != "")
+                                user.UserName = UserName;
+
                             user.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, row.Cell(15).Value.ToString());
+
                             var rolest = row.Cell(16).Value.ToString();
-                            IdentityRole role = new IdentityRole();
-                            role = roleManager.FindByNameAsync("user").Result;
-                            if (rolest == "Студент")
+                            if (rolest != "")
                             {
+                                IdentityRole role = new IdentityRole();
                                 role = roleManager.FindByNameAsync("user").Result;
-                            }
-                            else if (rolest == "Студент-преподаватель")
-                            {
-                                role = roleManager.FindByNameAsync("teacheruser").Result;
-                            }
-                            else if (rolest == "Преподаватель")
-                            {
-                                role = roleManager.FindByNameAsync("teacher").Result;
+                                if (rolest == "Студент")
+                                {
+                                    role = roleManager.FindByNameAsync("user").Result;
+                                }
+                                else if (rolest == "Студент-преподаватель")
+                                {
+                                    role = roleManager.FindByNameAsync("teacheruser").Result;
+                                }
+                                else if (rolest == "Преподаватель")
+                                {
+                                    role = roleManager.FindByNameAsync("teacher").Result;
+                                }
+
+                                await userManager.AddToRoleAsync(user, role.Name);
                             }
 
-                            user.Roles.Add(role);
-
-                            await userManager.CreateAsync(user);
-                            
+                            await userManager.CreateAsync(user); //TODO: CHECK
+                            users.Add(user);
 
                         }
                         catch (Exception e)
@@ -248,7 +287,7 @@ namespace IESE.Areas.Admin.Controllers
                             throw new Exception(e.Message);
                         }
                     }
-                    return Ok();
+                    return Ok(users);
                 }
             }
             return NotFound();

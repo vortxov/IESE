@@ -16,8 +16,8 @@ namespace IESE.Models
         public int? Course { get; set; }
         public string? Group { get; set; }
         public string? Faculty { get; set; }
-        public int? DateStartYear { get; set; }
-        public int? DateEndYear { get; set; }
+        public DateTime? DateStartYear { get; set; }
+        public DateTime? DateEndYear { get; set; }
         public DateTime? BirthDate { get; set; }
         public string? Specialization { get; set; }
         public string? QualificationLevel { get; set; }

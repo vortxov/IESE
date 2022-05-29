@@ -21,7 +21,7 @@
         <center><h1>Создание нового документа:</h1></center>
 
         <table class="checkboxs" cellpadding="4" cellspacing="1">
-            <tr><th><p><input type="checkbox" id="Студент" name="Студент" value="Студент">Студент</p></th><th><p><input type="checkbox" id="Преподаватель-Студент" name="a" value="Преподаватель-Студент" checked>Студент-преподаватель</p></th><th><p><input type="checkbox" id="Преподаватель" name="a" value="Преподаватель" checked>Преподаватель</p></th></tr>
+            <tr><th><p><input type="checkbox" id="Студент" name="Студент" value="Студент">Студент</p></th><th><p><input type="checkbox" id="Преподаватель-Студент" name="a" value="Преподаватель-Студент">Студент-преподаватель</p></th><th><p><input type="checkbox" id="Преподаватель" name="a" value="Преподаватель">Преподаватель</p></th></tr>
         </table>
 
 
@@ -32,7 +32,7 @@
             <div class="row__input">
                 <label for="name">Название документа:</label>
                 <left><div id="errors" class="error"></div></left>
-                <input class="menu__input__item" placeholder="Введите название будущего документа" name="name" />
+                <input class="menu__input__item" placeholder="Введите название будущего документа" id="name" name="name" />
             </div>
 
             <div class="">
@@ -203,7 +203,7 @@
                 method: "GET",
                 headers: { "Accept": "application/json" }
             });
-            if (response.ok === true) {
+             if (response.ok === true) {
                 const itemTemplates = await response.json();
                 let rows = document.querySelector("lbody");
 
@@ -264,6 +264,52 @@
             }
         }
 
+        async function EditDocument(data) { //Запрос создания документа
+
+            const response = await fetch("/admindocument", {
+                method: "PUT",
+                body: data,
+            });
+            if (response.ok === true) {
+                const category = await response.json();
+                document.querySelector("tbody").append(row(category));
+                reset();
+            }
+        }
+
+        async function Edit(idDocument) { //Запрос создания документа
+
+            const response = await fetch("/admindocument/" + idDocument, {
+                method: "GET",
+            });
+            if (response.ok === true) {
+                const model = await response.json();
+                myEditor.model.change(writer => {
+
+                    const insertPosition = myEditor.model.document.selection.getFirstPosition();
+
+                    writer.insertText(model.text, insertPosition);
+                });
+
+                document.querySelector("#name").value = model.title;
+                const form = document.forms["userForm"]; //Получаем форму
+                let id = form.elements["id"];
+                id.value = idDocument;
+
+                model.roles.forEach(role => {
+                    if (role == "user") {
+                        document.querySelector("#Студент").checked = true;
+                    }
+                    if (role == "teacher") {
+                        document.querySelector("#Преподаватель").checked = true;
+                    }
+                    if (role == "teacheruser") {
+                        document.querySelector("#Преподаватель-Студент").checked = true;
+                    }
+                })
+            }
+        }
+
        
         function addErrors(errors) { //Функция добавляет в строку ошибки лист ошибок которые были допущены
             errors.forEach(error => {
@@ -297,7 +343,7 @@
 
             data.append('uploadedFile', result);
             data.append('Title', title); //Добавляем название файла
-            data.append('IdCategory', categoryId); //Добавляем id категории в которую занесется файл
+            data.append('IdCategory', idCategory); //Добавляем id категории в которую занесется файл
 
             //const templates = []; //Создаем пустой лист для шаблонов
 
@@ -354,7 +400,16 @@
         }
         CheckRole();
 
-        var categoryId = window.location.href.split("?")[1].split("=")[1]; //Получаем id категории
+        var Id = window.location.href.split("?")[1];
+        var idCategory;
+        var idDocument;
+
+        idCategory = Id.split("&")[0].split("idCategory=")[1];
+
+        if (Id.split("&").length > 1) {
+            idDocument = Id.split("&")[1].split("idDocument=")[1];
+            Edit(idDocument);
+        }
 
         //GetDocuments(); //Вызываем функцию для получения списков документов
         GetTemplates(); //Вызываем функцию для получения списка шаблонов

@@ -26,9 +26,9 @@ namespace IESE.Domain.Repositories.EntityFramework
             return context.ArchiveDocuments.FirstOrDefault(x => x.Id == id);
         }
 
-        public ArchiveDocument GetArchiveDocumentByIdDocument(Guid id)
+        public ArchiveDocument GetArchiveDocumentByIdDocument(Guid id, string idUser)
         {
-            return context.ArchiveDocuments.FirstOrDefault(x => x.IdDocument == id);
+            return context.ArchiveDocuments.FirstOrDefault(x => x.IdDocument == id && x.User.Id == idUser);
         }
 
         public IQueryable<ArchiveDocument> GetArchiveDocuments()

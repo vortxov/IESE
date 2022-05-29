@@ -69,11 +69,7 @@
             editLink.setAttribute("class", "table__link");
             editLink.setAttribute("style", "cursor:pointer;padding:15px;");
             editLink.append("Изменить");
-            editLink.addEventListener("click", e => {
-
-                e.preventDefault();
-                GetDocument(item.id);
-            });
+            editLink.href = "Document.html?idCategory=" + categoryId + "&idDocument=" + item.id;
             linksTd.append(editLink);
 
             const removeLink = document.createElement("a");
@@ -168,7 +164,7 @@
         var categoryId = window.location.href.split("?")[1].split("=")[1];
 
         var doc = document.querySelector("#new")
-        doc.href = "Document.html?id=" + categoryId;
+        doc.href = "Document.html?idCategory=" + categoryId;
 
         GetDocuments();
         CheckRole();

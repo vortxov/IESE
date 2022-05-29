@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IESE.Controllers
 {
@@ -30,6 +31,7 @@ namespace IESE.Controllers
             if (ModelState.IsValid) //Проверка на ошибки, если нет то продолжаем авторизацию
             {
                 ApplicationUser user = await userManager.FindByEmailAsync(model.Email); //Ищем в бд пользователя с таким майлом
+                var rl = userManager.GetRolesAsync(user).Result.FirstOrDefault();
                 if (user != null) //Если такой есть то проверяем дальше
                 {
                     await signInManager.SignOutAsync(); //На всякий случай выходим из прошлого аккаунта, это страховка
@@ -83,18 +85,7 @@ namespace IESE.Controllers
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, userManager.GetRolesAsync(user).Result.FirstOrDefault()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                //new Claim("course", user.Course.ToString()),
-                //new Claim("group", user.Group),
-                //new Claim("faculty", user.Faculty),
-                //new Claim("dateend", user.DateEnd.ToString()),
-                //new Claim("birthdate", user.BirthDate.ToString()),
-                //new Claim("specialization", user.Specialization),
-                //new Claim("formofeducation", user.FormOfEducation),
-                //new Claim("formofeducation", user.FormOfEducation),
-                //new Claim("formofeducation", user.FormOfEducation),
-                //new Claim("formofeducation", user.FormOfEducation),
-                //new Claim("formofeducation", user.FormOfEducation),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
 
