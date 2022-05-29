@@ -135,6 +135,13 @@ namespace IESE.Controllers
                                 }
                                 break;
 
+                            case "num":
+                                var num = dataManager.NumberDocument.GetNumberDocuments().FirstOrDefault();
+                                res += num.Number.ToString();
+                                num.Number++;
+                                dataManager.NumberDocument.UpdateNumberDocument(num);
+                                break;
+
                             default:
                                 break;
                         }

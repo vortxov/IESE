@@ -24,6 +24,7 @@ namespace IESE.Domain.Entities
         public string? FinancialSupport { get; set; }
         public DateTime DateOrder { get; set; }
         public DateTime DateCredited { get; set; }
+        public int NumberOrder { get; set; }
         public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
         public List<ArchiveDocument> Archives { get; set; } = new List<ArchiveDocument>();
 

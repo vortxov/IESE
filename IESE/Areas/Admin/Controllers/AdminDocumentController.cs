@@ -183,6 +183,10 @@ namespace IESE.Areas.Admin.Controllers
                 string path = helper.CreateDocument(model.uploadedFile, model.Title);
                 List<IdentityRole> roles = new List<IdentityRole>();
 
+                if(model.RoleDocument == null)
+                {
+                    NotFound();
+                }
                 foreach (var roleModel in model.RoleDocument[0].Split(","))
                 {
                     switch (roleModel)

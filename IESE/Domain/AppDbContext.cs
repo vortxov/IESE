@@ -16,6 +16,7 @@ namespace IESE.Domain
         public DbSet<WordTemplate> WordTemplates { get; set; }
         public DbSet<DocumentCategory> DocumentCategories { get; set; }
         public DbSet<ArchiveDocument> ArchiveDocuments { get; set; }
+        public DbSet<NumberDocument> NumberDocuments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) //Функция для стандартных строк в бд, если их нет то создаст если есть то ничего не сделает
         {
             base.OnModelCreating(modelBuilder);
@@ -25,6 +26,12 @@ namespace IESE.Domain
                 Id = "eb91da24-af76-4b5c-ad48-cce1a100bb31",
                 Name = "admin",
                 NormalizedName = "ADMIN"
+            });
+
+            modelBuilder.Entity<NumberDocument>().HasData(new NumberDocument
+            {
+                Id = Guid.NewGuid(),
+                Number = 1,
             });
 
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser

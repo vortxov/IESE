@@ -243,19 +243,44 @@ namespace IESE.Areas.Admin.Controllers
                                 user.NormalizedEmail = user.Email.ToUpper();
                             }
 
-                            var DateStartYear = row.Cell(12).Value.ToString();
-                            if (DateStartYear != "")
-                                user.DateStart = DateTime.Parse(DateStartYear);
+                            //var DateStartYear = row.Cell(12).Value.ToString();
+                            //if (DateStartYear != "")
+                            //    user.DateStart = DateTime.Parse(DateStartYear);
 
-                            var DateEndYear = row.Cell(13).Value.ToString();
-                            if (DateEndYear != "")
-                                user.DateEnd = DateTime.Parse(DateEndYear);
+                            //var DateEndYear = row.Cell(13).Value.ToString();
+                            //if (DateEndYear != "")
+                            //    user.DateEnd = DateTime.Parse(DateEndYear);
 
                             var UserName = row.Cell(14).Value.ToString();
                             if (UserName != "")
                                 user.UserName = UserName;
 
                             user.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, row.Cell(15).Value.ToString());
+
+                            
+
+                            var StartStudy = row.Cell(18).Value.ToString();
+                            if (StartStudy != "")
+                                user.DateStartStudy = DateTime.Parse(StartStudy);
+
+                            var EndStudy = row.Cell(19).Value.ToString();
+                            if (EndStudy != "")
+                                user.DateEnd = DateTime.Parse(EndStudy);
+
+                            var DateCredited = row.Cell(20).Value.ToString();
+                            if (DateCredited != "")
+                                user.DateCredited = DateTime.Parse(DateCredited);
+
+                            var DateOrder = row.Cell(22).Value.ToString();
+                            if (DateOrder != "")
+                                user.DateOrder = DateTime.Parse(DateOrder);
+
+                            var NumberOrder = row.Cell(21).Value.ToString();
+                            if (NumberOrder != "")
+                                user.NumberOrder = int.Parse(NumberOrder);
+
+                            await userManager.CreateAsync(user); //TODO: CHECK
+                            users.Add(user);
 
                             var rolest = row.Cell(16).Value.ToString();
                             if (rolest != "")
@@ -277,9 +302,6 @@ namespace IESE.Areas.Admin.Controllers
 
                                 await userManager.AddToRoleAsync(user, role.Name);
                             }
-
-                            await userManager.CreateAsync(user); //TODO: CHECK
-                            users.Add(user);
 
                         }
                         catch (Exception e)

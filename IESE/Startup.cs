@@ -27,6 +27,7 @@ namespace IESE
             services.AddTransient<IWordTemplateRepository, EFWordTemplateRepository>(); //Создаем классы под интерфейс
             services.AddTransient<IDocumentCategoryRepository, EFDocumentCategoryRepository>(); //Создаем классы под интерфейс 
             services.AddTransient<IArchiveDocumentRepository, EFArchiveDocumentRepository>();
+            services.AddTransient<INumberDocumentRepository, EFNumberDocumentRepository>();
             services.AddTransient<DataManager>();//Создаем классы под интерфейс, когда другие классы будут их просить они будут брать эти созданые
 
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString)); //Подключаем sql сервер из настроек из класса конфиг созданый ранее

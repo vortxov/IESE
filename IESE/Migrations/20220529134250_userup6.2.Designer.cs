@@ -4,14 +4,16 @@ using IESE.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IESE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220529134250_userup6.2")]
+    partial class userup62
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,9 +90,6 @@ namespace IESE.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("NumberOrder")
-                        .HasColumnType("int");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -139,7 +138,7 @@ namespace IESE.Migrations
                         {
                             Id = "832095e2-5c23-4da1-a83f-b7800e8473a6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d335e0b9-abc0-4612-b9f3-6a07391ee4dc",
+                            ConcurrencyStamp = "9b44c3f1-b3a5-4738-9be2-512ff0913141",
                             DateCredited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOrder = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@email.com",
@@ -147,8 +146,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            NumberOrder = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAED0o2J0uJi1GN4qB3em6zR6ZFC9voPOMw7s5Lb1Gz1p9NQVpyYwa03wYjnEf3AbzQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIMCDE2cWVv7Zf+Bz7J1vc/xBFS2GnBKCHiqVUtHNfKWkbM6ItiM5gEud7e3gpCqCg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -158,7 +156,7 @@ namespace IESE.Migrations
                         {
                             Id = "f757a680-51b0-4df8-89f9-c19ed6c08d85",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "720db4c3-6a4d-4510-8abd-f3f48cb517c3",
+                            ConcurrencyStamp = "e7ecd21e-bb1e-4b80-82f9-b18b912163b0",
                             DateCredited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOrder = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@email.com",
@@ -166,8 +164,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@EMAIL.COM",
                             NormalizedUserName = "USER",
-                            NumberOrder = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDRs6goDRk3I5ozYYNtDBfzCyaqzauBBNxwgaHhoWND2tkkLRG3ZdtygOv+w1mnIYw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC9gjEla9bSyu5aEcb0JRuqkLM151KAfQGRMMO0e8K1y8RgUddkvujQg1/MxRPyvWQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -177,7 +174,7 @@ namespace IESE.Migrations
                         {
                             Id = "f07b07c6-f9f2-43cf-b4db-14903b8215e8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "633058e9-b300-4ceb-ad01-570045e6272b",
+                            ConcurrencyStamp = "9fd1f44b-18c6-4203-9296-63495d58aad1",
                             DateCredited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOrder = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "otdelcadrov@email.com",
@@ -185,8 +182,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "OTDELCADROV@EMAIL.COM",
                             NormalizedUserName = "OTDELCADROV",
-                            NumberOrder = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAEFeXFqrNuw8EZu4O8c8OWoDoe4yiQt7ZyefJwCdW9mRED3IR9u6jsQ+gwpgsaGCt5Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENLsxZP3jyFo2xaEvGAIsWC7tbyp5IdSwfR4VAqik7z0HZsK7SzNbu5w3dZt87uRrw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -196,7 +192,7 @@ namespace IESE.Migrations
                         {
                             Id = "05301c29-f5f6-49a9-b967-25025c22922e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0c502dc2-c38d-4f11-8709-7d34153aa462",
+                            ConcurrencyStamp = "c347fb14-85d1-4b7b-8b71-64f4d468b0af",
                             DateCredited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOrder = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "teacher@email.com",
@@ -204,8 +200,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEACHER@EMAIL.COM",
                             NormalizedUserName = "TEACHER",
-                            NumberOrder = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIfuj3StT5sqNossbYgV65JWF0jBD8Xbsqrcf4xtfOlZ/pOHlIDiJRNMmZhZJzNnFA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELb2y2bFjNfqhfocN6O0iXL4TWl3XLq3QvCaB8Y0AQCRmfpnSAjqJE+MC9eRHsoxig==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -215,7 +210,7 @@ namespace IESE.Migrations
                         {
                             Id = "83e5cde4-3926-4d97-a42c-ecbcfd5f051b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bf8b6bf7-1028-417e-8b0b-d4649f7f9a6d",
+                            ConcurrencyStamp = "fe03353d-d540-4806-b4e8-617d450b1676",
                             DateCredited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOrder = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "teacheruser@email.com",
@@ -223,8 +218,7 @@ namespace IESE.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEACHERUSER@EMAIL.COM",
                             NormalizedUserName = "TEACHERUSER",
-                            NumberOrder = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAECIRXeprut5K8a+sJ0enl6GT0OFBU42r9HM7lyroQRS4NVMDP5dntKYOsI3Ul5FRfw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKeHK890cEpv3az4whflUYp6GhmF31jTDrlXIW6jdDi2EgZ4khCgVDDOOHDYAA05gg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -297,7 +291,7 @@ namespace IESE.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("60ae8bd6-30ff-444e-8e02-692e6a21b056"),
+                            Id = new Guid("db4817e3-511c-463e-93cc-cba7af381d4f"),
                             Number = 1
                         });
                 });
@@ -396,35 +390,35 @@ namespace IESE.Migrations
                         new
                         {
                             Id = "eb91da24-af76-4b5c-ad48-cce1a100bb31",
-                            ConcurrencyStamp = "76cbd6ae-e7be-4a1c-8f52-9f3c62f26480",
+                            ConcurrencyStamp = "a0f4fe6d-0981-405a-af6e-19e4062574f6",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "836d1908-8acb-464e-8d76-426153642557",
-                            ConcurrencyStamp = "cfd8d5ef-00c3-457a-812d-20b45ef1553c",
+                            ConcurrencyStamp = "dbf05a83-777d-41bc-bb97-6878c8efabd7",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "a9f1088f-76ba-4052-8f77-d3572e0ffc90",
-                            ConcurrencyStamp = "9f518fd0-9b00-4765-acca-6f9026520703",
+                            ConcurrencyStamp = "df850328-6072-4d94-a416-613c3e9bcab2",
                             Name = "otdelcadrov",
                             NormalizedName = "OTDELCADROV"
                         },
                         new
                         {
                             Id = "392fb190-6b32-4623-9e6f-adc884524345",
-                            ConcurrencyStamp = "7560ec6b-c408-4b52-95ba-3acfca7b7d8a",
+                            ConcurrencyStamp = "2455d3c6-e145-43c2-8203-23a4f0f47c9a",
                             Name = "teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
                             Id = "a8f8feb0-be4a-4637-8634-4d46d4b06c0d",
-                            ConcurrencyStamp = "3535270d-8c53-4730-9ad9-caab67281739",
+                            ConcurrencyStamp = "17599308-104f-4eb0-82c9-a9b0f1d96e17",
                             Name = "teacheruser",
                             NormalizedName = "TEACHERUSER"
                         });
