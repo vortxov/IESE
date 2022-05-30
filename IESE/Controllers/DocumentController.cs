@@ -11,6 +11,8 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Text;
+using Cyriller;
 
 namespace IESE.Controllers
 {
@@ -21,6 +23,7 @@ namespace IESE.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly DataManager dataManager;
         IWebHostEnvironment _appEnvironment;
+        public CyrName CyrName { get; protected set; } = new CyrName();
 
         public DocumentController(DataManager dataManager, IWebHostEnvironment appEnvironment, UserManager<ApplicationUser> userManager)
         {
@@ -140,6 +143,14 @@ namespace IESE.Controllers
                                 res += num.Number.ToString();
                                 num.Number++;
                                 dataManager.NumberDocument.UpdateNumberDocument(num);
+                                break;
+
+                            case "fiod":
+                                var sr = user.Firstname + " " + user.Surname + " " + user.Patronymic;
+                                StringBuilder sb = new StringBuilder();
+
+                                CyrResult result = this.CyrName.Decline(sr, Cyriller.Model.GendersEnum.Undefined, false);
+                                res += result.Get(Cyriller.Model.CasesEnum.Dative);
                                 break;
 
                             default:
